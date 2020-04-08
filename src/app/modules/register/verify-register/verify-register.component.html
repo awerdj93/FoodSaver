@@ -1,0 +1,18 @@
+<section class="sample-text-area">
+    <div class="container box_1170">
+        <h2 class="text-heading">Registration successful</h2>
+        <p class="sample-text">
+            Your account has been created. Please enter the verification code sent to {{email}}.</p>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <input type="text" formControlName="code" class="form-control" aria-label="code"
+                    placeholder="Verification Code" />
+                    <br>
+                    <label class="error">{{formState.errors.message}}</label>
+                <div class="col-md-2 form-group">
+                    <button type="buttton" value="submit" class="btn_3" [disabled]="formState.loading" (click)="onSubmit()">
+                        Verify
+                    </button>
+                </div>
+            </form>
+    </div>
+</section>

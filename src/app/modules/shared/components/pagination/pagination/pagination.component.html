@@ -1,0 +1,37 @@
+<div class="d-sm-flex justify-content-between">
+<!-- <div *ngIf="pages" class="d-sm-flex justify-content-between"> -->
+    <div class="pagination-entries">Showing {{start}} to {{end}} of {{collectionSize}} entries</div>
+    <div class="pagination-pages">
+        <nav aria-label="Page" >
+            <ul class="pagination">
+                <li class="page-item" [ngClass]="{'disabled': !hasPrevious }"><a class="page-link" (click)="onPrevious()" href="">Previous</a></li>
+                <ng-container *ngFor="let page of pages; let i = index" >
+                    <ng-container *ngIf="page.page; else spacer">
+                        <li *ngIf="!page.hidden" class="page-item" [ngClass]="{'active': page.active, 'd-none d-md-block': page.optional }">
+                            <a class="page-link" (click)="onPage(page.page-1)" href="">{{page.page}}</a>
+                        </li>
+                    </ng-container>
+                    <ng-template #spacer>
+                        <li *ngIf="!page.hidden" class="page-item disabled" [ngClass]="{'d-block d-md-none': page.optional }">
+                            <a class="page-link" href="">...</a>
+                        </li>
+                    </ng-template>
+                </ng-container>
+                <li class="page-item" [ngClass]="{'disabled': !hasNext }"><a class="page-link" (click)="onNext()" href="">Next</a></li>
+            </ul>
+        </nav>
+    </div> 
+    <div class="pagination-select">
+            <div class="d-flex">
+                <div class="pagination-entries mr-1">Showing </div>
+                <div class="form-group mr-1">
+                    <select (change)="onPageSize($event.target.value)" class="form-control">
+                        <option *ngFor="let selectablePageSize of selectablePageSizes" [selected]="selectablePageSize === pageSize">
+                            {{ selectablePageSize }}
+                        </option>
+                    </select>
+                </div>
+            <div class="pagination-entries"> entries</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<section class="breadcrumb breadcrumb_bg">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="breadcrumb_iner">
+          <div class="breadcrumb_iner_item">
+            <h2>Profile</h2>
+            <p>Home <span>-</span> Profile</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <ul class="nav nav-tabs page-tabs" id="navId" #navBar>
+        <li class="nav-item">
+          <a secured routerLink="./info" id="info" locationActive class="nav-link">
+            My Information</a>
+        </li>
+        <li class="nav-item">
+          <a secured routerLink="./order" id="order" locationActive class="nav-link">My Order</a>
+        </li>
+        <li class="nav-item">
+          <a secured routerLink="./products" id="product" locationActive class="nav-link">My Products</a>
+        </li>
+        <li class="nav-item">
+          <a secured routerLink="./address" id="address" locationActive class="nav-link">My Address</a>
+        </li>
+        <li class="nav-item">
+          <a secured routerLink="./password" id="password" locationActive class="nav-link">Change Password</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

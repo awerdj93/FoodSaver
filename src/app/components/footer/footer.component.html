@@ -1,0 +1,36 @@
+<footer class="footer_part">
+    <div class="container">
+        <div class="row ">
+            <div class="col-sm-3 single_footer_part">
+                <h4>Social Media</h4>
+                <div class="footer_icon social_icon">
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="single_social_icon"><i class="fa fa-facebook-f"></i></a></li>
+                        <li><a href="#" class="single_social_icon"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#" class="single_social_icon"><i class="fa fa-snapchat"></i></a></li>
+                        <li><a href="#" class="single_social_icon"><i class="fa fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-3 single_footer_part">
+                <h4>Quick Links</h4>
+                <ul class="list-unstyled">
+                    <li><a routerLink="/career">Join Our Team</a></li>
+                    <li><a routerLink="/terms">Terms of Service</a></li>
+                    <li><a routerLink="/contact">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-6 single_footer_part">
+                    <h4>Subscribe to our newsletter</h4>
+                    <form [formGroup]="form" (ngSubmit)="onSubscribe()" class="subscribe_form relative mail_part">
+                        <input type="email" formControlName="email" class="form-control" aria-label="Email" placeholder="Email"
+                            [ngClass]="{ 'is-invalid': formState.errors.email }" />
+                        <app-input-errors [errors]="formState.errors.email" label="Email"></app-input-errors>
+                        <button type="submit" name="submit" id="newsletter-submit"
+                            class="email_icon newsletter-submit button-contactForm">SUBSCRIBE</button>
+                    </form>
+            </div>
+        </div>
+        
+    </div>
+</footer>

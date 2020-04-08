@@ -1,0 +1,49 @@
+<div class="login_part">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6">
+                <div class="login_part_text text-center">
+                    <div class="login_part_text_iner">
+                        <h2>New to our Shop?</h2>
+                        <p>There are advances being made in science and technology
+                            everyday, and a good example of this is the</p>
+                        <a routerLink="/register" class="btn_3">Create an Account</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="login_part_form">
+                    <div class="login_part_form_iner">
+                        <h3>Welcome Back ! <br>
+                            Please Sign in now</h3>
+                        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" formControlName="username" class="form-control" aria-label="Username"
+                                    placeholder="Username"
+                                    [ngClass]="{ 'is-invalid': formState.errors.username }" />
+                                <app-input-errors [errors]="formState.errors.username" label="Username" ></app-input-errors>
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="password" formControlName="password" class="form-control"
+                                    aria-label="Password" placeholder="Password"
+                                    [ngClass]="{ 'is-invalid': formState.errors.password }" />
+                                <app-input-errors [errors]="formState.errors.password" label="Password" ></app-input-errors>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label class="error">{{error}}</label>
+                                <div class="creat_account d-flex align-items-center">
+                                    <input type="checkbox" id="fng serveoption" name="selector">
+                                    <label for="f-option">Remember me</label>
+                                </div>
+                                <button type="submit" value="submit" class="btn_3" [disabled]="formState.loading">
+                                    Login
+                                </button>
+                                <a class="lost_pass" routerLink="/forget">Forget password?</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

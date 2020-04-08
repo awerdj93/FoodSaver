@@ -1,0 +1,110 @@
+<div class="container confirmation_part">
+    <div class="row">
+        <div class="col-lg-12 single_confirmation_details">
+            <ng-container *ngIf="addresses; else loading">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Addresses</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngIf="!addresses || addresses.length === 0">
+                                <td colspan="10">No address</td>
+                            </tr>
+                            <tr *ngFor="let address of addresses; index as i">
+                                <td>
+                                    <h3>{{address.block}} {{address.street}}</h3>
+                                    <p>{{address.unitNo}}, {{address.country}} {{address.postalCode}}</p>
+                                </td>
+                                <td class="column-action"> 
+                                    <button class="btn btn-action" (click)="editAddress(content, i)">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-action" (click)="delete(address.id)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ng-container>
+            <ng-template #loading>
+                <app-spinner></app-spinner>
+            </ng-template>
+            <br>
+            <button type="button" class="btn_3" [disabled]="formState.loading" (click)="addAddress(content)">
+                Add Address
+            </button>
+        </div>
+    </div>
+</div>
+
+<ng-template #content>
+    <div class="modal-header">
+        <h4 *ngIf='add' class="modal-title" id="modal-basic-title">Add Address</h4>
+        <h4 *ngIf='!add' class="modal-title" id="modal-basic-title">Add Address</h4>
+        <button type="button" class="close" aria-label="Close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row align-items-center">
+            <div class="col-lg-12">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <div class="col-md-12 form-group p_star">
+                        <label>Street</label>
+                        <input type="text" formControlName="street" class="form-control" aria-label="Street"
+                            [ngClass]="{ 'is-invalid': formState.errors.street }">
+                        <app-input-errors [errors]="formState.errors.street" label="Street">
+                        </app-input-errors>
+                    </div>
+                    <div class="col-md-12 form-group p_star">
+                        <label>Block</label>
+                        <input type="text" formControlName="block" class="form-control" aria-label="Block"
+                            [ngClass]="{ 'is-invalid': formState.errors.block }" />
+                        <app-input-errors [errors]="formState.errors.block" label="Block"></app-input-errors>
+                    </div>
+                    <div class="col-md-12 form-group p_star">
+                        <label>Unit Number</label>
+                        <input type="text" formControlName="unitNo" class="form-control" aria-label="Unit Number"
+                            [ngClass]="{ 'is-invalid': formState.errors.unitNo }" />
+                        <app-input-errors [errors]="formState.errors.unitNo" label="Unit Number">
+                        </app-input-errors>
+                    </div>
+                    <div class="col-md-12 form-group p_star">
+                        <label>Country</label>
+                        <input type="text" formControlName="country" class="form-control" aria-label="Country"
+                            [ngClass]="{ 'is-invalid': formState.errors.country }" />
+                        <app-input-errors [errors]="formState.errors.country" label="Country">
+                        </app-input-errors>
+                    </div>
+                    <div class="col-md-12 form-group p_star">
+                        <label>Postal Code</label>
+                        <input type="text" formControlName="postalCode" class="form-control" aria-label="Postal Code"
+                            [ngClass]="{ 'is-invalid': formState.errors.postalCode }" />
+                        <app-input-errors [errors]="formState.errors.postalCode" label="Postal Code">
+                        </app-input-errors>
+                    </div>
+
+                    <label class="error">{{error}}</label>
+                    <div class="col-md-12 form-group">
+                        <button *ngIf='add' type="submit" class="btn_3" [disabled]="formState.loading">
+                            Add
+                        </button>
+                        <button *ngIf='!add' type="submit" class="btn_3" [disabled]="formState.loading">
+                            Update
+                        </button>
+                        &nbsp;
+                        <button type="button" class="btn_3" [disabled]="formState.loading" (click)="close()">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>

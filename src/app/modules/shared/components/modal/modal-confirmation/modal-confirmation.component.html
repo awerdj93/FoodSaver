@@ -1,0 +1,15 @@
+<div class="modal-content">
+    <div *ngIf="title" class="modal-header" [ngClass]="type">
+        <h5 class="modal-title" [ngClass]="type">{{title}}</h5>
+    </div>
+    <div class="modal-body">
+        {{text}}
+    </div>
+    <div class="modal-footer">
+        <div class="col-xs-6">
+            <button class="btn btn-secondary mr-1" (click)="action(false)">Ok</button>
+            <button *ngIf="cancelLabel !== ''" class="btn btn-secondary mr-1" (click)="action(false)">{{cancelLabel}}</button>
+            <!-- <button class="btn btn-primary" (click)="action(true)" [autoFocus]="!cancelLabel">{{confirmLabel}}</button> -->
+        </div>
+    </div>
+</div>

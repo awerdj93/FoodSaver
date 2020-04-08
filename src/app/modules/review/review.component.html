@@ -1,0 +1,88 @@
+<section class="breadcrumb breadcrumb_bg">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="breadcrumb_iner">
+            <div class="breadcrumb_iner_item">
+              <h2>Review</h2>
+              <p>Home <span>-</span> Review</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <div class="container">
+    <div class="row s_product_inner justify-content-between">
+      <div class="col-lg-7 col-xl-7 row">
+        <!-- <div class="product_slider_img">
+          <div id="vertical"> -->
+            <div data-thumb="assets/img/product/product_1.png">
+              <img src="assets/img/product/product_1.png" />
+            </div>
+             <div data-thumb="assets/img/product/product_2.png">
+              <img src="assets/img/product/product_2.png" />
+            </div>
+            <!--<div data-thumb="assets/img/product/product_3.png">
+              <img src="assets/img/product/product_3.png" />
+            </div>
+            <div data-thumb="assets/img/product/product_4.png">
+              <img src="assets/img/product/product_4.png" />
+            </div> -->
+          <!-- </div>
+        </div> -->
+        <br>
+      </div>
+      <div class="col-lg-5 col-xl-4">
+        <div class="s_product_text">
+          <h3>{{product?.name}}</h3>
+          <h2>${{product?.price}}</h2>
+          <ul class="list">
+            <li>
+              <a class="active" href="#">
+                <span>Category</span> : {{product?.type}}</a>
+            </li>
+          </ul>
+          <p>
+           {{product?.description}}
+          </p>
+        </div>  
+      </div>
+    </div>
+
+    <div class="review_box">
+      <h4>Add a Review</h4>
+      <p>Your Rating:</p>
+
+      <ul class="list">
+        <li *ngFor='let rating of ratings; index as i'>
+          <a *ngIf='rating' (click)='rate(i)'>
+            <i class="fa fa-star"></i>
+          </a>
+          <a *ngIf='!rating' (click)='rate(i)'>
+            <i class="fa fa-star-o"></i>
+          </a>
+        </li>
+      </ul>
+      <p>Outstanding</p>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="col-md-12">
+          <div class="form-group">
+            <textarea formControlName="review" class="form-control" aria-label="review"
+              placeholder="Review" cols="30" rows="9"
+              [ngClass]="{ 'is-invalid': formState.errors.review }" ></textarea>
+            <app-input-errors [errors]="formState.errors.review" label="Review" ></app-input-errors>   
+          </div>
+        </div>
+        <div class="col-md-12 text-right">
+          <button type="submit" value="submit" class="btn_3">
+            Submit Now
+          </button>&nbsp;
+          <button type="button" class="btn_3" routerLink="/profile/order">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>

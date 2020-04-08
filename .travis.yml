@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - node
+
+dist: bionic
+sudo: required
+
+notifications:
+  email:
+    recipients:
+      - awerdj93@hotmail.com
+    on_success: always
+    on_failure: always
+branches:
+  only:
+   - master
+before_script:
+  - npm install -g @angular/cli
+  - npm install -g now
+script:
+  - ng build --prod --base-href https://awerdj93.github.io/foodsaver/

@@ -1,0 +1,49 @@
+<section class="breadcrumb breadcrumb_bg">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="breadcrumb_iner">
+          <div class="breadcrumb_iner_item">
+            <h2>User Administration</h2>
+            <p>Home <span>-</span> User</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="container">
+  <table class="table">
+    <thead>
+        <tr>
+          <th scope="col">User ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Address</th>
+          <th scope="col">Date Registered</th>
+          <th scope="col" class="column-action"></th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="!users || users.length === 0">
+        <td colspan="10">No user found</td>
+      </tr>
+      <tr *ngFor="let user of users" class="row100 body">
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.address}}</td>
+        <td>{{user.registeredDate}}</td>
+            
+        <td class="column-action">
+          <button class="btn btn-action" routerLink="users/edit/{{user.id}}">
+            <i class="fa fa-pencil"></i>
+          </button>
+          <button class="btn btn-action" (click)="delete(user.id)">
+            <i class="fa fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

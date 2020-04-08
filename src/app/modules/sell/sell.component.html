@@ -1,0 +1,70 @@
+<section class="breadcrumb breadcrumb_bg">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="breadcrumb_iner">
+                    <div class="breadcrumb_iner_item">
+                        <h2>Sell a Product</h2>
+                        <p>Home <span>-</span> Sell</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<ng-container *ngIf="currentUser; else login">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="contact-title">Sell a product</h2>
+            </div>
+
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-contact contact_form">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <input type="text" formControlName="name" class="form-control" aria-label="name"
+                                placeholder="Enter product name"
+                                [ngClass]="{ 'is-invalid': formState.errors.name }" />
+                            <app-input-errors [errors]="formState.errors.name" label="Product name" ></app-input-errors>    
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <textarea formControlName="description" class="form-control" aria-label="description"
+                                placeholder="Enter product description" cols="30" rows="9"
+                                [ngClass]="{ 'is-invalid': formState.errors.description }" ></textarea>
+                            <app-input-errors [errors]="formState.errors.description" label="Product description" ></app-input-errors>   
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <input type="text" formControlName="price" class="form-control" aria-label="price"
+                            placeholder="Enter price"
+                            [ngClass]="{ 'is-invalid': formState.errors.price }" />
+                        <app-input-errors [errors]="formState.errors.price" label="Price" ></app-input-errors> 
+                    </div>
+                    <div class="col-12">
+                        <div class="input-group-icon">
+                            <div class="icon"><i class="fa fa-plus" aria-hidden="true"></i></div>
+                            <div class="form-select" id="default-select">
+                                <select class="select" onblur="this.placeholder = 'Enter price'">
+                                    <option value="1">Cooked</option>
+                                    <option value="2">Canned</option>
+                                    <option value="3">Fresh</option>
+                                </select>
+                                <app-input-errors [errors]="formState.errors.price" label="Price" ></app-input-errors> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mt-3">
+                    <button class="btn_3 button-contactForm">Sell</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-container>
+<ng-template #login>
+    <app-login-panel></app-login-panel>
+</ng-template>
