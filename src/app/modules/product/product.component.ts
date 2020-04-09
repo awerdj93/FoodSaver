@@ -24,13 +24,7 @@ export class ProductComponent implements OnInit {
   }
 
   refresh() {
-    this.product = {
-      name: 'name',
-      price: 5,
-      category: 'Raw',
-      description: 'This is a product'
-    };
-    this.productService.getProduct(3)
+    this.productService.getProduct(this.params.id)
     .subscribe(data => {
       this.product = data;
     });
