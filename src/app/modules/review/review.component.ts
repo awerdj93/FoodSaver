@@ -43,7 +43,7 @@ export class ReviewComponent implements OnInit {
       this.product = product;
     });
     this.form = this.formBuilder.group({
-      review: ['', Validators.required, Validators.maxLength(250)],
+      remarks: ['', Validators.required, Validators.maxLength(250)],
     });
     this.formState = new FormState(this.form);
   }
@@ -64,12 +64,11 @@ export class ReviewComponent implements OnInit {
 
   onSubmit() {
     if (this.formState.valid) {
-      this.reviewService.createReview({
-        id: null,
-        order: this.params.id,
-        ratings: this.ratingNum(),
-        review: this.form.controls.review.value
-      });
+      // this.reviewService.createReview({
+      //   // order: this.params.id,
+      //   star_rating: this.ratingNum(),
+      //   remarks: this.form.controls.remarks.value
+      // });
     }
   }
 }

@@ -1,10 +1,9 @@
 <div class="container confirmation_part">
   <div class="row">
     <div class="col-lg-12 single_confirmation_details">
-          <p>Username: {{currentUser?.username}}</p>
           <p>Name: {{currentUser?.name}}</p>
-          <p> Email: {{currentUser?.email}}</p>
-          <p>Date Joined: {{currentUser?.registeredOn}}</p>
+          <p>Email: {{currentUser?.email}}</p>
+          <p>Date Joined: {{currentUser?.createdAt}}</p>
       <!-- <button type="button" class="btn_3" [disabled]="formState.loading" routerLink="./edit">
         Edit Profile
       </button> -->
@@ -12,7 +11,7 @@
   </div>
 </div>
 
-<ng-template #content>
+<!-- <ng-template #content>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Edit Information</h4>
     <button type="button" class="close" aria-label="Close" (click)="close()">
@@ -30,12 +29,7 @@
             <app-input-errors [errors]="formState.errors.name" label="Name">
             </app-input-errors>
           </div>
-          <div class="col-md-12 form-group p_star">
-            <label>Username</label>
-            <input type="text" formControlName="username" class="form-control" aria-label="Username"
-              [ngClass]="{ 'is-invalid': formState.errors.username }" />
-            <app-input-errors [errors]="formState.errors.username" label="Username"></app-input-errors>
-          </div>
+          
           <div class="col-md-12 form-group p_star">
             <label>Email</label>
             <input type="text" formControlName="email" class="form-control" aria-label="Email"
@@ -59,4 +53,4 @@
       </div>
     </div>
   </div>
-</ng-template>
+</ng-template> -->

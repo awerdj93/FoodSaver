@@ -16,13 +16,14 @@
                             </tr>
                             <tr *ngFor="let address of addresses; index as i">
                                 <td>
-                                    <h3>{{address.block}} {{address.street}}</h3>
-                                    <p>{{address.unitNo}}, {{address.country}} {{address.postalCode}}</p>
+                                    <h3>{{address.name}}</h3>
+                                    <p>{{address.block}} {{address.street}} {{address.unitNumber}}, 
+                                        Singapore {{address.postalCode}}</p>
                                 </td>
                                 <td class="column-action"> 
-                                    <button class="btn btn-action" (click)="editAddress(content, i)">
+                                    <!-- <button class="btn btn-action" (click)="editAddress(content, i)">
                                         <i class="fa fa-pencil"></i>
-                                    </button>
+                                    </button> -->
                                     <button class="btn btn-action" (click)="delete(address.id)">
                                         <i class="fa fa-trash"></i>
                                     </button>
@@ -56,6 +57,13 @@
             <div class="col-lg-12">
                 <form [formGroup]="form" (ngSubmit)="onSubmit()">
                     <div class="col-md-12 form-group p_star">
+                        <label>Name</label>
+                        <input type="text" formControlName="name" class="form-control" aria-label="Name"
+                            [ngClass]="{ 'is-invalid': formState.errors.name }" />
+                        <app-input-errors [errors]="formState.errors.name" label="Name">
+                        </app-input-errors>
+                    </div>
+                    <div class="col-md-12 form-group p_star">
                         <label>Street</label>
                         <input type="text" formControlName="street" class="form-control" aria-label="Street"
                             [ngClass]="{ 'is-invalid': formState.errors.street }">
@@ -70,16 +78,9 @@
                     </div>
                     <div class="col-md-12 form-group p_star">
                         <label>Unit Number</label>
-                        <input type="text" formControlName="unitNo" class="form-control" aria-label="Unit Number"
-                            [ngClass]="{ 'is-invalid': formState.errors.unitNo }" />
-                        <app-input-errors [errors]="formState.errors.unitNo" label="Unit Number">
-                        </app-input-errors>
-                    </div>
-                    <div class="col-md-12 form-group p_star">
-                        <label>Country</label>
-                        <input type="text" formControlName="country" class="form-control" aria-label="Country"
-                            [ngClass]="{ 'is-invalid': formState.errors.country }" />
-                        <app-input-errors [errors]="formState.errors.country" label="Country">
+                        <input type="text" formControlName="unitNumber" class="form-control" aria-label="Unit Number"
+                            [ngClass]="{ 'is-invalid': formState.errors.unitNumber }" />
+                        <app-input-errors [errors]="formState.errors.unitNumber" label="Unit Number">
                         </app-input-errors>
                     </div>
                     <div class="col-md-12 form-group p_star">

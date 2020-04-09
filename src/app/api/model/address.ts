@@ -1,9 +1,11 @@
-export interface Address {
+export class Address {
     id?: number;
+    name?: string;
     street?: string;
     block?: string;
-    unitNo?: string;
+    unitNumber?: string;
     postalCode?: number;
-    country?: string;
+    userId?: number;
+    
+	constructor() {}
 }
-  

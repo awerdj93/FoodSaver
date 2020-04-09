@@ -37,7 +37,6 @@
                             <app-input-errors [errors]="formState.errors.description" label="Product description" ></app-input-errors>   
                         </div>
                     </div>
-
                     <div class="col-sm-6">
                         <input type="text" formControlName="price" class="form-control" aria-label="price"
                             placeholder="Enter price"
@@ -48,12 +47,12 @@
                         <div class="input-group-icon">
                             <div class="icon"><i class="fa fa-plus" aria-hidden="true"></i></div>
                             <div class="form-select" id="default-select">
-                                <select class="select" onblur="this.placeholder = 'Enter price'">
+                                <select class="select" formControlName="category"  onblur="this.placeholder = 'Enter category'">
                                     <option value="1">Cooked</option>
                                     <option value="2">Canned</option>
                                     <option value="3">Fresh</option>
                                 </select>
-                                <app-input-errors [errors]="formState.errors.price" label="Price" ></app-input-errors> 
+                                <app-input-errors [errors]="formState.errors.category" label="Price" ></app-input-errors> 
                             </div>
                         </div>
                     </div>

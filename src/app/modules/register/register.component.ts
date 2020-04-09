@@ -34,7 +34,6 @@ export class RegisterComponent implements OnInit {
         this.form = this.formBuilder.group({
             name: [null, Validators.required],
             email: [null, Validators.required],
-            username: [null, Validators.required],
             password: [null, [Validators.required, Validators.minLength(8)]],
             confirmPassword: [null, [Validators.required]]
         },
@@ -46,21 +45,12 @@ export class RegisterComponent implements OnInit {
     }
 
     onSubmit() {
-        if (this.formState.valid) {
-            var user = {
-                name: this.form.controls.name.value,
-                email: this.form.controls.email.value,
-                username: this.form.controls.username.value,
-                password: this.form.controls.password.value
-            };
-
+        console.log(this.formState);
+        if (this.formState.valid) {    
             this.userService.createUser({
                 name: this.form.controls.name.value,
                 email: this.form.controls.email.value,
-                username: this.form.controls.username.value,
-                password: this.form.controls.password.value,
-                registeredOn: null,
-                lastLoginDate: null
+                password: this.form.controls.password.value
             })
                 .pipe(first())
                 .subscribe(

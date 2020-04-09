@@ -19,3 +19,11 @@ before_script:
   - npm install -g now
 script:
   - ng build --prod --base-href https://awerdj93.github.io/foodsaver/
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: dist/FoodSaver
+  edge: true
+  on:
+    branch: master

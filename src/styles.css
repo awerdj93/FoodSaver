@@ -853,7 +853,7 @@ ul {
 /* line 174, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_menu.scss */
 .dropdown .dropdown-menu .dropdown-item {
   font-size: 14px;
-  padding: 8px 30px !important;
+  padding: 8px 20px !important;
   color: #000 !important;
   /* background-color: #ff7e89; */
   text-transform: capitalize;

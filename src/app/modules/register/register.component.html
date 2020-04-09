@@ -32,12 +32,6 @@
                             <h3>Register a free account! </h3>
                             <form [formGroup]="form" (ngSubmit)="onSubmit()">
                                 <div class="col-md-12 form-group p_star">
-                                    <input type="text" formControlName="username" class="form-control"
-                                        aria-label="Username" placeholder="Username"
-                                        [ngClass]="{ 'is-invalid': formState.errors.username }">
-                                    <app-input-errors [errors]="formState.errors.username" label="Username" ></app-input-errors>
-                                </div>
-                                <div class="col-md-12 form-group p_star">
                                     <input type="text" formControlName="name" class="form-control" aria-label="Name"
                                         placeholder="Name" [ngClass]="{ 'is-invalid': formState.errors.name }" />
                                     <app-input-errors [errors]="formState.errors.name" label="Name" ></app-input-errors>

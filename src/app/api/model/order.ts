@@ -1,6 +1,6 @@
 import { User, Product } from 'src/app/api/models';
 
-export interface Order {
+export class Order {
     id?: number;
     buyer: User;
     seller: User;
@@ -9,4 +9,6 @@ export interface Order {
     createdOn: Date;
     changedBy: User;
     changedOn: Date;
+
+	constructor() {}
 } 

@@ -19,9 +19,9 @@
                         <form [formGroup]="form" (ngSubmit)="onSubmit()">
                             <div class="col-md-12 form-group p_star">
                                 <input type="text" formControlName="username" class="form-control" aria-label="Username"
-                                    placeholder="Username"
+                                    placeholder="Email"
                                     [ngClass]="{ 'is-invalid': formState.errors.username }" />
-                                <app-input-errors [errors]="formState.errors.username" label="Username" ></app-input-errors>
+                                <app-input-errors [errors]="formState.errors.username" label="Email" ></app-input-errors>
                             </div>
                             <div class="col-md-12 form-group p_star">
                                 <input type="password" formControlName="password" class="form-control"

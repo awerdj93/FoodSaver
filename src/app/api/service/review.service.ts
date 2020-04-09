@@ -15,16 +15,8 @@ export class ReviewService {
     private config: ApiConfiguration,
     private http: HttpClient
   ) { 
-   this.rootUrl = config.rootUrl + 'review' + config.apiVersion + 'reviews/'
-   // this.rootUrl = 'ec2-52-221-120-194.ap-southeast-1.compute.amazonaws.com/Review';
+    this.rootUrl = config.rootUrl + 'review' + config.apiVersion + 'reviews/'
   }
-
-  // Http Options
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    })
-  }  
 
   listReviews(): Observable<Array<Review>>  {
     return this.http.get<any>(this.rootUrl)
@@ -43,7 +35,13 @@ export class ReviewService {
   }
 
   createReview(review: Review): Observable<Review> {
-    return this.http.post<any>(this.rootUrl + '/', JSON.stringify(review), this.httpOptions)
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'authorization': token
+      })
+    };
+    return this.http.post<any>(this.rootUrl + '/', review, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -51,7 +49,13 @@ export class ReviewService {
   }
 
   updateReview(id: number, review: Review): Observable<Review> {
-    return this.http.put<any>(this.rootUrl + '/' + id, JSON.stringify(review), this.httpOptions)
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'authorization': token
+      })
+    };
+    return this.http.put<any>(this.rootUrl + '/' + id, review, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -59,7 +63,13 @@ export class ReviewService {
   }
 
   deleteReview(id: number): Observable<Review> {
-    return this.http.delete<any>(this.rootUrl + '/' + id, this.httpOptions)
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'authorization': token
+      })
+    };
+    return this.http.delete<any>(this.rootUrl + '/' + id, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)

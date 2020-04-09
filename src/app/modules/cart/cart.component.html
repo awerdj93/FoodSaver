@@ -33,22 +33,12 @@
                                 </tr>
                             </ng-container>
                             <ng-template #showCart>
-                                <tr *ngFor="let product of products">
+                                <tr *ngFor="let product of products; index as i">
                                     <td>{{product.name}}</td>
                                     <td>{{product.description}}</td>
                                     <td>${{product.price}}</td>
                                     <td class="column-action">
-                                        <button class="btn btn-action" (click)="delete(product.id)">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr *ngFor="let product of products">
-                                    <td>{{product.name}}</td>
-                                    <td>{{product.description}}</td>
-                                    <td>${{product.price}}</td>
-                                    <td class="column-action">
-                                        <button class="btn btn-action" (click)="delete(product.id)">
+                                        <button class="btn btn-action" (click)="delete(i)">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </td>

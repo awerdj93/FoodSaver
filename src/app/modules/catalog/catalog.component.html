@@ -23,8 +23,8 @@
                         </div>
                         <div class="widgets_inner">
                             <ul class="list">
-                                <li *ngFor="let type of types; index as i">
-                                    <a (click)="onTypeClick(i)">{{type}}</a>
+                                <li *ngFor="let category of categories; index as i">
+                                    <a (click)="onTypeClick(i)">{{category}}</a>
                                 </li>
                             </ul>
                         </div>
@@ -43,18 +43,32 @@
                 </div>
                 <ng-container *ngIf="products; else loading">
                     <div class="row align-items-center latest_product_inner">
-                        <!-- <div *ngIf="products === 0">
+                        <div *ngIf="products.length === 0">
                             No product found
-                        </div> -->
+                        </div>
                         <div *ngFor="let product of products">
-                            <app-catalog-product [product]="product"></app-catalog-product>
+                            <div class="single_product_item">
+                              <div *ngIf="product?.category === 'Cooked'">
+                                  <img src="assets/img/product/product_1.png" alt="" />
+                              </div>
+                              <div *ngIf="product?.category === 'Fresh'">
+                                  <img src="assets/img/product/product_2.png" alt="" />
+                              </div>
+                              <div *ngIf="product?.category === 'Canned'">
+                                  <img src="assets/img/product/product_3.png" alt="" />
+                              </div>
+                              <div class="single_product_text">
+                                  <h4>{{product.name}}</h4>
+                                  <h3>${{product.price}}</h3>
+                                  <a (click)="viewProduct(product.id)" class="add_cart">View<i class="ti-heart"></i></a>
+                              </div>
+                          </div>
                         </div>
                     </div>
                 </ng-container>
                 <ng-template #loading>
                     <app-spinner></app-spinner>
                 </ng-template>
-                
             </div>
         </div>
     </div>

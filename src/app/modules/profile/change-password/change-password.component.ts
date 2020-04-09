@@ -40,16 +40,16 @@ export class ChangePasswordComponent implements OnInit {
       if (this.currentUser.password !== this.form.controls.oldPassword.value) {
         this.error = 'Old password not match' ;
       } else {
-        this.userService.updateUser(this.currentUser.id, {
+        let user = {
           id: this.currentUser.id,
           name: this.currentUser.name,
-          username: this.currentUser.username,
           email: this.currentUser.email,
-          password: this.form.controls.password.value,
-          registeredOn: this.currentUser.registeredOn,
-          lastLoginDate: this.currentUser.lastLoginDate
-        }).subscribe(
+          password: this.form.controls.password.value
+        };
+        console.log(user);
+        this.userService.updateUser(this.currentUser.id, user).subscribe(
           data => {
+            this.currentUser.password = user.password;
             this.modalService.alert('Password changed', 'Password successfully changed', 'success')
             .then(() => this.router.navigateByUrl['/profile']);
           },

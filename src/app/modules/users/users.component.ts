@@ -17,14 +17,12 @@ export class UsersComponent implements OnInit {
   }
 
   load() {
-    this.userService.listUsers().subscribe((data)=> {
-      this.users = data;
-    });
+    // this.userService.listUsers().subscribe((data)=> {
+    //   this.users = data;
+    // });
   }
 
    delete(id: number) {
-    
-
     if (window.confirm('Are you sure, you want to delete?')){
       this.userService.deleteUser(id).subscribe(data => {
         this.load();

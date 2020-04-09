@@ -28,7 +28,11 @@ export class MyProductsComponent implements OnInit {
     this.productService.listProducts().subscribe(data => {
       console.log(data);
       this.products = data;
-      this.pageState.collectionSize = data.length;
+      if (this.products) {
+        this.pageState.collectionSize = data.length;
+      } else {
+        this.pageState.collectionSize = 0;
+      }
     });
   }
 

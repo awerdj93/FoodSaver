@@ -15,7 +15,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CatalogComponent } from './modules/catalog/catalog.component';
 import { SellComponent } from './modules/sell/sell.component';
 import { CartComponent } from './modules/cart/cart.component';
-import { CatalogProductComponent } from './modules/catalog/catalog-product/catalog-product.component';
 import { ContactComponent } from './modules/contact/contact.component';
 import { MapComponent } from './modules/map/map.component';
 import { ForgetComponent } from './modules/forget/forget.component';
@@ -42,7 +41,6 @@ import { ReviewComponent } from './modules/review/review.component';
     CatalogComponent,
     SellComponent,
     CartComponent,
-    CatalogProductComponent,
     ContactComponent,
     MapComponent,
     ForgetComponent,

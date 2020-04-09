@@ -1,14 +1,12 @@
 import { Address } from 'src/app/api/models';
 
-export interface User {
+export class User {
     id?: number;
     name?: string;
-    username?: string;
-    email?: number;
-    password?: string;
-    registeredOn: Date;
-    lastLoginDate: Date;
-   // address: Address;
-  }
- 
-  
+	password?: string;
+	email?: string;
+	createdAt?: string;
+	lastUpdatedAt?: string;
+
+	constructor() {}
+}

@@ -14,6 +14,7 @@ export class SellComponent implements OnInit {
   currentUser: User;
   form: FormGroup;
   formState: FormState;
+  error: string;
   
   constructor(
     private authenticationService: AuthenticationService, 
@@ -29,7 +30,7 @@ export class SellComponent implements OnInit {
       name: [null, Validators.required],
       description: [null, Validators.required],
       price: [null, Validators.required],
-      type: [null, Validators.required]
+      category: [null, Validators.required]
     });
     this.formState = new FormState(this.form);
   }
@@ -40,7 +41,7 @@ export class SellComponent implements OnInit {
         name: this.form.controls.name.value,
         description: this.form.controls.description.value,
         price: this.form.controls.price.value,
-        type: this.form.controls.type.value
+        category: this.form.controls.category.value
       })
       .subscribe(
           data => {
@@ -51,6 +52,9 @@ export class SellComponent implements OnInit {
             this.formState.serverErrors = error;
             this.formState.loading = false;
           });
+    }
+    else {
+      this.error = 'o';
     }
   }
 }

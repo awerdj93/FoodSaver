@@ -9,28 +9,40 @@ import { User } from 'src/app/api/models';
   providedIn: 'root'
 })
 export class UserService {
-  private rootUrl: string;
+  private url: string;
  
   constructor(
     private config: ApiConfiguration,
     private http: HttpClient
   ) { 
-    //this.rootUrl = config.rootUrl + '/user'
-   this.rootUrl = config.rootUrl + 'account' + config.apiVersion + 'accounts/'
-   // this.rootUrl = 'ec2-52-221-120-194.ap-southeast-1.compute.amazonaws.com/user';
+    //this.url = config.rootUrl + '/user'
+   this.url = config.rootUrl + 'account' + config.apiVersion + 'accounts'
   }
 
-  // Http Options
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Authentication': localStorage.getItem('token')
-    })
-  }   
+  // listUsers(): Observable<Array<User>>  {
+  //   return this.http.get<any>(this.url)
+  //   .pipe(
+  //     retry(1),
+  //     catchError(this.handleError)
+  //   )
+  // }
 
-  listUsers(): Observable<Array<User>>  {
-    return this.http.get<any>(this.rootUrl)
+  createUser(user: User): Observable<User> {
+    return this.http.post<any>(this.url, user)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    )
+  }
+  
+  deleteUser(id: number): Observable<User> {
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'authorization': token
+      })
+    };
+    return this.http.delete<any>(this.url + '/' + id, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -38,32 +50,27 @@ export class UserService {
   }
 
   getUser(id: number): Observable<User> {
-    console.log(this.httpOptions);
-    return this.http.get<any>(this.rootUrl + '/' + id, this.httpOptions)
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'authorization': token
+      })
+    };
+    return this.http.get<any>(this.url + '/' + id, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
     )
   }
 
-  createUser(User: User): Observable<User> {
-    return this.http.post<any>(this.rootUrl, JSON.stringify(User), this.httpOptions)
-    .pipe(
-      retry(1),
-      catchError(this.handleError)
-    )
-  }
-
-  updateUser(id: number, User: User): Observable<User> {
-    return this.http.put<any>(this.rootUrl + '/' + id, JSON.stringify(User), this.httpOptions)
-    .pipe(
-      retry(1),
-      catchError(this.handleError)
-    )
-  }
-
-  deleteUser(id: number): Observable<User> {
-    return this.http.delete<any>(this.rootUrl + '/' + id, this.httpOptions)
+  updateUser(id: number, user: User): Observable<User> {
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'authorization': token
+      })
+    };
+    return this.http.put<any>(this.url + '/' + id, user, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)

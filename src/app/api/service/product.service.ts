@@ -9,77 +9,69 @@ import { Product } from 'src/app/api/models';
   providedIn: 'root'
 })
 export class ProductService {
-  private rootUrl: string;
+  private url: string;
  
   constructor(
     config: ApiConfiguration,
     private http: HttpClient
   ) { 
-   this.rootUrl = config.rootUrl + 'product' + config.apiVersion + 'products'
+   this.url = config.rootUrl + 'product' + config.apiVersion + 'products'
    //this.rootUrl = "assets/products.json";
   }
 
-  // Http Options
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Authentication': localStorage.getItem('token')
-    })
-  }  
-
   listProducts(): Observable<Array<any>>  {
-    console.log(this.rootUrl);
-    return this.http.get<any>(this.rootUrl, this.httpOptions)
+    return this.http.get<any>(this.url)
     .pipe(
       retry(1),
       catchError(this.handleError)
     );
   }
 
-  getProduct(id: number): Observable<Product> {
-    return this.http.get<any>(this.rootUrl + '/' + id)
-    .pipe(
-      // filter(_r => _r instanceof HttpResponse),
-      // map((_r) => {
-      //   return _r as ApiDatangProduct;
-      // }),
-      retry(1),
-      catchError(this.handleError)
-    )
-  }
-
   createProduct(product: Product): Observable<Product> {
-    return this.http.post<any>(this.rootUrl, JSON.stringify(product), this.httpOptions)
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'authorization': token
+      })
+    };
+    return this.http.post<any>(this.url, product, httpOptions)
     .pipe(
-      // filter(_r => _r instanceof HttpResponse),
-      // map((_r) => {
-      //   return _r as ApiDataProduct;
-      // }),
-      retry(1),
-      catchError(this.handleError)
-    )
-  }
-
-  updateProduct(id: number, product: Product): Observable<Product> {
-    return this.http.put<any>(this.rootUrl + '/' + id, JSON.stringify(product), this.httpOptions)
-    .pipe(
-      // filter(_r => _r instanceof HttpResponse),
-      // map((_r) => {
-      //   return _r as ApiDataProduct;
-      // }),
       retry(1),
       catchError(this.handleError)
     )
   }
 
   deleteProduct(id: number): Observable<Product> {
-    return this.http.delete<any>(this.rootUrl + '/' + id, this.httpOptions)
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'authorization': token
+      })
+    };
+    return this.http.delete<any>(this.url + '/' + id, httpOptions)
     .pipe(
-      // filter(_r => _r instanceof HttpResponse),
-      // map((_r) => {
-      //   return _r as ApiDataProduct;
-      // }),
+      retry(1),
+      catchError(this.handleError)
+    )
+  }
+
+  getProduct(id: number): Observable<Product> {
+    return this.http.get<any>(this.url + '/' + id)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    )
+  }
+
+  updateProduct(id: number, product: Product): Observable<Product> {
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'authorization': token
+      })
+    };
+    return this.http.put<any>(this.url + '/' + id, product, httpOptions)
+    .pipe(
       retry(1),
       catchError(this.handleError)
     )

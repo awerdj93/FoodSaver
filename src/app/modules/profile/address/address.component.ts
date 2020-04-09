@@ -6,6 +6,7 @@ import { AuthenticationService, UserService } from 'src/app/api/services';
 import { Address, User} from 'src/app/api/models';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ModalService } from '../../shared/service/modal.service';
+import { AddressService } from 'src/app/api/service/address.service';
 
 @Component({
   selector: 'app-address',
@@ -27,6 +28,7 @@ export class AddressComponent implements OnInit {
       private router: Router,
       private authenticationService: AuthenticationService,
       private userService: UserService,
+      private addressService: AddressService,
       private bsModalService: BsModalService,
       private modalService: ModalService
   ) {
@@ -36,35 +38,34 @@ export class AddressComponent implements OnInit {
     //   }
     
     this.currentUser = this.authenticationService.currentUserValue;
-    this.addresses = [{
-      street: 'Jurong',
-          block: '123',
-          unitNo: '#3-23',
-          country: 'singapore',
-          postalCode: 123456
-    },
-    {
-      street: 'Bishan',
-          block: '123',
-          unitNo: '#3-23',
-          country: 'singapore',
-          postalCode: 123433
-    }]; //= this.currentUser.addresses;
+    // this.addresses = [{
+    //   street: 'Jurong',
+    //       block: '123',
+    //       unitNo: '#3-23',
+    //       country: 'singapore',
+    //       postalCode: 123456
+    // },
+    // {
+    //   street: 'Bishan',
+    //       block: '123',
+    //       unitNo: '#3-23',
+    //       country: 'singapore',
+    //       postalCode: 123433
+    // }]; //= this.currentUser.addresses;
+    this.addressService.listAddress().subscribe(data => {
+      this.addresses = data;
+    });
   }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
+      name: ['', Validators.required],
       street: ['', Validators.required],
       block: ['', Validators.required],
-      unitNo: ['', Validators.required],
-      country: ['', Validators.required],
+      unitNumber: ['', Validators.required],
       postalCode: ['', Validators.required],
     });
     this.formState = new FormState(this.form);
-  }
-
-  update() {
-    
   }
 
   delete(i: number) {
@@ -76,76 +77,53 @@ export class AddressComponent implements OnInit {
 
   addAddress(content) {
     this.add = true;
-    this.form = this.formBuilder.group({
-      street: ['', Validators.required],
-      block: ['', Validators.required],
-      unitNo: ['', Validators.required],
-      country: ['', Validators.required],
-      postalCode: ['', Validators.required],
-    });
-    this.formState = new FormState(this.form);
     this.modalRef = this.bsModalService.show(content, { ignoreBackdropClick: true, keyboard: false });
-    // this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-    //   this.closeResult = `Closed with: ${result}`;
-    // }, (reason) => {
-    //   this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    // });
-
   }
 
-  editAddress(content, i: number) {
-    this.add = false;
-    let address = this.addresses[i];
-    this.form = this.formBuilder.group({
-      street: [address.street, Validators.required],
-      block: [address.block, Validators.required],
-      unitNo: [address.unitNo, Validators.required],
-      country: [address.country, Validators.required],
-      postalCode: [address.postalCode, Validators.required],
-    });
-    this.formState = new FormState(this.form);
-    this.modalRef = this.bsModalService.show(content, { ignoreBackdropClick: true, keyboard: false });
-    // this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-    //   this.closeResult = `Closed with: ${result}`;
-    // }, (reason) => {
-    //   this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    // });
-
-  }
+  // editAddress(content, i: number) {
+  //   this.add = false;
+  //   let address = this.addresses[i];
+  //   this.form = this.formBuilder.group({
+  //     name: [address.name, Validators.required],
+  //     street: [address.street, Validators.required],
+  //     block: [address.block, Validators.required],
+  //     unitNumber: [address.unitNumber, Validators.required],
+  //     postalCode: [address.postalCode, Validators.required],
+  //   });
+  //   this.formState = new FormState(this.form);
+  //   this.modalRef = this.bsModalService.show(content, { ignoreBackdropClick: true, keyboard: false });
+  //   // this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+  //   //   this.closeResult = `Closed with: ${result}`;
+  //   // }, (reason) => {
+  //   //   this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  //   // });
+  // }
 
   close() {
     this.modalRef.hide();
   }
 
   onSubmit() {
-      if (this.formState.valid) {
-
-        let addr = {
-          id: this.addresses ? this.address.id : null,
-          street: this.form.controls.street.value,
-              block: this.form.controls.block.value,
-              unitNo: this.form.controls.unitNo.value,
-              country: this.form.controls.country.value,
-              postalCode: this.form.controls.postalCode.value
-        };
-          // this.userService.updateAddress(this.currentUser.id, {
-          //     id: this.currentUser.id,
-          //     street: this.form.controls.street.value,
-          //     block: this.form.controls.block.value,
-          //     unitNo: this.form.controls.unitNo.value,
-          //     country: this.form.controls.country.value,
-          //     postalCode: this.form.controls.postalCode.value
-          // })
-          //     .subscribe(
-          //         data => {
-          //             console.log(data);
-          //             //this.alertService.success('Registration successful', true);
-          //             this.formState.loading = false;
-          //         },
-          //         error => {
-          //             this.formState.serverErrors = error;
-          //             this.formState.loading = false;
-          //         });
-      }  
+    if (this.formState.valid) {
+      this.addressService.addAddress({
+        id: null,
+        name: this.form.controls.name.value,
+        street: this.form.controls.street.value,
+        block: this.form.controls.block.value,
+        unitNumber: this.form.controls.unitNumber.value,
+        postalCode: this.form.controls.postalCode.value,
+        userId: this.currentUser.id
+      })
+        .subscribe(
+          data => {
+            console.log(data);
+            this.modalService.alert('Address successfully added', 'success');
+            this.formState.loading = false;
+          },
+          error => {
+            this.formState.serverErrors = error;
+            this.formState.loading = false;
+          });
     }
+  }
 }  

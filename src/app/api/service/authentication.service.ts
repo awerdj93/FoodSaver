@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
-    private rootUrl: string;
+    private url: string;
 
     constructor(
         private config: ApiConfiguration,
@@ -19,7 +19,7 @@ export class AuthenticationService {
     {
         //this.rootUrl = config.rootUrl;
         
-        this.rootUrl = config.rootUrl + 'account' + config.apiVersion; 
+        this.url = config.rootUrl + 'account' + config.apiVersion; 
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
@@ -32,7 +32,7 @@ export class AuthenticationService {
         let formData = new FormData();
         formData.append('email', username);
         formData.append('password', password);
-        return this.http.post<any>(this.rootUrl +'login', formData);
+        return this.http.post<any>(this.url +'login', formData);
     }
 
     login(token: string) {
@@ -41,7 +41,7 @@ export class AuthenticationService {
                 'authorization': token
             })
         };
-        return this.http.get<any>(this.rootUrl +'profile', httpOptions).pipe(
+        return this.http.get<any>(this.url +'profile', httpOptions).pipe(
             map(user => {
                 console.log(user);
 

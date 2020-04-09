@@ -1,14 +1,17 @@
 import { User } from 'src/app/api/models';
 
-export interface Product {
+export class Product {
     id?: number;
     name?: string;
     description?: string;
-    type?: 'Canned' | 'Raw' | 'Cooked';
+    category?: string;
     price?: number;
-    expiry?: Date;
-    createdBy?: User;
-    createdOn?: Date;
-    changedBy?: User;
-    changedOn?: Date;
+    status?: string;
+    expiry_dt?: Date;
+    created_by?: User;
+    created_dt?: Date;
+    last_updated_by?: User;
+    last_updated_dt?: Date;
+    
+	constructor() {}
 }

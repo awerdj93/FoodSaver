@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/api/services';
 import { PageState } from '../shared/model/page-state.model';
 import { Product } from 'src/app/api/models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-catalog',
@@ -11,15 +12,16 @@ import { Product } from 'src/app/api/models';
 export class CatalogComponent implements OnInit {
   public productData: Array<Product>;
   public products: Array<Product>;
-  public types: Array<string>;
+  public categories: Array<string>;
   public pageState: PageState = new PageState();
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService,
+    private router: Router) {
   }
 
   ngOnInit(): void {
-    this.types = new Array<string>();
-    this.types.splice(0, 0, 'All');
+    this.categories = new Array<string>();
+    this.categories.splice(0, 0, 'All');
     this.refresh();
   }
 
@@ -27,32 +29,44 @@ export class CatalogComponent implements OnInit {
     this.productService.listProducts().subscribe(data => {
       this.products = data;
       this.productData = data;
-      this.pageState.collectionSize = data.length;
-      this.types = data.map(data => data.type);
-      this.types.splice(0, 0, 'All');
+      if (this.products) {
+        //this.pageState.collectionSize = this.products.length;
+        this.categories = data.map(data => data.type);
+      } else {
+        this.pageState.collectionSize = 0;
+      }
+      this.categories.splice(0, 0, 'All');
     });
   }
 
   onTypeClick(i: number) {
-    let type = this.types[i];
+    let category = this.categories[i];
 
     // this.productService.listProducts().subscribe(data => {
     //   this.products = data;
     //   this.productNum = data.length;
     // });
     let prods = []
-    if (type === 'All') {
+    if (category === 'All') {
       prods = this.productData;
     } else {
       this.productData.forEach(element => {
-        if (element.type === type) {
+        if (element.category === category) {
           prods.push(element);
         }
       });
     }
     
     this.products = prods;
-    this.pageState.collectionSize = prods.length;
+    if (this.products) {
+     // this.pageState.collectionSize = this.products.length;
+    } else {
+      this.pageState.collectionSize = 0;
+    }
+  }
+  
+  viewProduct(id: number) {
+    this.router.navigateByUrl('/product/'+ id);
   }
 
   onPage(event: number) {
