@@ -6,6 +6,7 @@ import { User } from 'src/app/api/models';
 import { AuthenticationService, UserService } from 'src/app/api/services';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ModalService } from '../../shared/service/modal.service';
+import { PasswordValidators } from '../../shared/validators/password-validators';
 
 @Component({
   selector: 'app-change-password',
@@ -31,6 +32,10 @@ export class ChangePasswordComponent implements OnInit {
       oldPassword: [null, [Validators.required]],
       password: [null, [Validators.required, Validators.minLength(8)]],
       confirmPassword: [null, [Validators.required]]
+    },
+    {
+      // check whether our password and confirm password match
+      validator: PasswordValidators.match
     });
     this.formState = new FormState(this.form);
   }
@@ -40,12 +45,14 @@ export class ChangePasswordComponent implements OnInit {
       if (this.currentUser.password !== this.form.controls.oldPassword.value) {
         this.error = 'Old password not match' ;
       } else {
-        let user = {
-          id: this.currentUser.id,
-          name: this.currentUser.name,
-          email: this.currentUser.email,
-          password: this.form.controls.password.value
-        };
+        let user = new User();
+        user.id = this.currentUser.id;
+        user.name = this.currentUser.name;
+        user.email = this.currentUser.email;
+        user.password = this.form.controls.password.value;
+        user.createdAt = this.currentUser.createdAt;
+        user.lastUpdatedAt = this.currentUser.lastUpdatedAt;
+
         console.log(user);
         this.userService.updateUser(this.currentUser.id, user).subscribe(
           data => {

@@ -25,9 +25,7 @@ export class AddressComponent implements OnInit {
 
   constructor(
       private formBuilder: FormBuilder,
-      private router: Router,
       private authenticationService: AuthenticationService,
-      private userService: UserService,
       private addressService: AddressService,
       private bsModalService: BsModalService,
       private modalService: ModalService
@@ -36,25 +34,8 @@ export class AddressComponent implements OnInit {
     //   if (!this.authenticationService.currentUserValue) {
     //       this.router.navigate(['/']);
     //   }
-    
     this.currentUser = this.authenticationService.currentUserValue;
-    // this.addresses = [{
-    //   street: 'Jurong',
-    //       block: '123',
-    //       unitNo: '#3-23',
-    //       country: 'singapore',
-    //       postalCode: 123456
-    // },
-    // {
-    //   street: 'Bishan',
-    //       block: '123',
-    //       unitNo: '#3-23',
-    //       country: 'singapore',
-    //       postalCode: 123433
-    // }]; //= this.currentUser.addresses;
-    this.addressService.listAddress().subscribe(data => {
-      this.addresses = data;
-    });
+    this.refresh();
   }
 
   ngOnInit() {
@@ -68,10 +49,19 @@ export class AddressComponent implements OnInit {
     this.formState = new FormState(this.form);
   }
 
-  delete(i: number) {
+  refresh() {
+    this.addressService.listAddress().subscribe(data => {
+      this.addresses = data;
+    });
+  }
+
+  delete(id: number) {
     this.modalService.confirm('Confirm Delete', 'Are you sure you want to delete this address?', 'danger')
     .then(confirm => {
-      this.addresses.splice(i, 1);
+      this.addressService.deleteAddress(id).subscribe(data => {
+        this.refresh();
+      });
+      
     })
   }
 
@@ -80,32 +70,13 @@ export class AddressComponent implements OnInit {
     this.modalRef = this.bsModalService.show(content, { ignoreBackdropClick: true, keyboard: false });
   }
 
-  // editAddress(content, i: number) {
-  //   this.add = false;
-  //   let address = this.addresses[i];
-  //   this.form = this.formBuilder.group({
-  //     name: [address.name, Validators.required],
-  //     street: [address.street, Validators.required],
-  //     block: [address.block, Validators.required],
-  //     unitNumber: [address.unitNumber, Validators.required],
-  //     postalCode: [address.postalCode, Validators.required],
-  //   });
-  //   this.formState = new FormState(this.form);
-  //   this.modalRef = this.bsModalService.show(content, { ignoreBackdropClick: true, keyboard: false });
-  //   // this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-  //   //   this.closeResult = `Closed with: ${result}`;
-  //   // }, (reason) => {
-  //   //   this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-  //   // });
-  // }
-
   close() {
     this.modalRef.hide();
   }
 
   onSubmit() {
     if (this.formState.valid) {
-      this.addressService.addAddress({
+      const address = {
         id: null,
         name: this.form.controls.name.value,
         street: this.form.controls.street.value,
@@ -113,17 +84,19 @@ export class AddressComponent implements OnInit {
         unitNumber: this.form.controls.unitNumber.value,
         postalCode: this.form.controls.postalCode.value,
         userId: this.currentUser.id
-      })
-        .subscribe(
-          data => {
-            console.log(data);
-            this.modalService.alert('Address successfully added', 'success');
-            this.formState.loading = false;
-          },
-          error => {
-            this.formState.serverErrors = error;
-            this.formState.loading = false;
-          });
+      }
+      this.addressService.addAddress(address).subscribe(
+        data => {
+          console.log(data);
+          this.modalService.alert('Address added', `New address: ${address.name} has been successfully added`, 'success');
+          this.formState.loading = false;
+          this.modalRef.hide();
+
+        },
+        error => {
+          this.formState.serverErrors = error;
+          this.formState.loading = false;
+        });
     }
   }
 }  

@@ -43,12 +43,9 @@ export class AuthenticationService {
         };
         return this.http.get<any>(this.url +'profile', httpOptions).pipe(
             map(user => {
-                console.log(user);
-
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 localStorage.setItem('token', token);
                 this.currentUserSubject.next(user);
-                //this.router.navigate(['/profile']);
                 return user;
             })
         );

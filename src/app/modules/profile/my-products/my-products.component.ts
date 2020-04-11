@@ -37,7 +37,7 @@ export class MyProductsComponent implements OnInit {
   }
 
   viewProduct(id: number) {
-    this.router.navigateByUrl('/product/'+ id);
+    this.router.navigateByUrl('profile/products/'+ id);
   }
 
   onPage(event: number) {

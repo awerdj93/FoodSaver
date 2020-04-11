@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpRequest } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { User, Product } from '../models';
+import { User, Product, Cart } from '../models';
 import { retry, catchError } from 'rxjs/operators';
 import { ApiConfiguration } from '../api-configuration';
 
@@ -16,25 +16,15 @@ export class CartService {
     private http: HttpClient
   ) { 
     this.url = config.rootUrl + 'product'+ config.apiVersion + 'carts';
-  }
-
-  // Http Options
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    })
-  }  
+  } 
   
-  listCart(): Observable<Array<any>>  {
-      let httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Authentication': localStorage.getItem('token') ? localStorage.getItem('token') : ''
-        })
-      }
-
+  listCart(): Observable<Cart>  {
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'authorization': token
+      })
+    };
     return this.http.get<any>(this.url, httpOptions)
     .pipe(
       retry(1),
@@ -42,7 +32,7 @@ export class CartService {
     )
   }
 
-  getCart(id: number): Observable<User> {
+  getCart(id: number): Observable<Cart> {
     return this.http.get<any>(this.url + '/' + id)
     .pipe(
       retry(1),
@@ -50,16 +40,31 @@ export class CartService {
     )
   }
 
-  addProductToCart(product: Product): Observable<Product> {
-    return this.http.put<any>(this.url + '/products', JSON.stringify(product), this.httpOptions)
+  addProductToCart(id: number) {
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': token
+      })
+    };
+    // console.log(token);
+    // console.log(id);
+    // console.log(this.url + '/products/' + id);
+    return this.http.put<any>(this.url + '/products/' + id, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
     )
   }
 
-  deleteProductFromCart(id: number): Observable<User> {
-    return this.http.delete<any>(this.url + '/products/' + id)
+  deleteProductFromCart(id: number) {
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': token
+      })
+    };
+    return this.http.delete<any>(this.url + '/products/' + id, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -76,6 +81,7 @@ export class CartService {
       // Get server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
+    console.log(error);
     window.alert(errorMessage);
     return throwError(errorMessage);
  }

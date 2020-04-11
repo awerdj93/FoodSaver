@@ -4,84 +4,46 @@ import { Observable, throwError } from 'rxjs';
 import { Order, User } from '../models';
 import { retry, catchError } from 'rxjs/operators';
 import { ApiConfiguration } from '../api-configuration';
+import { ModalService } from 'src/app/modules/shared/service/modal.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-  private rootUrl: string;
- 
+  private url: string;
+  
   constructor(
+    modalService: ModalService,
     config: ApiConfiguration,
     private http: HttpClient
   ) { 
-    //this.rootUrl = config.rootUrl
-    this.rootUrl = "assets/orders.json";
+    this.url = config.rootUrl + 'order' + config.apiVersion + 'orders'
   }
-
-  // Http Options
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  }  
 
   listOrders(currentUser: User): Observable<Order[]>  {
-    return this.http.get<any>(this.rootUrl)// + '/customers/' + currentUser.id + '/orders')
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'authorization': token
+      })
+    };
+    console.log(token);
+    return this.http.get<any>(this.url, httpOptions)
     .pipe(
-      // filter(_r => _r instanceof HttpResponse),
-      // map((_r) => {
-      //   return _r as ApiDataPageListOrder;
-      // }),
       retry(1),
       catchError(this.handleError)
     )
   }
 
-  getOrder(id: number): Observable<Order> {
-    return this.http.get<any>(this.rootUrl + '/' + id)
+  createOrder(order: Order): Observable<Order> {
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'authorization': token
+      })
+    };
+    return this.http.post<any>(this.url, order, httpOptions)
     .pipe(
-      // filter(_r => _r instanceof HttpResponse),
-      // map((_r) => {
-      //   return _r as ApiDataOrder;
-      // }),
-      retry(1),
-      catchError(this.handleError)
-    )
-  }
-
-  createOrder(order: Order, currentUser: User): Observable<Order> {
-    return this.http.post<any>(this.rootUrl + '/customers/' + currentUser + '/orders',
-     JSON.stringify(order), this.httpOptions)
-    .pipe(
-      // filter(_r => _r instanceof HttpResponse),
-      // map((_r) => {
-      //   return _r as ApiDataOrder;
-      // }),
-      retry(1),
-      catchError(this.handleError)
-    )
-  }
-
-  updateOrder(id: number, order: Order): Observable<Order> {
-    return this.http.put<Order>(this.rootUrl + '/' + id, JSON.stringify(order), this.httpOptions)
-    .pipe(
-      // filter(_r => _r instanceof HttpResponse),
-      // map((_r) => {
-      //   return _r as ApiDataOrder;
-      // }),
-      retry(1),
-      catchError(this.handleError)
-    )
-  }
-
-  deleteOrder(id: number): Observable<Order> {
-    return this.http.delete<Order>(this.rootUrl + '/' + id, this.httpOptions)
-    .pipe(
-      // filter(_r => _r instanceof HttpResponse),
-      // map((_r) => {
-      //   return _r as ApiDataOrder;
-      // }),
       retry(1),
       catchError(this.handleError)
     )

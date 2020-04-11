@@ -10,7 +10,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 @Component({
   selector: 'app-modal-confirmation',
   templateUrl: './modal-confirmation.component.html',
-  styleUrls: ['./modal-confirmation.component.scss']
+  styleUrls: ['./modal-confirmation.component.css']
 })
 export class ModalConfirmationComponent implements OnInit {
   public result: Subject<boolean>;

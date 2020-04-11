@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/api/models';
+import { Product, Cart } from 'src/app/api/models';
 import { ProductService, CartService } from 'src/app/api/services';
+import { ModalService } from '../shared/service/modal.service';
 
 @Component({
   selector: 'app-cart',
@@ -8,35 +9,29 @@ import { ProductService, CartService } from 'src/app/api/services';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  productData: Array<Product>;
-  products: Array<Product>;
+  cart: Cart;
   productNum: number;
-  totalPrice: number = 0;
   
   constructor(private productService: ProductService,
+    private modalService: ModalService,
     private cartService: CartService) {
   }
 
   ngOnInit(): void {
+    this.refresh();
+  }
+  refresh() {
     this.cartService.listCart().subscribe(data => {
-        this.products = data;
-      //   this.productData = data;
-      //   this.productNum = data.length;
-      //   this.products.forEach(product => {
-      //     this.totalPrice += product.price;
-      //   })
-     });
-    // this.productService.listProducts().subscribe(data => {
-    //   this.products = data;
-    //   this.productData = data;
-    //   this.productNum = data.length;
-    //   this.products.forEach(product => {
-    //     this.totalPrice += product.price;
-    //   })
-    // });
+      this.cart = data;
+      console.log(data);
+    });
   }
 
   delete(id: number) {
-    this.cartService.deleteProductFromCart(id);
+    console.log('deleteing')
+    this.cartService.deleteProductFromCart(id).subscribe(data => {
+      this.refresh();
+      this.modalService.alert("Success", 'Item Deleted', 'success');
+    });
   }
 }

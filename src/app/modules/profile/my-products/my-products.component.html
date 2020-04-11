@@ -1,9 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <div class="row">
-        <div class="col-lg-12">
-          <div *ngIf="products">
+          <div *ngIf="products; else loading">
             <div class="row align-items-center latest_product_inner">
               <div *ngIf="products.length === 0">
                 No product found
@@ -19,6 +17,9 @@
                   <div *ngIf="product?.type === 'Canned'">
                       <img src="assets/img/product/product_3.png" alt="" />
                   </div>
+                  <div *ngIf="!product?.type">
+                    <img src="assets/img/product/product_4.png" alt="" />
+                </div>
                   <div class="single_product_text">
                       <h4>{{product.name}}</h4>
                       <h3>${{product.price}}</h3>
@@ -31,8 +32,7 @@
             <app-pagination [collectionSize]="pageState.collectionSize" [pageSize]="pageState.pageSize"
               [page]="pageState.page" (pageChange)="onPage($event)" (pageSizeChange)="onPageSize($event)">
             </app-pagination>
-          </div>
-        </div>
+          
       </div>
       <!-- <ng-container *ngIf="products; else loading">
         

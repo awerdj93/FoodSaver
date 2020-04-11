@@ -3330,6 +3330,10 @@ ul {
   border-color: #ff3368;
 }
 
+.billing_details {
+  background: #ecfdff;
+}
+
 /* line 1537, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_product.scss */
 .billing_details h3 {
   font-size: 18px;
@@ -3554,7 +3558,7 @@ ul {
 /* line 1739, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_product.scss */
 .order_box .btn_3 {
   display: block;
-  line-height: 38px;
+  /* line-height: 38px; */
   text-transform: uppercase;
   text-align: center;
 }
@@ -3942,7 +3946,7 @@ ul {
 
 /* line 2042, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_product.scss */
 .s_product_text .btn_3 {
-  padding: 13px 36px;
+  /* padding: 13px 36px; */
   box-shadow: -1.717px 8.835px 29.76px 2.24px rgba(255, 51, 104, 0.18);
   border: 1px solid #ff3368;
 }
@@ -3996,12 +4000,11 @@ ul {
 }
 
 /* line 28, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_confirmation_part.scss */
-.confirmation_part .single_confirmation_details ul li {
+/* .confirmation_part .single_confirmation_details ul li {
   position: relative;
-  /* text-transform: capitalize; */
   padding-left: 25%;
   margin-bottom: 3px;
-}
+} */
 
 /* line 34, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_confirmation_part.scss */
 .confirmation_part .single_confirmation_details ul li p {
@@ -6280,6 +6283,24 @@ h6 {
   width: 105px;
 }
 
-/* .side-menu {
-  border-right: 1px solid #cfcfcf;
-} */
+.modal-header.success {
+  background-color: #e6eed5;
+}
+
+.modal-title.success:before {
+  content: '\f058\0020';
+  font-family: 'Font Awesome 5 Free';
+  color: #119100;
+  font-weight: bold;
+}
+
+.modal-header.danger {
+  background-color: #eed6d6;
+}
+
+.modal-title.danger:before {
+  content: '\f071\0020';
+  font-family: 'Font Awesome 5 Free';
+  color: #cb2e2e;
+  font-weight: bold;
+}

@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row s_product_inner justify-content-between">
+      <div class="col-lg-7 col-xl-7 row">
+        <!-- <div class="product_slider_img">
+          <div id="vertical"> -->
+            <div data-thumb="assets/img/product/product_1.png">
+              <img src="assets/img/product/product_1.png" />
+            </div>
+             <div data-thumb="assets/img/product/product_2.png">
+              <img src="assets/img/product/product_2.png" />
+            </div>
+            <!--<div data-thumb="assets/img/product/product_3.png">
+              <img src="assets/img/product/product_3.png" />
+            </div>
+            <div data-thumb="assets/img/product/product_4.png">
+              <img src="assets/img/product/product_4.png" />
+            </div> -->
+          <!-- </div>
+        </div> -->
+        <br>
+      </div>
+      <div class="col-lg-5 col-xl-4">
+        <div class="s_product_text">
+          <h3>{{product?.name}}</h3>
+          <h2>${{product?.price}}</h2>
+          <ul class="list">
+            <li>
+              <a class="active" href="#">
+                <span>Category</span> : {{product?.category}}</a>
+            </li>
+          </ul>
+          <p>
+           {{product?.description}}
+          </p>
+          <div class="error">
+            {{error}}
+          </div>
+          <div class="card_area d-flex justify-content-between align-items-center">
+            <button (click)="edit()" class="btn_3">Edit</button>&nbsp;
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>

@@ -58,38 +58,20 @@ export class ModalService {
     return modalRef.content.result.pipe(take(1)).toPromise();
   }
 
-//   // prompt(title: string, formInputs: FormInput[], submitLabel?: string, cancelLabel?: string, additionalEvent?: any[], className?: string): Observable<any> {
-//   //   const initialState = {
-//   //     title,
-//   //     submitLabel,
-//   //     cancelLabel,
-//   //     additionalEvent,
-//   //     formInputs,
-//   //     result: new Subject<any>()
-//   //   };
-//   //   // tslint:disable-next-line: max-line-length
-//   //   const modalRef = this.modalService.show(ModalInputComponent, { class: (className ? className : ''), initialState, ignoreBackdropClick: true, keyboard: false });
-//   //   return modalRef.content.result.pipe(finalize(() => modalRef.hide()));
-//   // }
+  // prompt(title: string, formInputs: FormInput[], submitLabel?: string, cancelLabel?: string, additionalEvent?: any[], className?: string): Observable<any> {
+  //   const initialState = {
+  //     title,
+  //     submitLabel,
+  //     cancelLabel,
+  //     additionalEvent,
+  //     formInputs,
+  //     result: new Subject<any>()
+  //   };
+  //   // tslint:disable-next-line: max-line-length
+  //   const modalRef = this.modalService.show(ModalInputComponent, { class: (className ? className : ''), initialState, ignoreBackdropClick: true, keyboard: false });
+  //   return modalRef.content.result.pipe(finalize(() => modalRef.hide()));
+  // }
 
-//   display(title: string, dataColumn: Array<any>, dataArray: Array<any>, type?: string,
-//     hasDeleteButton?: boolean, hasEditButton?: boolean, hasAddButton?: boolean): Observable<any> {
-//     const initialState = {
-//       title,
-//       type,
-//       dataColumn,
-//       dataArray,
-//       hasDeleteButton,
-//       hasEditButton,
-//       hasAddButton,
-//       cancelLabel: '', // not in use
-//       confirmLabel: 'OK',
-//       result: new Subject<any>()
-//     };
-//     const modalRef = this.modalService.show(ModalViewComponent, { class: 'modal-lg', initialState, ignoreBackdropClick: true, keyboard: false });
-//     return modalRef.content.result.pipe(finalize(() => modalRef.hide()));
-//   }
- 
   closeAllModal() {
     // close all opened modal dialog.
     for (let i = 1; i <= this.modalService.getModalsCount(); i++) {

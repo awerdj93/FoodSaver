@@ -1,14 +1,12 @@
-import { User, Product } from 'src/app/api/models';
+import { Address, Item } from 'src/app/api/models';
 
 export class Order {
-    id?: number;
-    buyer: User;
-    seller: User;
-    product: Product;
-    createdBy: User;
-    createdOn: Date;
-    changedBy: User;
-    changedOn: Date;
+    items: Array<Item>;
+    userId: number;
+    totalPrice: number;
+    subTotalPrice: number;
+    billingAddress?: Address;
+    deliveryAddress?: Address;
 
-	constructor() {}
+    constructor() {}
 } 

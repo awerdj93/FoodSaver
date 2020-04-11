@@ -63,14 +63,18 @@ export class ProductService {
     )
   }
 
-  updateProduct(id: number, product: Product): Observable<Product> {
+  updateProduct(product: Product): Observable<Product> {
     let token = localStorage.getItem('token');
     const httpOptions = {
       headers: new HttpHeaders({
           'authorization': token
       })
     };
-    return this.http.put<any>(this.url + '/' + id, product, httpOptions)
+    product.description = 'asdasd';
+    product.price = 8;
+    console.log(product);
+    console.log(this.url + '/' + product.id);
+    return this.http.put<any>(this.url + '/' + product.id, product, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)

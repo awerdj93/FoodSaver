@@ -57,6 +57,9 @@
                               <div *ngIf="product?.category === 'Canned'">
                                   <img src="assets/img/product/product_3.png" alt="" />
                               </div>
+                              <div *ngIf="!product?.category">
+                                <img src="assets/img/product/product_4.png" alt="" />
+                              </div>
                               <div class="single_product_text">
                                   <h4>{{product.name}}</h4>
                                   <h3>${{product.price}}</h3>

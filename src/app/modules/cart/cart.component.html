@@ -21,54 +21,39 @@
                         <thead>
                             <tr>
                                 <th scope="col">Product</th>
-                                <th scope="col">Description</th>
+                                <!-- <th scope="col">Description</th> -->
                                 <th scope="col">Price</th>
                                 <th scope="col" class="column-action"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <ng-container *ngIf="!products || products.length === 0; else showCart">
+                            <ng-container *ngIf="!cart || !cart.products || cart.products.length === 0; else showCart">
                                 <tr>
                                     <td colspan="10">No product in cart</td>
                                 </tr>
                             </ng-container>
                             <ng-template #showCart>
-                                <tr *ngFor="let product of products; index as i">
-                                    <td>{{product.name}}</td>
-                                    <td>{{product.description}}</td>
+                                <tr *ngFor="let product of cart.products; index as i">
+                                    <td>{{product.id}} {{product.name}}</td>
+                                    <!-- <td>{{product.description}}</td> -->
                                     <td>${{product.price}}</td>
                                     <td class="column-action">
-                                        <button class="btn btn-action" (click)="delete(i)">
+                                        <button class="btn btn-action" (click)="delete(product.id)">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td></td>
+                                    <!-- <td></td> -->
                                     <td>Subtotal</td>
-                                    <td>${{totalPrice}}</td>
+                                    <td>${{cart.totalPrice}}</td>
                                     <td></td>
                                 </tr>
                                 <tr class="shipping_area">
-                                    <td></td>
-                                    <td>Shipping</td>
+                                    <!-- <td></td> -->
+                                    <td>Flat Rate Shipping</td>
                                     <td>
-                                        <div class="shipping_box">
-                                            <ul class="list">
-                                                <li>
-                                                    <a href="#">Flat Rate: $5.00</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Free Shipping</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Flat Rate: $10.00</a>
-                                                </li>
-                                                <li class="active">
-                                                    <a href="#">Local Delivery: $2.00</a>
-                                                </li>
-                                            </ul>  
-                                        </div>
+                                        <a> $3</a>
                                     </td>
                                     <td></td>
                                 </tr>
@@ -79,10 +64,8 @@
                         <a class="btn_1" routerLink='/catalog'>Continue Shopping</a>
                         <a class="btn_1 checkout_btn_1"  routerLink='/checkout'>Proceed to checkout</a>
                     </div>
-                    
                 </div>
             </div>
-
         </div>
     </div>
     <br>

@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { retry, catchError, filter, map } from 'rxjs/operators';
 import { ApiConfiguration } from 'src/app/api/api-configuration';
 import { User } from 'src/app/api/models';
+import { ModalService } from 'src/app/modules/shared/service/modal.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,20 +13,12 @@ export class UserService {
   private url: string;
  
   constructor(
+    private modalService: ModalService,
     private config: ApiConfiguration,
     private http: HttpClient
   ) { 
-    //this.url = config.rootUrl + '/user'
-   this.url = config.rootUrl + 'account' + config.apiVersion + 'accounts'
+    this.url = config.rootUrl + 'account' + config.apiVersion + 'accounts'
   }
-
-  // listUsers(): Observable<Array<User>>  {
-  //   return this.http.get<any>(this.url)
-  //   .pipe(
-  //     retry(1),
-  //     catchError(this.handleError)
-  //   )
-  // }
 
   createUser(user: User): Observable<User> {
     return this.http.post<any>(this.url, user)
@@ -39,7 +32,7 @@ export class UserService {
     let token = localStorage.getItem('token');
     const httpOptions = {
       headers: new HttpHeaders({
-          'authorization': token
+        'authorization': token
       })
     };
     return this.http.delete<any>(this.url + '/' + id, httpOptions)
@@ -70,7 +63,8 @@ export class UserService {
           'authorization': token
       })
     };
-    return this.http.put<any>(this.url + '/' + id, user, httpOptions)
+    console.log(JSON.stringify(httpOptions));
+    return this.http.put<User>(this.url + '/' + id, user, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -87,7 +81,8 @@ export class UserService {
       // Get server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
+    //this.modalService.alert('Error', errorMessage, 'danger');
     window.alert(errorMessage);
     return throwError(errorMessage);
- }
+  }
 }
