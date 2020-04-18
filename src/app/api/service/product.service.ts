@@ -31,7 +31,8 @@ export class ProductService {
     let token = localStorage.getItem('token');
     const httpOptions = {
       headers: new HttpHeaders({
-          'authorization': token
+          'authorization': token,
+          'Accept': '*/*'
       })
     };
     return this.http.post<any>(this.url, product, httpOptions)
@@ -67,13 +68,10 @@ export class ProductService {
     let token = localStorage.getItem('token');
     const httpOptions = {
       headers: new HttpHeaders({
-          'authorization': token
+          'authorization': token,
+          'Accept': '*/*'
       })
     };
-    product.description = 'asdasd';
-    product.price = 8;
-    console.log(product);
-    console.log(this.url + '/' + product.id);
     return this.http.put<any>(this.url + '/' + product.id, product, httpOptions)
     .pipe(
       retry(1),

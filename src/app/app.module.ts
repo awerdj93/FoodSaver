@@ -30,7 +30,8 @@ import { TermsComponent } from './modules/terms/terms.component';
 import { VerifyRegisterComponent } from './modules/register/verify-register/verify-register.component';
 import { ReviewComponent } from './modules/review/review.component';
 import { CheckoutAddressComponent } from './modules/checkout/checkout-address/checkout-address.component';
-import * as axios from 'axios'
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +66,8 @@ import * as axios from 'axios'
     ReactiveFormsModule,
     BrowserAnimationsModule,
     SharedModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    AccordionModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

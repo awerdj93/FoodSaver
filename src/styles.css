@@ -6304,3 +6304,8 @@ h6 {
   color: #cb2e2e;
   font-weight: bold;
 }
+
+.cart-total {
+  text-align: right;
+  padding-right: 50px !important;
+}

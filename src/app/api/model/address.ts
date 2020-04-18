@@ -7,5 +7,5 @@ export class Address {
     postalCode?: number;
     userId?: number;
     
-	constructor() {}
+    constructor() {}
 }

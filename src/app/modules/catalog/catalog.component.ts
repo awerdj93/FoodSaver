@@ -26,12 +26,12 @@ export class CatalogComponent implements OnInit {
   }
 
   refresh() {
-    this.productService.listProducts().subscribe(data => {
+    this.productService.listProducts().subscribe((data: Array<Product>) => {
       this.products = data;
       this.productData = data;
       if (this.products) {
-        //this.pageState.collectionSize = this.products.length;
-        this.categories = data.map(data => data.type);
+        this.pageState.collectionSize = this.products.length;
+        this.categories = data.map(i => i.category);
       } else {
         this.pageState.collectionSize = 0;
       }

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/api/models';
+import { User, Product } from 'src/app/api/models';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { FormState } from '../shared/model/form-state.model';
 import { AuthenticationService, ProductService } from 'src/app/api/services';
 import { Router } from '@angular/router';
+import { ModalService } from '../shared/service/modal.service';
 
 @Component({
   selector: 'app-sell',
@@ -20,33 +21,39 @@ export class SellComponent implements OnInit {
     private authenticationService: AuthenticationService, 
     private productService: ProductService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private modalService: ModalService
   ) { 
     this.currentUser = this.authenticationService.currentUserValue;
   }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      name: [null, Validators.required],
-      description: [null, Validators.required],
-      price: [null, Validators.required],
-      category: [null, Validators.required]
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      price: ['', Validators.required],
+      category: ['', Validators.required],
+      expiry: ['', [Validators.required]]
     });
     this.formState = new FormState(this.form);
   }
 
   onSubmit() {
+    console.log(this.form)
     if (this.formState.valid) {
-      this.productService.createProduct({
-        name: this.form.controls.name.value,
-        description: this.form.controls.description.value,
-        price: this.form.controls.price.value,
-        category: this.form.controls.category.value
-      })
-      .subscribe(
+      let product = new Product();
+      product.name = this.form.controls.name.value;
+      product.description = this.form.controls.description.value;
+      product.price = this.form.controls.price.value;
+      product.category = this.form.controls.category.value;
+      product.expiry_dt = new Date(this.form.controls.expiry.value);
+      console.log(product);
+      this.productService.createProduct(product).subscribe(
           data => {
-              console.log(data);
-              this.router.navigate(["/product/" + data.id]);
+            this.modalService.alert("Success", 'Item successfully created', 'success')
+            .then(() => { 
+              this.router.navigate(['/product/' + data]);
+            }); 
           },
           error => {
             this.formState.serverErrors = error;
@@ -54,7 +61,7 @@ export class SellComponent implements OnInit {
           });
     }
     else {
-      this.error = 'o';
+      this.error = 'Error occured';
     }
   }
 }

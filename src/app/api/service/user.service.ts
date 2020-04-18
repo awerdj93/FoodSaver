@@ -18,6 +18,7 @@ export class UserService {
     private http: HttpClient
   ) { 
     this.url = config.rootUrl + 'account' + config.apiVersion + 'accounts'
+    //this.url = 'http://localhost:8080/user';
   }
 
   createUser(user: User): Observable<User> {
@@ -60,11 +61,11 @@ export class UserService {
     let token = localStorage.getItem('token');
     const httpOptions = {
       headers: new HttpHeaders({
-          'authorization': token
+          'authorization': token,
       })
     };
-    console.log(JSON.stringify(httpOptions));
-    return this.http.put<User>(this.url + '/' + id, user, httpOptions)
+
+    return this.http.put<any>(this.url + '/' + id, user, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)

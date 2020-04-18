@@ -6,7 +6,8 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Addresses</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Address</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -15,10 +16,10 @@
                                 <td colspan="10">No address</td>
                             </tr>
                             <tr *ngFor="let address of addresses; index as i">
+                                <td>{{address.name}}</td>
                                 <td>
-                                    <h3>{{address.name}}</h3>
-                                    <p>{{address.block}} {{address.street}} {{address.unitNumber}}, 
-                                        Singapore {{address.postalCode}}</p>
+                                    {{address.block}} {{address.street}} {{address.unitNumber}}, 
+                                        Singapore {{address.postalCode}}
                                 </td>
                                 <td class="column-action"> 
                                     <!-- <button class="btn btn-action" (click)="editAddress(content, i)">

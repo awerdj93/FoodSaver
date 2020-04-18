@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService, UserService } from 'src/app/api/services';
 import { FormState } from '../shared/model/form-state.model';
 import { PasswordValidators } from '../shared/validators/password-validators';
+import { User } from 'src/app/api/models';
 
 @Component({
     selector: 'app-register',
@@ -47,11 +48,11 @@ export class RegisterComponent implements OnInit {
     onSubmit() {
         console.log(this.formState);
         if (this.formState.valid) {    
-            this.userService.createUser({
-                name: this.form.controls.name.value,
-                email: this.form.controls.email.value,
-                password: this.form.controls.password.value
-            })
+            let user = new User();
+            user.name = this.form.controls.name.value,
+            user.email = this.form.controls.email.value,
+            user.password = this.form.controls.password.value
+            this.userService.createUser(user)
                 .pipe(first())
                 .subscribe(
                     data => {

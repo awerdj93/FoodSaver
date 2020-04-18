@@ -7,9 +7,8 @@
     </div>
     <div class="modal-footer">
         <div class="col-xs-6">
-            <button class="btn btn-secondary mr-1" (click)="action(false)">Ok</button>
+            <button class="btn btn-primary mr-1" (click)="action(true)">{{confirmLabel}}</button>
             <button *ngIf="cancelLabel !== ''" class="btn btn-secondary mr-1" (click)="action(false)">{{cancelLabel}}</button>
-            <!-- <button class="btn btn-primary" (click)="action(true)" [autoFocus]="!cancelLabel">{{confirmLabel}}</button> -->
         </div>
     </div>
 </div>

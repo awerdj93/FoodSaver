@@ -7,6 +7,8 @@ import { Address, User} from 'src/app/api/models';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ModalService } from '../../shared/service/modal.service';
 import { AddressService } from 'src/app/api/service/address.service';
+import axios from 'axios'
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-address',
@@ -30,7 +32,7 @@ export class AddressComponent implements OnInit {
       private bsModalService: BsModalService,
       private modalService: ModalService
   ) {
-      // redirect to home if already logged in
+    // redirect to home if already logged in
     //   if (!this.authenticationService.currentUserValue) {
     //       this.router.navigate(['/']);
     //   }
@@ -55,15 +57,17 @@ export class AddressComponent implements OnInit {
     });
   }
 
-  delete(id: number) {
-    this.modalService.confirm('Confirm Delete', 'Are you sure you want to delete this address?', 'danger')
-    .then(confirm => {
-      this.addressService.deleteAddress(id).subscribe(data => {
-        this.refresh();
-      });
-      
-    })
-  }
+  // delete(id: number) {
+  //   this.modalService.confirm('Confirm Delete', 'Are you sure you want to delete this address?', 'danger')
+  //   .then(confirm => {
+  //     console.log(confirm);
+  //    // if (confirm) {
+  //       this.addressService.deleteAddress(id).subscribe(data => {
+  //         this.refresh();
+  //       });
+  //     //}
+  //   })
+  // }
 
   addAddress(content) {
     this.add = true;
@@ -86,17 +90,31 @@ export class AddressComponent implements OnInit {
         userId: this.currentUser.id
       }
       this.addressService.addAddress(address).subscribe(
-        data => {
+        (data: Address) => {
           console.log(data);
-          this.modalService.alert('Address added', `New address: ${address.name} has been successfully added`, 'success');
+          this.modalService.alert('Address added', `New address: ${address.name} has been successfully added.`, 'success');
           this.formState.loading = false;
           this.modalRef.hide();
-
+          this.refresh();
         },
         error => {
           this.formState.serverErrors = error;
           this.formState.loading = false;
         });
     }
+  }
+
+  delete(id: number) {
+    this.modalService.confirm('Confirm Delete', 'Are you sure you want to delete this address?', 'danger')
+    .then(confirm => {
+      console.log(confirm);
+     // if (confirm) {
+      this.addressService.deleteAddress(id).subscribe(data => {
+        this.modalService.alert('Password changed', 'Password successfully changed', 'success')
+        this.refresh();
+      },
+     );
+     // }
+    })
   }
 }  

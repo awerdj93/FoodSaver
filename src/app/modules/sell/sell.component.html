@@ -44,17 +44,27 @@
                         <app-input-errors [errors]="formState.errors.price" label="Price" ></app-input-errors> 
                     </div>
                     <div class="col-12">
+                        <br> 
                         <div class="input-group-icon">
                             <div class="icon"><i class="fa fa-plus" aria-hidden="true"></i></div>
                             <div class="form-select" id="default-select">
-                                <select class="select" formControlName="category"  onblur="this.placeholder = 'Enter category'">
-                                    <option value="1">Cooked</option>
-                                    <option value="2">Canned</option>
-                                    <option value="3">Fresh</option>
+                                <select class="select" formControlName="category" placeholder="Enter category"
+                                [ngClass]="{ 'is-invalid': formState.errors.category }">
+                                    <option value="" disabled selected>Enter category</option>
+                                    <option value="Canned">Canned</option>
+                                    <option value="Cooked">Cooked</option>
+                                    <option value="Fresh">Fresh</option>
                                 </select>
-                                <app-input-errors [errors]="formState.errors.category" label="Price" ></app-input-errors> 
+                                <app-input-errors [errors]="formState.errors.category" label="Category" ></app-input-errors> 
                             </div>
                         </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <br>
+                        <input type="date" formControlName="expiry" class="form-control" aria-label="expiry"
+                            placeholder="Enter expiry date"
+                            [ngClass]="{ 'is-invalid': formState.errors.expiry }" />
+                        <app-input-errors [errors]="formState.errors.expiry" label="Expiry Date" ></app-input-errors> 
                     </div>
                 </div>
                 <div class="form-group mt-3">

@@ -19,6 +19,7 @@ export class ProductComponent implements OnInit {
   constructor(private productService: ProductService,
     private cartService: CartService,
     private modalService: ModalService,
+    private router: Router,
     private route: ActivatedRoute) { 
     this.route.params.subscribe(params => this.params = params);
   }
@@ -29,33 +30,29 @@ export class ProductComponent implements OnInit {
 
   refresh() {
     this.productService.getProduct(this.params.id)
-    .subscribe(data => {
+    .subscribe((data: Product) => {
       this.product = data;
     });
-    
   }
 
   addToCart() {
     this.cartService.addProductToCart(this.product.id)
     .subscribe(data => {
-        this.product = data;
+        this.modalService.confirm("Product Added", `${this.product.name} has been added to cart. Proceed to cart?`, 'success')
+        .then(confirm => {
+          if (confirm) {
+            this.router.navigate(['/cart']);
+          } else {
+            this.router.navigate(['/catalog']);
+          }
+        });
       },
       (error: HttpErrorResponse) => {
         console.log(error);
-        //this.modalService.alert("Error", error.error, 'danger');
-        //this.loading = false;
       });
-    // let token = localStorage.getItem('token');
-    // const httpOptions = {
-    //   headers: {
-    //       'authorization': token
-    //   }
-    // };
-    // axios.get('https://h1oszwe4ta.execute-api.ap-southeast-1.amazonaws.com/stag/order/api/v1/orders/3', httpOptions)
-    // .then((response) => {
-    //   console.log(response);
-    // }, (error) => {
-    //   console.log(error);
-    // });
+  }
+
+  back() {
+    this.router.navigate(['/catalog']);
   }
 }

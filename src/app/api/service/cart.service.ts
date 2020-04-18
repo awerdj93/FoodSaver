@@ -47,10 +47,10 @@ export class CartService {
         'authorization': token
       })
     };
-    // console.log(token);
-    // console.log(id);
-    // console.log(this.url + '/products/' + id);
-    return this.http.put<any>(this.url + '/products/' + id, httpOptions)
+    console.log(token);
+    console.log(id);
+    console.log(this.url + '/products/' + id);
+    return this.http.put<any>(this.url + '/products/' + id, {}, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)

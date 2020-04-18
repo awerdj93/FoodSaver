@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { User } from 'src/app/api/model/user';
 import { Router, Params, ActivatedRoute } from '@angular/router';
-import { AuthenticationService } from 'src/app/api/service/authentication.service';
-import { UserService } from 'src/app/api/service/user.service';
 import { FormState } from '../shared/model/form-state.model';
-import { Product } from 'src/app/api/models';
-import { ProductService, ReviewService } from 'src/app/api/services';
+import { Product, Review, User } from 'src/app/api/models';
+import { AuthenticationService, ProductService, ReviewService } from 'src/app/api/services';
+import { ModalService } from '../shared/service/modal.service';
 
 
 @Component({
@@ -15,12 +13,13 @@ import { ProductService, ReviewService } from 'src/app/api/services';
   styleUrls: ['./review.component.css']
 })
 export class ReviewComponent implements OnInit {
+  private params: Params;
   form: FormGroup;
   formState: FormState;
   product: Product;
   currentUser: User;
-  private params: Params;
   ratings = [false, false, false, false, false];
+  error: string;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -28,7 +27,8 @@ export class ReviewComponent implements OnInit {
       private route: ActivatedRoute,
       private authenticationService: AuthenticationService,
       private productService: ProductService,
-      private reviewService: ReviewService
+      private reviewService: ReviewService,
+      private modalService: ModalService      
   ) {
       // redirect to home if already logged in
     //   if (!this.authenticationService.currentUserValue) {
@@ -64,11 +64,22 @@ export class ReviewComponent implements OnInit {
 
   onSubmit() {
     if (this.formState.valid) {
-      // this.reviewService.createReview({
-      //   // order: this.params.id,
-      //   star_rating: this.ratingNum(),
-      //   remarks: this.form.controls.remarks.value
-      // });
+      let review = new Review();
+      review.productId = this.product.id;
+      review.starRating = this.ratingNum();
+      review.remarks = this.form.controls.review.value;
+
+      this.reviewService.createReview(review).subscribe(
+        data => {
+          this.modalService.alert("Success", 'Review sucessfully submitted', 'success')
+          .then(() => { 
+            this.router.navigate(['/orders']);
+          });
+        },
+        error => {
+          this.formState.serverErrors = error;
+          this.formState.loading = false;
+        });;
     }
   }
 }

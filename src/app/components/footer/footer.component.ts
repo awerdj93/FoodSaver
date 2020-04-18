@@ -25,9 +25,9 @@ export class FooterComponent implements OnInit {
   onSubscribe() {
     if (this.formState.valid) {
       this.modalService.alert('Newsletter Subscribed', `Welcome to our newsletter. An email will be sent to ${this.form.controls.email.value}`, 'success')
-    .then(() => { 
-      this.form.controls.email.setValue('');
-    });
+      .then(() => { 
+        this.form.controls.email.setValue('');
+      });
     }  
   }
 }

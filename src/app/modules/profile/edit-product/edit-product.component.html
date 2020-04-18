@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container" *ngIf="product">
     <div class="row s_product_inner justify-content-between">
-      <div class="col-lg-7 col-xl-7 row">
+      <div class="col-lg-6 col-xl-7 row">
         <!-- <div class="product_slider_img">
           <div id="vertical"> -->
             <div data-thumb="assets/img/product/product_1.png">
@@ -19,27 +19,61 @@
         </div> -->
         <br>
       </div>
-      <div class="col-lg-5 col-xl-4">
-        <div class="s_product_text">
-          <h3>{{product?.name}}</h3>
-          <h2>${{product?.price}}</h2>
-          <ul class="list">
-            <li>
-              <a class="active" href="#">
-                <span>Category</span> : {{product?.category}}</a>
-            </li>
-          </ul>
-          <p>
-           {{product?.description}}
-          </p>
-          <div class="error">
-            {{error}}
+      <div class="col-lg-6 col-xl-4">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="col-md-12 form-group p_star">
+              <label>Name</label>
+              <input type="text" formControlName="name" class="form-control" aria-label="Name"
+                  [ngClass]="{ 'is-invalid': formState.errors.name }" />
+              <app-input-errors [errors]="formState.errors.name" label="Name">
+              </app-input-errors>
           </div>
-          <div class="card_area d-flex justify-content-between align-items-center">
-            <button (click)="edit()" class="btn_3">Edit</button>&nbsp;
+          <div class="col-md-12 form-group p_star">
+              <label>Price</label>
+              <input type="text" formControlName="price" class="form-control" aria-label="Price"
+                  [ngClass]="{ 'is-invalid': formState.errors.price }">
+              <app-input-errors [errors]="formState.errors.price" label="Price">
+              </app-input-errors>
           </div>
-        </div>
-        
+
+          <div class="col-md-12 form-group p_star">
+            <label>Description</label>
+            <input type="text" formControlName="description" class="form-control" aria-label="Description"
+                [ngClass]="{ 'is-invalid': formState.errors.description }">
+            <app-input-errors [errors]="formState.errors.description" label="Description">
+            </app-input-errors>
+          </div>
+
+          <div class="col-12 form-group p_star">
+            <br> 
+            <div class="input-group-icon">
+                <div class="icon"><i class="fa fa-plus" aria-hidden="true"></i></div>
+                <div class="form-select" id="default-select">
+                    <select class="select" formControlName="category" value="category" placeholder="Enter category"
+                    [ngClass]="{ 'is-invalid': formState.errors.category }">
+                        <option value="" disabled selected>Enter category</option>
+                        <option value="Canned">Canned</option>
+                        <option value="Cooked">Cooked</option>
+                        <option value="Fresh">Fresh</option>
+                    </select>
+                    <app-input-errors [errors]="formState.errors.category" label="Category" ></app-input-errors> 
+                </div>
+            </div>
+          </div>
+          
+          <label class="error">{{error}}</label>
+          <div class="col-md-12 form-group">
+            <button type="submit" class="btn_3" [disabled]="formState.loading">
+              Update
+            </button>
+            &nbsp;
+            <button type="button" class="btn_3" [disabled]="formState.loading" 
+              routerLink="/profile/products">
+              Cancel
+            </button>
+          </div>
+        </form>
+      
       </div>
     </div>
   </div>

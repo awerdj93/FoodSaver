@@ -9,21 +9,27 @@ import { ModalService } from '../shared/service/modal.service';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  cart: Cart;
+  cart: Cart = new Cart();
   productNum: number;
   
   constructor(private productService: ProductService,
     private modalService: ModalService,
     private cartService: CartService) {
+     
   }
 
   ngOnInit(): void {
+    this.cart = new Cart();
     this.refresh();
   }
+
   refresh() {
-    this.cartService.listCart().subscribe(data => {
+    this.cartService.listCart().subscribe((data: Cart) => {
       this.cart = data;
       console.log(data);
+    },
+    error => {
+      console.log(error);
     });
   }
 

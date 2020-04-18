@@ -12,7 +12,7 @@
       </div>
     </div>
   </section>
-  
+  <br>
   <div class="container">
     <div class="row s_product_inner justify-content-between">
       <div class="col-lg-7 col-xl-7 row">
@@ -50,7 +50,7 @@
         </div>  
       </div>
     </div>
-
+    <br> 
     <div class="review_box">
       <h4>Add a Review</h4>
       <p>Your Rating:</p>
@@ -66,6 +66,7 @@
         </li>
       </ul>
       <p>Outstanding</p>
+      <label class="error">{{error}}</label>
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="col-md-12">
           <div class="form-group">

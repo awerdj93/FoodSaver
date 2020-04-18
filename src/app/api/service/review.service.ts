@@ -15,16 +15,22 @@ export class ReviewService {
     private config: ApiConfiguration,
     private http: HttpClient
   ) { 
-    this.rootUrl = config.rootUrl + 'review' + config.apiVersion + 'reviews/'
+    this.rootUrl = config.rootUrl + 'review' + config.apiVersion + 'reviews'
   }
 
-  listReviews(): Observable<Array<Review>>  {
-    return this.http.get<any>(this.rootUrl)
-    .pipe(
-      retry(1),
-      catchError(this.handleError)
-    )
-  }
+  // listReviews(): Observable<Array<Review>>  {
+  //   let token = localStorage.getItem('token');
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({
+  //         'authorization': token
+  //     })
+  //   };
+  //   return this.http.get<any>(this.rootUrl, httpOptions)
+  //   .pipe(
+  //     retry(1),
+  //     catchError(this.handleError)
+  //   )
+  // }
 
   getReview(id: number): Observable<Review> {
     return this.http.get<any>(this.rootUrl + '/' + id)

@@ -57,4 +57,20 @@ export class AuthenticationService {
         localStorage.removeItem('token');
         this.currentUserSubject.next(null);
     }
+
+    refresh() {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'authorization': localStorage.getItem('token')
+            })
+        };
+        return this.http.get<any>(this.url +'profile', httpOptions).pipe(
+            map(user => {
+                this.currentUserSubject.next(user);
+                return user;
+            })
+        );
+    }
+
+    
 }

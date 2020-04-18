@@ -3,6 +3,7 @@ import { ProductService, AuthenticationService, OrderService } from 'src/app/api
 import { PageState } from '../../shared/model/page-state.model';
 import { Product, User } from 'src/app/api/models';
 import { Router } from '@angular/router';
+import { ModalService } from '../../shared/service/modal.service';
 
 @Component({
   selector: 'app-my-products',
@@ -16,7 +17,8 @@ export class MyProductsComponent implements OnInit {
 
   constructor(private router: Router,
       private productService: ProductService, 
-      private authenticationService: AuthenticationService) { 
+      private authenticationService: AuthenticationService, 
+      private modalService: ModalService) { 
     this.currentUser = this.authenticationService.currentUserValue;
   }
 
@@ -36,8 +38,19 @@ export class MyProductsComponent implements OnInit {
     });
   }
 
-  viewProduct(id: number) {
+  edit(id: number) {
     this.router.navigateByUrl('profile/products/'+ id);
+  }
+
+  delete(id: number) {
+    this.modalService.confirm('Confirm Delete', 'Are you sure you want to delete this product?', 'danger')
+    .then(confirm => {
+      if (confirm) {
+        this.productService.deleteProduct(id).subscribe(data => {
+          this.refresh();
+        });
+      }  
+    })
   }
 
   onPage(event: number) {

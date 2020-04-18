@@ -18,12 +18,10 @@ export class AppComponent {
     private authenticationService: AuthenticationService
   ) {
     this.currentUser$ = this.authenticationService.currentUser;
-    console.log(this.currentUser$.source);
   }
 
   logout() {
-    
-      this.authenticationService.logout();
-      this.router.navigate(['/login']);
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
   }
 }
