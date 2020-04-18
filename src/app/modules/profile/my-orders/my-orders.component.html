@@ -1,7 +1,7 @@
-<div class="container confirmation_part">
+<!-- <div class="container confirmation_part">
     <div class="row">
-      <div class="col-lg-12 single_confirmation_details">
-        <accordion class="checklist-summary">
+      <div class="col-lg-12 single_confirmation_details"> -->
+        <accordion>
           <ng-container *ngFor="let order of orders; index as i">
             <accordion-group heading="${{order.totalPrice}}"  isOpen="true">
               
@@ -25,9 +25,10 @@
         </accordion-group>
       </ng-container>
     </accordion>
-    </div>
+    
       <ng-template #loading>
         <app-spinner></app-spinner>
       </ng-template>
-    </div>
-</div>
+    <!-- </div>
+  </div> -->
+<!-- </div> -->

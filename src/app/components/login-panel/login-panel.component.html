@@ -18,10 +18,10 @@
                             Please Sign in now</h3>
                         <form [formGroup]="form" (ngSubmit)="onSubmit()">
                             <div class="col-md-12 form-group p_star">
-                                <input type="text" formControlName="username" class="form-control" aria-label="Username"
+                                <input type="text" formControlName="email" class="form-control" aria-label="Email"
                                     placeholder="Email"
-                                    [ngClass]="{ 'is-invalid': formState.errors.username }" />
-                                <app-input-errors [errors]="formState.errors.username" label="Email" ></app-input-errors>
+                                    [ngClass]="{ 'is-invalid': formState.errors.email }" />
+                                <app-input-errors [errors]="formState.errors.email" label="Email" ></app-input-errors>
                             </div>
                             <div class="col-md-12 form-group p_star">
                                 <input type="password" formControlName="password" class="form-control"
@@ -32,7 +32,7 @@
                             <div class="col-md-12 form-group">
                                 <label class="error">{{error}}</label>
                                 <div class="creat_account d-flex align-items-center">
-                                    <input type="checkbox" id="fng serveoption" name="selector">
+                                    <input type="checkbox" id="fng serveoption" formControlName="remember">
                                     <label for="f-option">Remember me</label>
                                 </div>
                                 <button type="submit" value="submit" class="btn_3" [disabled]="formState.loading">
