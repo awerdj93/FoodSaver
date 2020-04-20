@@ -4,26 +4,19 @@ node_js:
 
 dist: bionic
 sudo: required
-
-notifications:
-  email:
-    recipients:
-      - awerdj93@hotmail.com
-    on_success: always
-    on_failure: always
-branches:
-  only:
-   - master
 before_script:
   - npm install -g @angular/cli
   - npm install -g now
 script:
-  - ng build --prod --base-href https://awerdj93.github.io/foodsaver/
+  - ng build --prod
 deploy:
-  provider: pages
+  provider: s3
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: "$AWS_SECRET_KEY"
+  bucket: "foodsaver"
   skip_cleanup: true
-  github_token: $GITHUB_TOKEN
   local_dir: dist/FoodSaver
-  edge: true
   on:
-    branch: master
+    all_branches: true
+    condition: $TRAVIS_BRANCH =~ ^release\/.*$
+    acl: public_read_write
