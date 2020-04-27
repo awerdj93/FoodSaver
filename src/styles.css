@@ -6309,3 +6309,92 @@ h6 {
   text-align: right;
   padding-right: 50px !important;
 }
+
+.btn_primary {
+  background-color: #ff7e89 !important;
+  border-color: #ff7e89 !important;
+}
+
+
+/************** CHAT ***************/
+.message {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  width: 80%;
+}
+
+.darker-chat {
+  border-color: #ccc;
+  background-color: #ddd;
+  float: right;
+}
+
+.message::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.message img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.message img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+.time-right {
+  text-align: right;
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  text-align: left;
+  float: left;
+  color: #999;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  width: 5px;
+  background: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 1em;
+  background-color: #ddd;
+  outline: 1px solid slategrey;
+  border-radius: 1rem;
+}
+
+.text-small {
+  font-size: 0.9rem;
+}
+
+.messages-box,
+.chat-box {
+  height: 510px;
+  overflow-y: scroll;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+input::placeholder {
+  font-size: 0.9rem;
+  color: #999;
+}

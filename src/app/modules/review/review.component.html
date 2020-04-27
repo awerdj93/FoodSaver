@@ -56,11 +56,11 @@
       <p>Your Rating:</p>
 
       <ul class="list">
-        <li *ngFor='let rating of ratings; index as i'>
-          <a *ngIf='rating' (click)='rate(i)'>
+        <li *ngFor="let rating of ratings; index as i">
+          <a *ngIf="rating" (click)='rate(i)'>
             <i class="fa fa-star"></i>
           </a>
-          <a *ngIf='!rating' (click)='rate(i)'>
+          <a *ngIf="!rating" (click)='rate(i)'>
             <i class="fa fa-star-o"></i>
           </a>
         </li>

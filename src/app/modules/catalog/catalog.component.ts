@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from 'src/app/api/services';
+import { ProductService, AuthenticationService } from 'src/app/api/services';
 import { PageState } from '../shared/model/page-state.model';
-import { Product } from 'src/app/api/models';
+import { Product, User } from 'src/app/api/models';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,12 +14,17 @@ export class CatalogComponent implements OnInit {
   public products: Array<Product>;
   public categories: Array<string>;
   public pageState: PageState = new PageState();
+  currentUser: User;
 
   constructor(private productService: ProductService,
+    private authenticationService: AuthenticationService,
     private router: Router) {
   }
 
   ngOnInit(): void {
+    this.currentUser = this.authenticationService.currentUserValue;
+    this.products = [];
+    this.productData = [];
     this.categories = new Array<string>();
     this.categories.splice(0, 0, 'All');
     this.refresh();
@@ -27,9 +32,13 @@ export class CatalogComponent implements OnInit {
 
   refresh() {
     this.productService.listProducts().subscribe((data: Array<Product>) => {
-      this.products = data;
-      this.productData = data;
-      if (this.products) {
+      data.forEach(prod => {
+        if (prod.userId !== this.currentUser.id) {
+          this.products.push(prod);
+          this.productData.push(prod);
+        }
+      })
+      if (this.products.length !== 0) {
         this.pageState.collectionSize = this.products.length;
         this.categories = data.map(i => i.category);
       } else {

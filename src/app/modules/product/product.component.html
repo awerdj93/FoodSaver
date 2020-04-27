@@ -40,19 +40,22 @@
         <h2>${{product?.price}}</h2>
         <ul class="list">
           <li>
-            <a class="active">
+            <a>
               <span>Category</span> : {{product?.category}}</a>
           </li>
           <li>
-            <a class="active">
+            <a>
               <span>Expiry Date</span> : {{product?.expiry_dt}}</a>
           </li>
           <!-- <li>
             <a href="#"> <span>Availibility</span> : In Stock</a>
           </li> -->
         </ul>
-        <p>
-         {{product?.description}}
+        <p>{{product?.description}}</p>
+        <p *ngIf="seller">
+          Seller : {{seller.name}}
+          <br>
+          Average user rating : <i class="fa fa-star"></i> {{sellerRating}}
         </p>
         <div class="error">
           {{error}}
@@ -65,8 +68,10 @@
           </div> -->
           <button (click)="addToCart()" class="btn_3">Add to cart</button>&nbsp;
           <button (click)="back()"  class="btn_3">Back to catalog</button>
-          <!-- <a href="#" class="like_us"> <i class="fa fa-heart"></i> </a> -->
         </div>
+        <!-- <div class="card_area d-flex align-items-center">
+          <button (click)="chatWithSeller()" class="btn_3">Chat With Seller</button>&nbsp;
+        </div> -->
       </div>
       
     </div>

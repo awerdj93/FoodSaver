@@ -5,9 +5,9 @@ export class Review {
 	productId: number;
 	starRating: number;
 	remarks?: string;
-	createdBy?: string;
-	createdDatet?: Date;
-	lastUpdatedBy?: string;
+	createdBy?: number;
+	createdDate?: Date;
+	lastUpdatedBy?: number;
 	lastUpdatedDate?: Date;
 	
 	constructor() { }

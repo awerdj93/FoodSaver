@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FormState } from '../../shared/model/form-state.model';
 import { User } from 'src/app/api/model/user';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService, UserService } from 'src/app/api/services';
+import { AuthenticationService, UserService, ReviewService } from 'src/app/api/services';
 import { ModalService } from '../../shared/service/modal.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
@@ -18,10 +18,12 @@ export class ProfileInfoComponent implements OnInit {
   currentUser: User;
   error: string;
   modalRef: BsModalRef;
+  userRating: number;
   
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private reviewService: ReviewService,
     private authenticationService: AuthenticationService,
     private userService: UserService,
     private modalService: ModalService) { }
@@ -33,6 +35,9 @@ export class ProfileInfoComponent implements OnInit {
       email: ['', [Validators.required, Validators.minLength(8)]],
     });
     this.formState = new FormState(this.form);
+    this.reviewService.getAvgRating(this.currentUser.id).subscribe((rating: number) => {
+      this.userRating = rating;
+    });
   }
 
   onSubmit() {

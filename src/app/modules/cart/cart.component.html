@@ -27,12 +27,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <ng-container *ngIf="!cart || !cart.products || cart.products.length === 0; else showCart">
-                                <tr>
-                                    <td colspan="10">No product in cart</td>
-                                </tr>
-                            </ng-container>
-                            <ng-template #showCart>
+                            <ng-container *ngIf="cart && cart.products && cart.products.length > 0; else noCart">
                                 <tr *ngFor="let product of cart.products; index as i">
                                     <td>{{product.id}} {{product.name}}</td>
                                     <!-- <td>{{product.description}}</td> -->
@@ -56,6 +51,11 @@
                                         <a> $3</a>
                                     </td>
                                     <td></td>
+                                </tr>
+                            </ng-container>
+                            <ng-template #noCart>
+                                <tr>
+                                    <td colspan="10">No product in cart</td>
                                 </tr>
                             </ng-template>
                         </tbody>

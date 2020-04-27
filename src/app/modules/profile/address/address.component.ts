@@ -107,14 +107,15 @@ export class AddressComponent implements OnInit {
   delete(id: number) {
     this.modalService.confirm('Confirm Delete', 'Are you sure you want to delete this address?', 'danger')
     .then(confirm => {
-      console.log(confirm);
-     // if (confirm) {
-      this.addressService.deleteAddress(id).subscribe(data => {
-        this.modalService.alert('Password changed', 'Password successfully changed', 'success')
-        this.refresh();
-      },
-     );
-     // }
+      if (confirm) {
+        this.addressService.deleteAddress(id).subscribe(data => {
+          this.modalService.alert('Address Deleted', 'Address successfully deleted', 'success')
+          this.refresh();
+        }
+       );
+      } else {
+        
+      }
     })
   }
 }  

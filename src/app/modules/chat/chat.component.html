@@ -1,0 +1,109 @@
+<section class="breadcrumb breadcrumb_bg">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="breadcrumb_iner">
+            <div class="breadcrumb_iner_item">
+              <h2>Chat</h2>
+              <p>Home <span>-</span> Chat</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="col-lg-12">
+      
+  <div class="row rounded-lg overflow-hidden shadow">
+    <!-- Users box-->
+    <div class="col-5 px-0">
+      <div class="bg-white colo-">
+
+        <div class="bg-gray px-4 py-2 bg-light">
+          <p class="h5 mb-0 py-1">Recent</p>
+        </div>
+
+        <div class="messages-box">
+          <div class="list-group rounded-0">
+  
+            <div *ngFor="let chat of chats; index as i">
+              
+              <a *ngIf="i !== chatIndex" (click)="onChatClick(i)" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+                <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+                  <div class="media-body ml-4">
+                    <div class="d-flex align-items-center justify-content-between mb-1">
+                      <h4 class="mb-0">{{chat.recipientName}}</h4>
+                      <small class="small font-weight-bold">{{chat.lastMessage?.createdAt | date:'dd MMM yyyy h:mma'}}</small>
+                    </div>
+                    <p class="font-italic text-muted mb-0 text-small">{{chat.lastMessage?.message}}</p>
+                  </div>
+                </div>
+              </a>
+              <a *ngIf="i === chatIndex" (click)="onChatClick(i)" class="list-group-item list-group-item-action active text-white rounded-0">
+                <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+                  <div class="media-body ml-4">
+                    <div class="d-flex align-items-center justify-content-between mb-1">
+                      <h4 class="mb-0">{{chat.recipientName}}</h4>
+                      <small class="small font-weight-bold">{{chat.lastMessage?.createdAt | date:'dd MMM yyyy h:mma'}}</small>
+                    </div>
+                    <p class="font-italic mb-0 text-small">{{chat.lastMessage?.message}}</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Chat Box-->
+    <div class="col-7 px-0">
+      <div #scroll class="px-4 py-5 chat-box bg-white">
+        <ng-container *ngIf="messages">
+          <div *ngFor="let message of messages">
+            <ng-container *ngIf="message.createdBy === currentUser.id; else sender">
+              <!-- Reciever Message-->
+              <div class="media w-50 ml-auto mb-3">
+                <div class="media-body">
+                  <div class="bg-primary rounded py-2 px-3 mb-2">
+                    <p class="text-small mb-0 text-white">{{message.message}}</p>
+                  </div>
+                  <p class="small text-muted">{{message.createdAt | date:'medium'}}</p>
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #sender>
+              <!-- Sender Message-->
+              <div class="media w-50 mb-3"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+                <div class="media-body ml-3">
+                  <div class="bg-light rounded py-2 px-3 mb-2">
+                    <p class="text-small mb-0 text-muted">{{message.message}}</p>
+                  </div>
+                  <p class="small text-muted">{{message.createdAt | date:'medium'}}</p>
+                </div>
+              </div>
+              
+            </ng-template>
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- Typing area -->
+      <form action="#" class="bg-light">
+        
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="input-group">
+            <input type="text" formControlName="message" placeholder="Type a message" 
+              aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light">
+            <div class="input-group-append">
+              <button id="button-addon2" type="submit" class="btn btn-link">
+                <i class="fa fa-paper-plane"></i></button>
+            </div>
+          </form>
+      
+      </form>
+
+    </div>
+  </div>
+</div>
+<br>

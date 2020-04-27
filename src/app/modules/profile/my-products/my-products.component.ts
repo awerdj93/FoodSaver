@@ -27,8 +27,8 @@ export class MyProductsComponent implements OnInit {
   }
 
   refresh() {
-    this.productService.listProducts().subscribe(data => {
-      console.log(data);
+    this.products = null;
+    this.productService.listProductsByUser().subscribe(data => {
       this.products = data;
       if (this.products) {
         this.pageState.collectionSize = data.length;

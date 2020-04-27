@@ -67,7 +67,7 @@ export class LoginPanelComponent implements OnInit {
           },
           (error: HttpErrorResponse) => {
             console.log(error);
-            this.error = error.message;
+            this.error = error.error;
             this.formState.loading = false;
           }
         );

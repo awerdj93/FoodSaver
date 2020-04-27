@@ -30,20 +30,17 @@ export class ReviewComponent implements OnInit {
       private reviewService: ReviewService,
       private modalService: ModalService      
   ) {
-      // redirect to home if already logged in
-    //   if (!this.authenticationService.currentUserValue) {
-    //       this.router.navigate(['/']);
-    //   }
     this.currentUser = this.authenticationService.currentUserValue;
     this.route.params.subscribe(params => this.params = params);
   }
  
   ngOnInit() {
-    this.productService.getProduct(this.params.id).subscribe(product => {
-      this.product = product;
+    this.productService.getProduct(this.params.id)
+    .subscribe((data: Product) => {
+      this.product = data;
     });
     this.form = this.formBuilder.group({
-      remarks: ['', Validators.required, Validators.maxLength(250)],
+      review: ['', [Validators.required, Validators.maxLength(250)]],
     });
     this.formState = new FormState(this.form);
   }
@@ -64,16 +61,22 @@ export class ReviewComponent implements OnInit {
 
   onSubmit() {
     if (this.formState.valid) {
+
+      console.log(this.product);
       let review = new Review();
       review.productId = this.product.id;
+      review.userId = this.currentUser.id;
+      review.sellerId = this.product.userId;
       review.starRating = this.ratingNum();
       review.remarks = this.form.controls.review.value;
+      review.createdBy = this.currentUser.id;
+      review.lastUpdatedBy = this.currentUser.id;
 
       this.reviewService.createReview(review).subscribe(
         data => {
           this.modalService.alert("Success", 'Review sucessfully submitted', 'success')
           .then(() => { 
-            this.router.navigate(['/orders']);
+            this.router.navigate(['/profile/orders']);
           });
         },
         error => {

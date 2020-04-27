@@ -13,6 +13,7 @@ export class MyReviewsComponent implements OnInit {
   public reviews: Array<Review>;
   public pageState: PageState = new PageState();
   private currentUser: User;
+  userRating: number; 
 
   constructor(private reviewService: ReviewService, 
     private router: Router,
@@ -25,10 +26,13 @@ export class MyReviewsComponent implements OnInit {
   }
 
   refresh() {
-    this.reviewService.getReview(this.currentUser.id).subscribe(data => {
+    this.reviewService.getReview().subscribe((data: Array<Review>) => {
       console.log(data);
-      // this.reviews = data;
-      // this.pageState.collectionSize = data.length;
+      this.reviews = data;
+      this.pageState.collectionSize = data.length;
+    });
+    this.reviewService.getAvgRating(this.currentUser.id).subscribe((rating: number) => {
+      this.userRating = rating;
     });
   }
 

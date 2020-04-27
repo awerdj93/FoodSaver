@@ -3,7 +3,6 @@ import { AuthenticationService, OrderService } from 'src/app/api/services';
 import { Order, User, Address, Item } from 'src/app/api/models';
 import { PageState } from '../../shared/model/page-state.model';
 import { Router } from '@angular/router';
-import { strict } from 'assert';
 
 @Component({
   selector: 'app-my-orders',
@@ -50,6 +49,16 @@ export class MyOrdersComponent implements OnInit {
       return address.block + ' ' + address.street + ' ' + address.unitNumber + ', Singapore ' + address.postalCode;
     }
     return '';
+  }
+
+  openTab(i: number) {
+    
+    if (i == 1) {
+      console.log(i)
+      return true;
+    } else {
+      return false;
+    }
   }
 
   onPage(event: number) {

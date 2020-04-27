@@ -1,7 +1,11 @@
 <ng-container *ngIf="products; else loading">
   <div class="row align-items-center latest_product_inner">
     <div *ngIf="products.length === 0">
-      No product found
+      <br>
+      <div style="text-align:center">
+        No product found
+      </div>
+      <br>
     </div>
     <div *ngFor="let product of products">
       <div class="single_product_item">
@@ -27,9 +31,12 @@
       </div>
     </div>
   </div>
-  <app-pagination [collectionSize]="pageState.collectionSize" [pageSize]="pageState.pageSize" [page]="pageState.page"
-    (pageChange)="onPage($event)" (pageSizeChange)="onPageSize($event)">
-  </app-pagination>
+  <div *ngIf="products.length !== 0">
+    <app-pagination [collectionSize]="pageState.collectionSize" [pageSize]="pageState.pageSize" [page]="pageState.page"
+      (pageChange)="onPage($event)" (pageSizeChange)="onPageSize($event)">
+    </app-pagination>
+  </div>
+  
 </ng-container>
 <ng-template #loading>
   <app-spinner></app-spinner>

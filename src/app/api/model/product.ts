@@ -8,9 +8,10 @@ export class Product {
     price?: number;
     status?: string;
     expiry_dt?: Date;
-    created_by?: User;
+    userId?: number;
+    created_by?: string;
     created_dt?: Date;
-    last_updated_by?: User;
+    last_updated_by?: number;
     last_updated_dt?: Date;
     
 	constructor() {}

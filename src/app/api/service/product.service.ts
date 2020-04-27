@@ -15,12 +15,26 @@ export class ProductService {
     config: ApiConfiguration,
     private http: HttpClient
   ) { 
-   this.url = config.rootUrl + 'product' + config.apiVersion + 'products'
-   //this.rootUrl = "assets/products.json";
+    this.url = config.rootUrl + 'product' + config.apiVersion
   }
 
   listProducts(): Observable<Array<any>>  {
-    return this.http.get<any>(this.url)
+    return this.http.get<any>(this.url + 'products')
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  listProductsByUser(): Observable<Array<any>>  {
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'authorization': token,
+          'Accept': '*/*'
+      })
+    };
+    return this.http.get<any>(this.url + 'sellers/products', httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -35,7 +49,7 @@ export class ProductService {
           'Accept': '*/*'
       })
     };
-    return this.http.post<any>(this.url, product, httpOptions)
+    return this.http.post<any>(this.url+ 'products', product, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -49,7 +63,7 @@ export class ProductService {
           'authorization': token
       })
     };
-    return this.http.delete<any>(this.url + '/' + id, httpOptions)
+    return this.http.delete<any>(this.url + 'products/' + id, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -57,7 +71,7 @@ export class ProductService {
   }
 
   getProduct(id: number): Observable<Product> {
-    return this.http.get<any>(this.url + '/' + id)
+    return this.http.get<any>(this.url + 'products/' + id)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -69,10 +83,9 @@ export class ProductService {
     const httpOptions = {
       headers: new HttpHeaders({
           'authorization': token,
-          'Accept': '*/*'
       })
     };
-    return this.http.put<any>(this.url + '/' + product.id, product, httpOptions)
+    return this.http.put<any>(this.url + 'products/' + product.id, product, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)

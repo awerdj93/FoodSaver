@@ -3,7 +3,10 @@
     <div class="col-lg-12 single_confirmation_details">
           <p>Name: {{currentUser?.name}}</p>
           <p>Email: {{currentUser?.email}}</p>
-          <p>Date Joined: {{currentUser?.createdAt}}</p>
+          <p>Date Joined: {{currentUser?.createdAt | date }}</p>
+          <p><a *ngIf="userRating">
+            Average user rating: <i class="fa fa-star"></i> {{userRating}}
+          </a> </p>
       <!-- <button type="button" class="btn_3" [disabled]="formState.loading" routerLink="./edit">
         Edit Profile
       </button> -->

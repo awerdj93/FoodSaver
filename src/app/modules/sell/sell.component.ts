@@ -16,6 +16,7 @@ export class SellComponent implements OnInit {
   form: FormGroup;
   formState: FormState;
   error: string;
+  file = null;
   
   constructor(
     private authenticationService: AuthenticationService, 
@@ -63,5 +64,12 @@ export class SellComponent implements OnInit {
     else {
       this.error = 'Error occured';
     }
+  }
+
+  onUpload(event) {
+    console.log(event);
+    this.file = event.target.file[0];
+    console.log(this.file);
+    //base64 string
   }
 }
