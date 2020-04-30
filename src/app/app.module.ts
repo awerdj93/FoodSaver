@@ -31,6 +31,8 @@ import { VerifyRegisterComponent } from './modules/register/verify-register/veri
 import { ReviewComponent } from './modules/review/review.component';
 import { CheckoutAddressComponent } from './modules/checkout/checkout-address/checkout-address.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { ChatComponent } from './modules/chat/chat.component';
+import { ConfirmOrderComponent } from './modules/confirm-order/confirm-order.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
     TermsComponent,
     VerifyRegisterComponent,
     ReviewComponent,
-    CheckoutAddressComponent
+    CheckoutAddressComponent,
+    ChatComponent,
+    ConfirmOrderComponent
   ],
   imports: [
     CommonModule,

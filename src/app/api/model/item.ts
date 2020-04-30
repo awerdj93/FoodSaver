@@ -5,6 +5,7 @@ export class Item {
     name: string;
     price: number;
     quantity: number;
+    review: boolean;
 
 	constructor(product: Product) {
         this.id = product.id;

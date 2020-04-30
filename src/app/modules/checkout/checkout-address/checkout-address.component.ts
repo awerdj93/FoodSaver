@@ -89,6 +89,12 @@ export class CheckoutAddressComponent implements OnInit {
     this.modalRef.hide();
   }
 
+  onNewAddress(content, shipping) {
+    this.modalRef = this.bsModalService.show(content, { ignoreBackdropClick: true, keyboard: false });
+    this.shipping = shipping;
+  }
+
+
   onSubmit() {
     if (this.formState.valid) {
       let address = new Address();
@@ -109,6 +115,5 @@ export class CheckoutAddressComponent implements OnInit {
       });
       
     }
-    
   }
 }

@@ -16,6 +16,8 @@ import { CareerComponent } from './modules/career/career.component';
 import { TermsComponent } from './modules/terms/terms.component';
 import { ChangePasswordComponent } from './modules/profile/change-password/change-password.component';
 import { ReviewComponent } from './modules/review/review.component';
+import { ChatComponent } from './modules/chat/chat.component';
+import { ConfirmOrderComponent } from './modules/confirm-order/confirm-order.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -33,7 +35,9 @@ const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'career', component: CareerComponent },
   { path: 'terms', component: TermsComponent },
-  { path: 'password', component: ChangePasswordComponent },
+  { path: 'order', component: ConfirmOrderComponent },
+  { path: 'chat', component: ChatComponent },
+  { path: 'chat/:id', component: ChatComponent },
   { path: 'review/:id', component: ReviewComponent },//, canActivate: [AuthGuard]},
   { path: 'profile', data: { preload: true }, loadChildren: () => import('./modules/profile/profile.module').then(mod => mod.ProfileModule) },
   // otherwise redirect to home

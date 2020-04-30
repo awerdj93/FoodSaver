@@ -1,7 +1,16 @@
 <ng-container *ngIf="products; else loading">
   <div class="row align-items-center latest_product_inner">
     <div *ngIf="products.length === 0">
-      No product found
+      <br>
+      <div class="container">
+        <div class="row align-items-center latest_product_inner">
+        <div class="col-lg-12">
+           No order found
+          
+          </div>
+       </div>
+      </div>
+      <br>
     </div>
     <div *ngFor="let product of products">
       <div class="single_product_item">
