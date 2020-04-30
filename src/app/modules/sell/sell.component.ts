@@ -17,7 +17,8 @@ export class SellComponent implements OnInit {
   formState: FormState;
   error: string;
   file = null;
-  
+  base64textString = []
+
   constructor(
     private authenticationService: AuthenticationService, 
     private productService: ProductService,
@@ -65,11 +66,19 @@ export class SellComponent implements OnInit {
       this.error = 'Error occured';
     }
   }
+  
+  onUploadChange(event: any) {
+    const file = event.target.files[0];
 
-  onUpload(event) {
-    console.log(event);
-    this.file = event.target.file[0];
-    console.log(this.file);
-    //base64 string
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = this.handleReaderLoaded.bind(this);
+      reader.readAsBinaryString(file);
+    }
+  }
+
+  handleReaderLoaded(e) {
+    this.base64textString.push('data:image/png;base64,' + btoa(e.target.result));
   }
 }

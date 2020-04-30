@@ -5,6 +5,7 @@ import { retry, catchError } from 'rxjs/operators';
 import { ApiConfiguration } from 'src/app/api/api-configuration';
 import { ModalService } from 'src/app/modules/shared/service/modal.service';
 import { Chat } from '../model/chat';
+import { AuthenticationService } from '../services';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +18,19 @@ export class ChatService {
     private config: ApiConfiguration,
     private http: HttpClient
   ) { 
-    //this.url = config.rootUrl + 'chat' + config.apiVersion + 'chats';
-    this.url = 'http://localhost:8080/users/2/chats';
+    this.url = config.rootUrl + 'chat' + config.apiVersion + 'chats';
+    //this.url = 'http://chat-env.ap-southeast-1.elasticbeanstalk.com/users/' + currentUser.id + '/chats';
+    //this.url = 'http://localhost:8080/users/' + currentUser.id + '/chats';
   }
 
   createChat(chat: Chat): Observable<Chat> {
-    return this.http.post<any>(this.url, chat)
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'authorization': token
+      })
+    };
+    return this.http.post<any>(this.url, chat, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -36,7 +44,7 @@ export class ChatService {
           'authorization': token
       })
     };
-    return this.http.get<any>(this.url + '/' + id, httpOptions)
+    return this.http.get<any>(this.url + '/recipient/' + id, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -56,8 +64,6 @@ export class ChatService {
       catchError(this.handleError)
     )
   }
-
- 
 
   // Error handling 
   handleError(error) {

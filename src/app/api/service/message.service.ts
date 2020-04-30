@@ -17,12 +17,18 @@ export class MessageService {
     private config: ApiConfiguration,
     private http: HttpClient
   ) { 
-    //this.url = config.rootUrl + 'account' + config.apiVersion + 'accounts'
-    this.url = 'http://localhost:8080/users/2/messages';
+    this.url = config.rootUrl + 'chat' + config.apiVersion + 'messages'
+    //this.url = 'http://localhost:8080/users/2/messages';
   }
 
   createMessage(message: Message): Observable<any> {
-    return this.http.post<any>(this.url, message)
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': token
+      })
+    };
+    return this.http.post<any>(this.url, message, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -37,6 +43,20 @@ export class MessageService {
       })
     };
     return this.http.delete<any>(this.url + '/' + id, httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    )
+  }
+
+  getAllMessages(): Observable<any> {
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'authorization': token
+      })
+    };
+    return this.http.get<any>(this.url + '/', httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)

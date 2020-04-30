@@ -45,14 +45,13 @@ export class ChatComponent implements OnInit {
     this.chatIndex = 0;
     this.chatService.getChat().subscribe((data: Array<Chat>) => {
       this.chats = data;
+      console.log(data);
       if (data) {
+        
         if (this.params.id) {
           data.forEach((chat, index) => {
-            console.log(this.params.id);
-            console.log(chat.id);
-            if (chat.id === this.params.id) {
+            if (chat.id === parseInt(this.params.id)) {
               this.chatIndex = index;
-              console.log(index);
             }
           });
         }

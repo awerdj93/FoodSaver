@@ -35,7 +35,8 @@
                   <div class="media-body ml-4">
                     <div class="d-flex align-items-center justify-content-between mb-1">
                       <h4 class="mb-0">{{chat.recipientName}}</h4>
-                      <small class="small font-weight-bold">{{chat.lastMessage?.createdAt | date:'dd MMM yyyy h:mma'}}</small>
+                      <small class="small font-weight-bold">{{ (chat.lastMessage.msgDate) ? ((chat.lastMessage.msgDate * 1000) | date:'dd MMM yyyy h:mma') : "" }}
+                      </small>
                     </div>
                     <p class="font-italic text-muted mb-0 text-small">{{chat.lastMessage?.message}}</p>
                   </div>
@@ -46,7 +47,7 @@
                   <div class="media-body ml-4">
                     <div class="d-flex align-items-center justify-content-between mb-1">
                       <h4 class="mb-0">{{chat.recipientName}}</h4>
-                      <small class="small font-weight-bold">{{chat.lastMessage?.createdAt | date:'dd MMM yyyy h:mma'}}</small>
+                      <small class="small font-weight-bold">{{(chat.lastMessage.msgDate) ? ((chat.lastMessage.msgDate * 1000) | date:'dd MMM yyyy h:mma') : "" }}</small>
                     </div>
                     <p class="font-italic mb-0 text-small">{{chat.lastMessage?.message}}</p>
                   </div>
@@ -69,7 +70,7 @@
                   <div class="bg-primary rounded py-2 px-3 mb-2">
                     <p class="text-small mb-0 text-white">{{message.message}}</p>
                   </div>
-                  <p class="small text-muted">{{message.createdAt | date:'medium'}}</p>
+                  <p class="small text-muted">{{ (message.msgDate) ? ((message.msgDate * 1000) | date:'dd MMM yyyy h:mma') : "" }}</p>
                 </div>
               </div>
             </ng-container>
@@ -80,7 +81,7 @@
                   <div class="bg-light rounded py-2 px-3 mb-2">
                     <p class="text-small mb-0 text-muted">{{message.message}}</p>
                   </div>
-                  <p class="small text-muted">{{message.createdAt | date:'medium'}}</p>
+                  <p class="small text-muted">{{ (message.msgDate) ? ((message.msgDate * 1000) | date:'dd MMM yyyy h:mma') : "" }}</p>
                 </div>
               </div>
               
