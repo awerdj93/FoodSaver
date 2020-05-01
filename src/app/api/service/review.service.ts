@@ -16,9 +16,10 @@ export class ReviewService {
     private http: HttpClient
   ) { 
     this.url = config.rootUrl + 'review' + config.apiVersion;
+    //this.url = 'http://localhost:8080/';
   }
 
-  getReview(): Observable<any> {
+  findAll(): Observable<any> {
     let token = localStorage.getItem('token');
     const httpOptions = {
       headers: new HttpHeaders({
@@ -32,6 +33,34 @@ export class ReviewService {
     )
   }
 
+  getBySellerId(sellerId): Observable<any> {
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'authorization': token
+      })
+    };
+    return this.http.get<any>(this.url + 'sellers/' + sellerId + '/reviews', httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    )
+  }
+
+  getByReviewId(sellerId: number, reviewId): Observable<any> {
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'authorization': token
+      })
+    };
+    return this.http.get<any>(this.url + 'sellers/' + sellerId + '/reviews/' + reviewId, httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    )
+  }
+
   getAvgRating(id: number): Observable<any> {
     let token = localStorage.getItem('token');
     const httpOptions = {
@@ -39,7 +68,7 @@ export class ReviewService {
           'authorization': token
       })
     };
-    return this.http.get<any>(this.url + 'avg-rating/' + id, httpOptions)
+    return this.http.get<any>(this.url + 'sellers/' + id + '/avg-rating', httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -53,7 +82,7 @@ export class ReviewService {
           'authorization': token
       })
     };
-    return this.http.post<any>(this.url + 'reviews/', review, httpOptions)
+    return this.http.post<any>(this.url + 'sellers/' + review.createdBy+ '/reviews', review, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -67,7 +96,7 @@ export class ReviewService {
           'authorization': token
       })
     };
-    return this.http.put<any>(this.url + 'reviews/' + id, review, httpOptions)
+    return this.http.put<any>(this.url + 'sellers/' + review.createdBy+ '/reviews/' + id, review, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)

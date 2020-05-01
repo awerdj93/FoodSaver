@@ -5,7 +5,6 @@ import { Order, User } from '../models';
 import { retry, catchError } from 'rxjs/operators';
 import { ApiConfiguration } from '../api-configuration';
 import { ModalService } from 'src/app/modules/shared/service/modal.service';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -20,14 +19,13 @@ export class OrderService {
     this.url = config.rootUrl + 'order' + config.apiVersion + 'orders'
   }
 
-  listOrders(currentUser: User): Observable<Order[]>  {
+  listOrders(): Observable<Order[]>  {
     let token = localStorage.getItem('token');
     const httpOptions = {
       headers: new HttpHeaders({
           'authorization': token
       })
     };
-    console.log(token);
     return this.http.get<any>(this.url, httpOptions)
     .pipe(
       retry(1),
@@ -35,7 +33,21 @@ export class OrderService {
     )
   }
 
-  createOrder(order: Order): Observable<Order> {
+  getOrder(id: number): Observable<Order>  {
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'authorization': token
+      })
+    };
+    return this.http.get<any>(this.url + '/' + id, httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    )
+  }
+
+  createOrder(order: Order) {
     let token = localStorage.getItem('token');
     const httpOptions = {
       headers: new HttpHeaders({

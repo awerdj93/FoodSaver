@@ -3,8 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, Params, ActivatedRoute } from '@angular/router';
 import { FormState } from '../shared/model/form-state.model';
 import { Product, Review, User } from 'src/app/api/models';
-import { AuthenticationService, ProductService, ReviewService } from 'src/app/api/services';
+import { AuthenticationService, ProductService, ReviewService, UserService } from 'src/app/api/services';
 import { ModalService } from '../shared/service/modal.service';
+import { ChatService } from 'src/app/api/service/chat.service';
 
 
 @Component({
@@ -20,11 +21,14 @@ export class ReviewComponent implements OnInit {
   currentUser: User;
   ratings = [false, false, false, false, false];
   error: string;
+  seller: User;
+  sellerRating: number;
 
   constructor(
       private formBuilder: FormBuilder,
       private router: Router,
       private route: ActivatedRoute,
+      private userService: UserService,
       private authenticationService: AuthenticationService,
       private productService: ProductService,
       private reviewService: ReviewService,
@@ -38,10 +42,17 @@ export class ReviewComponent implements OnInit {
     this.productService.getProduct(this.params.id)
     .subscribe((data: Product) => {
       this.product = data;
+      this.userService.getUser(data.userId).subscribe((user: User) => {
+        this.seller = user;
+      });
+      this.reviewService.getAvgRating(data.userId).subscribe((rating: number) => {
+        this.sellerRating = rating;
+      });
     });
     this.form = this.formBuilder.group({
       review: ['', [Validators.required, Validators.maxLength(250)]],
     });
+    
     this.formState = new FormState(this.form);
   }
 
@@ -65,8 +76,10 @@ export class ReviewComponent implements OnInit {
       console.log(this.product);
       let review = new Review();
       review.productId = this.product.id;
+      review.productName = this.product.name;
       review.userId = this.currentUser.id;
-      review.sellerId = this.product.userId;
+      review.reviewerName = this.currentUser.name;
+      review.sellerId = this.seller.id;
       review.starRating = this.ratingNum();
       review.remarks = this.form.controls.review.value;
       review.createdBy = this.currentUser.id;

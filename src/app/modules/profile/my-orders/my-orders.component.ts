@@ -26,7 +26,7 @@ export class MyOrdersComponent implements OnInit {
   }
 
   refresh() {
-    this.orderService.listOrders(this.currentUser).subscribe((data: Array<Order>) => {
+    this.orderService.listOrders().subscribe((data: Array<Order>) => {
       console.log(data);
       this.orders = data;
       this.pageState.collectionSize = data.length;
