@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { User, Product } from 'src/app/api/models';
+import { User, Product, Promotion, Address } from 'src/app/api/models';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { FormState } from '../shared/model/form-state.model';
-import { AuthenticationService, ProductService } from 'src/app/api/services';
+import { AuthenticationService, ProductService, AddressService, PromotionService } from 'src/app/api/services';
 import { Router } from '@angular/router';
 import { ModalService } from '../shared/service/modal.service';
+import $ from "jquery";
 
 @Component({
   selector: 'app-sell',
@@ -20,12 +21,14 @@ export class SellComponent implements OnInit {
   base64textString = []
 
   constructor(
-    private authenticationService: AuthenticationService, 
+    private authenticationService: AuthenticationService,
     private productService: ProductService,
+    private promotionService: PromotionService,
+    private addressService: AddressService,
     private router: Router,
     private formBuilder: FormBuilder,
     private modalService: ModalService
-  ) { 
+  ) {
     this.currentUser = this.authenticationService.currentUserValue;
   }
 
@@ -50,34 +53,50 @@ export class SellComponent implements OnInit {
       product.category = this.form.controls.category.value;
       product.expiry_dt = new Date(this.form.controls.expiry.value);
       console.log(product);
+
       this.productService.createProduct(product).subscribe(
           data => {
             this.modalService.alert("Success", 'Item successfully created', 'success')
-            .then(() => { 
+            .then(() => {
               this.router.navigate(['/product/' + data]);
-            }); 
+            }).then(()=>{
+                let promotion = new Promotion();
+                promotion.sellerId=this.currentUser['id'];
+                promotion.productId=data[0];
+                this.addressService.listAddress().subscribe(address=>{
+                  let fullAddress:string = address[0]['street']+', '+address[0]['block']
+                  if (fullAddress==''){
+                    this.router.navigate(['/profile/address']);
+                    this.modalService.alert("Provide address!", 'Provide address below', 'provide address below please');
+                  }
+                  else{
+                      promotion.seller_addr=fullAddress+ ' Singapore';
+                      console.log(fullAddress);
+
+                      this.promotionService.createPromotionalList(promotion, promotion.sellerId).subscribe(
+                      neighbouringUserList=>{this.modalService.alert("Email list created!", 'Promotional email sent!', 'Success')}
+                      )
+                  }
+                })
+            })
           },
           error => {
             this.formState.serverErrors = error;
             this.formState.loading = false;
           });
-    }
-    else {
+      }
+      else {
       this.error = 'Error occured';
+      }
     }
-  }
-  
-  onUploadChange(event: any) {
+    onUploadChange(event: any) {
     const file = event.target.files[0];
-
     if (file) {
       const reader = new FileReader();
-
       reader.onload = this.handleReaderLoaded.bind(this);
       reader.readAsBinaryString(file);
     }
   }
-
   handleReaderLoaded(e) {
     this.base64textString.push('data:image/png;base64,' + btoa(e.target.result));
   }

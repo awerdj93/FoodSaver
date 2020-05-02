@@ -107,8 +107,8 @@ export class CheckoutAddressComponent implements OnInit {
         }
         this.modalRef.hide();
       });
-      
+
     }
-    
+
   }
 }

@@ -18,10 +18,10 @@
                             <tr *ngFor="let address of addresses; index as i">
                                 <td>{{address.name}}</td>
                                 <td>
-                                    {{address.block}} {{address.street}} {{address.unitNumber}}, 
+                                    {{address.block}} {{address.street}} {{address.unitNumber}},
                                         Singapore {{address.postalCode}}
                                 </td>
-                                <td class="column-action"> 
+                                <td class="column-action">
                                     <!-- <button class="btn btn-action" (click)="editAddress(content, i)">
                                         <i class="fa fa-pencil"></i>
                                     </button> -->
@@ -56,6 +56,7 @@
     <div class="modal-body">
         <div class="row align-items-center">
             <div class="col-lg-12">
+
                 <form [formGroup]="form" (ngSubmit)="onSubmit()">
                     <div class="col-md-12 form-group p_star">
                         <label>Name</label>

@@ -6,6 +6,6 @@ export class Address {
     unitNumber?: string;
     postalCode?: number;
     userId?: number;
-    
+
     constructor() {}
 }

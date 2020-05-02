@@ -23,14 +23,13 @@
             <div class="col-sm-6 single_footer_part">
                     <h4>Subscribe to our newsletter</h4>
                     <form [formGroup]="form" (ngSubmit)="onSubscribe()" class="subscribe_form relative mail_part">
-                        <input type="email" formControlName="email" class="form-control" aria-label="Email" placeholder="Email"
-                            [ngClass]="{ 'is-invalid': formState.errors.email }" />
+
                         <app-input-errors [errors]="formState.errors.email" label="Email"></app-input-errors>
                         <button type="submit" name="submit" id="newsletter-submit"
                             class="email_icon newsletter-submit button-contactForm">SUBSCRIBE</button>
                     </form>
             </div>
         </div>
-        
+
     </div>
 </footer>

@@ -10,22 +10,22 @@ import { Review } from 'src/app/api/models';
 })
 export class ReviewService {
   private url: string;
- 
+
   constructor(
     private config: ApiConfiguration,
     private http: HttpClient
-  ) { 
+  ) {
     this.url = config.rootUrl + 'review' + config.apiVersion;
   }
 
-  getReview(): Observable<any> {
+  getReview(id: number): Observable<any> {
     let token = localStorage.getItem('token');
     const httpOptions = {
       headers: new HttpHeaders({
           'authorization': token
       })
     };
-    return this.http.get<any>(this.url + 'reviews', httpOptions)
+    return this.http.get<any>(this.url + 'sellers/'+id+'/reviews', httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -39,21 +39,21 @@ export class ReviewService {
           'authorization': token
       })
     };
-    return this.http.get<any>(this.url + 'avg-rating/' + id, httpOptions)
+    return this.http.get<any>(this.url + 'sellers/'+id+'/avg-rating/', httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
     )
   }
 
-  createReview(review: Review): Observable<Review> {
+  createReview(review: Review,id: number): Observable<Review> {
     let token = localStorage.getItem('token');
     const httpOptions = {
       headers: new HttpHeaders({
           'authorization': token
       })
     };
-    return this.http.post<any>(this.url + 'reviews/', review, httpOptions)
+    return this.http.post<any>(this.url + '/sellers/'+id+'reviews/', review, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -88,7 +88,7 @@ export class ReviewService {
     )
   }
 
-  // Error handling 
+  // Error handling
   handleError(error) {
     let errorMessage = '';
     if(error.error instanceof ErrorEvent) {

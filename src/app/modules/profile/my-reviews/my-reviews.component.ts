@@ -13,11 +13,11 @@ export class MyReviewsComponent implements OnInit {
   public reviews: Array<Review>;
   public pageState: PageState = new PageState();
   private currentUser: User;
-  userRating: number; 
+  userRating: number;
 
-  constructor(private reviewService: ReviewService, 
+  constructor(private reviewService: ReviewService,
     private router: Router,
-    private authenticationService: AuthenticationService) { 
+    private authenticationService: AuthenticationService) {
     this.currentUser = this.authenticationService.currentUserValue;
   }
 
@@ -26,7 +26,7 @@ export class MyReviewsComponent implements OnInit {
   }
 
   refresh() {
-    this.reviewService.getReview().subscribe((data: Array<Review>) => {
+    this.reviewService.getReview(this.currentUser['id']).subscribe((data: Array<Review>) => {
       console.log(data);
       this.reviews = data;
       this.pageState.collectionSize = data.length;

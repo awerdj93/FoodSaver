@@ -28,12 +28,12 @@ export class ReviewComponent implements OnInit {
       private authenticationService: AuthenticationService,
       private productService: ProductService,
       private reviewService: ReviewService,
-      private modalService: ModalService      
+      private modalService: ModalService
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
     this.route.params.subscribe(params => this.params = params);
   }
- 
+
   ngOnInit() {
     this.productService.getProduct(this.params.id)
     .subscribe((data: Product) => {
@@ -72,10 +72,10 @@ export class ReviewComponent implements OnInit {
       review.createdBy = this.currentUser.id;
       review.lastUpdatedBy = this.currentUser.id;
 
-      this.reviewService.createReview(review).subscribe(
+      this.reviewService.createReview(review,review.sellerId).subscribe(
         data => {
           this.modalService.alert("Success", 'Review sucessfully submitted', 'success')
-          .then(() => { 
+          .then(() => {
             this.router.navigate(['/profile/orders']);
           });
         },

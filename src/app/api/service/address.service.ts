@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpRequest } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
+
 import { Address, Product } from '../models';
 import { retry, catchError, filter, map, tap } from 'rxjs/operators';
 import { ApiConfiguration } from '../api-configuration';
@@ -10,15 +11,14 @@ import { ApiConfiguration } from '../api-configuration';
 })
 export class AddressService {
   private url: string;
-  ;
+
 
   constructor(
     config: ApiConfiguration,
     private http: HttpClient
-  ) { 
+  ) {
     this.url = config.rootUrl + 'account' + config.apiVersion + 'addresses';
   }
-  
   listAddress(): Observable<Array<Address>>  {
     let token = localStorage.getItem('token');
     const httpOptions = {
@@ -61,7 +61,7 @@ export class AddressService {
     //       'Access-Control-Allow-Credentials': 'true',
     //       'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS'
     //     }),
-        
+
     //     responseType: 'json'
     //   });
     //   return this.http.request<any>(req).pipe(
@@ -80,7 +80,7 @@ export class AddressService {
     )
   }
 
-  // Error handling 
+  // Error handling
   handleError(error) {
     console.log(error);
     let errorMessage = '';
