@@ -27,14 +27,14 @@ export class ReviewService {
           'authorization': token
       })
     };
-    return this.http.get<any>(this.url + 'sellers/'+id+'/reviews', httpOptions)
+    return this.http.get<any>(this.url + 'reviews', httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
-    )
-  }
+)
+}
 
-  getBySellerId(sellerId): Observable<any> {
+getBySellerId(sellerId): Observable<any> {
     let token = localStorage.getItem('token');
     const httpOptions = {
       headers: new HttpHeaders({
