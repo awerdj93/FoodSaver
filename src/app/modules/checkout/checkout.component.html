@@ -14,41 +14,41 @@
 </section>
 
 <section class="checkout_area">
-    <div class="container">
-      <div *ngIf="!user"  class="returning_customer">
-        <div class="check_title">
-          <h2>
-            Returning Customer?
-            <a href="#">Click here to login</a>
-          </h2>
-        </div>
-        <p>
-          If you have shopped with us before, please enter your details in the
-          boxes below. If you are a new customer, please proceed to the
-          Billing & Shipping section.
-        </p>
-        <form class="row contact_form" action="#" method="post" novalidate="novalidate">
-          <div class="col-md-6 form-group p_star">
-            <input type="text" class="form-control" id="name" name="name" value=" " />
-            <span class="placeholder" data-placeholder="Username or Email"></span>
-          </div>
-          <div class="col-md-6 form-group p_star">
-            <input type="password" class="form-control" id="password" name="password" value="" />
-            <span class="placeholder" data-placeholder="Password"></span>
-          </div>
-          <div class="col-md-12 form-group">
-            <button type="submit" value="submit" class="btn_3">
-              log in
-            </button>
-            <div class="creat_account">
-              <input type="checkbox" id="f-option" name="selector" />
-              <label for="f-option">Remember me</label>
-            </div>
-            <a class="lost_pass" href="#">Lost your password?</a>
-          </div>
-        </form>
+  <div class="container">
+    <div *ngIf="!user" class="returning_customer">
+      <div class="check_title">
+        <h2>
+          Returning Customer?
+          <a href="#">Click here to login</a>
+        </h2>
       </div>
-      <!-- <div class="cupon_area">
+      <p>
+        If you have shopped with us before, please enter your details in the
+        boxes below. If you are a new customer, please proceed to the
+        Billing & Shipping section.
+      </p>
+      <form class="row contact_form" action="#" method="post" novalidate="novalidate">
+        <div class="col-md-6 form-group p_star">
+          <input type="text" class="form-control" id="name" name="name" value=" " />
+          <span class="placeholder" data-placeholder="Username or Email"></span>
+        </div>
+        <div class="col-md-6 form-group p_star">
+          <input type="password" class="form-control" id="password" name="password" value="" />
+          <span class="placeholder" data-placeholder="Password"></span>
+        </div>
+        <div class="col-md-12 form-group">
+          <button type="submit" value="submit" class="btn_3">
+            log in
+          </button>
+          <div class="creat_account">
+            <input type="checkbox" id="f-option" name="selector" />
+            <label for="f-option">Remember me</label>
+          </div>
+          <a class="lost_pass" href="#">Lost your password?</a>
+        </div>
+      </form>
+    </div>
+    <!-- <div class="cupon_area">
         <div class="check_title">
           <h2>
             Have a coupon?
@@ -58,80 +58,219 @@
         <input type="text" placeholder="Enter coupon code" />
         <a class="tp_btn" href="#">Apply Coupon</a>
       </div> -->
-      <div class="billing_details">
-        <div class="row">
-          
-          <div class="col-lg-7">
-            <div class="order_box">
-              <h2>Your Order</h2>
-              <ul class="list">
-                <li>
-                  <a href="#">Product
-                    <span>Total</span>
-                  </a>
-                </li>
-                <li *ngFor="let item of order.items">
-                  <a>{{item.name}}
-                    <span class="last">${{item.price}}</span>
-                  </a>
-                </li>
-              </ul>
-              <ul class="list list_2">
-                <li>
-                  <a>Subtotal
-                    <span>${{order.subTotalPrice}}</span>
-                  </a>
-                </li>
-                <li>
-                  <a>Shipping
-                    <span>Flat rate: ${{flatRate}}</span>
-                  </a>
-                </li>
-                <li>
-                  <a>Total
-                    <span>${{order.totalPrice}}</span>
-                  </a>
-                </li>
-              </ul>
-              <div class="payment_item">
-                <div class="radion_btn">
-                  <input type="radio" id="f-option5" name="selector" />
-                  <label for="f-option5">Check payments</label>
-                  <div class="check"></div>
-                </div>
-                <p>
-                  Please send a check to Store Name, Store Street, Store Town,
-                  Store State / County, Store Postcode.
-                </p>
+    <div class="billing_details">
+      <div class="row">
+
+        <div class="col-lg-7">
+          <div class="order_box">
+            <h2>Your Order</h2>
+            <ul class="list">
+              <li>
+                <a href="#">Product
+                  <span>Total</span>
+                </a>
+              </li>
+              <li *ngFor="let item of order.items">
+                <a>{{item.name}}
+                  <span class="last">${{item.price}}</span>
+                </a>
+              </li>
+            </ul>
+            <ul class="list list_2">
+              <li>
+                <a>Subtotal
+                  <span>${{order.subTotalPrice}}</span>
+                </a>
+              </li>
+              <li>
+                <a>Shipping
+                  <span>Flat rate: ${{flatRate}}</span>
+                </a>
+              </li>
+              <li>
+                <a>Total
+                  <span>${{order.totalPrice}}</span>
+                </a>
+              </li>
+            </ul>
+            <div class="payment_item">
+              <div class="radion_btn">
+                <input type="radio" id="f-option5" name="selector" />
+                <label for="f-option5">Check payments</label>
+                <div class="check"></div>
               </div>
-              <div class="payment_item active">
-                <div class="radion_btn">
-                  <input type="radio" id="f-option6" name="selector" />
-                  <label for="f-option6">Paypal </label>
-                  <img src="assests/img/product/single-product/card.jpg" alt="" />
-                  <div class="check"></div>
-                </div>
-                <p>
-                  Please send a check to Store Name, Store Street, Store Town,
-                  Store State / County, Store Postcode.
-                </p>
-              </div>
-              <div class="creat_account">
-                <input type="checkbox" id="f-option4" name="selector" />
-                <label for="f-option4">I’ve read and accept the</label>
-                &nbsp;<a href="#">terms & conditions*</a>
-              </div>
-              <button class="btn_3" (click)="onSubmit()">Proceed to Payment</button>
+              <p>
+                Please send a check to Store Name, Store Street, Store Town,
+                Store State / County, Store Postcode.
+              </p>
             </div>
+            <div class="payment_item active">
+              <div class="radion_btn">
+                <input type="radio" id="f-option6" name="selector" />
+                <label for="f-option6">Paypal </label>
+                <img src="assests/img/product/single-product/card.jpg" alt="" />
+                <div class="check"></div>
+              </div>
+              <p>
+                Please send a check to Store Name, Store Street, Store Town,
+                Store State / County, Store Postcode.
+              </p>
+            </div>
+            <div class="creat_account">
+              <input type="checkbox" id="f-option4" name="selector" />
+              <label for="f-option4">I’ve read and accept the</label>
+              &nbsp;<a href="#">terms & conditions*</a>
+            </div>
+            <button class="btn_3" (click)="onSubmitOrder()">Proceed to Payment</button>
           </div>
-          <div class="col-lg-5">
-            <div class="order_box">
-              <app-checkout-address [deliveryAddress]="deliveryAddress" 
-                [billingAddress]="billingAddress">
-              </app-checkout-address>
+        </div>
+        <div class="col-lg-5">
+          <div class="order_box">
+            <h2>Shipping Details</h2>
+            <div *ngIf="deliveryAddress">
+              <h4>{{deliveryAddress.name}}</h4>
+              <p>{{deliveryAddress.block}} {{deliveryAddress.street}} {{deliveryAddress.unitNumber}},
+                Singapore {{deliveryAddress.postalCode}}</p>
+              <button type="button" class="btn_3" (click)="onSelectAddress(select, true)">
+                Change address
+              </button>
             </div>
+            <div *ngIf="!deliveryAddress">
+              <button type="button" class="btn_3" (click)="onSelectAddress(select, true)">
+                Select address
+              </button>&nbsp;
+            </div>
+            <br>
+            <h2>Billing Details</h2>
+
+            <div *ngIf="billingAddress">
+              <h4>{{billingAddress.name}}</h4>
+              <p>{{billingAddress.block}} {{billingAddress.street}} {{billingAddress.unitNumber}},
+                Singapore {{billingAddress.postalCode}}</p>
+              <button type="button" class="btn_3" (click)="onSelectAddress(select, false)">
+                change address
+              </button>
+            </div>
+            <div *ngIf="!billingAddress">
+              <button type="button" class="btn_3" (click)="onSelectAddress(select, false)">
+                Select address
+              </button>&nbsp;
+              <button *ngIf="deliveryAddress" type="button" class="btn_3" (click)="copyAddress()">
+                Same as Shipping
+              </button>&nbsp;
+            </div>
+            <br>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<ng-template #select>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Select Address</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row align-items-center">
+      <div class="col-lg-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Select</th>
+              <th scope="col">Name</th>
+              <th scope="col">Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="!addresses || addresses.length === 0">
+              <td colspan="10">No address</td>
+            </tr>
+            <tr *ngFor="let address of addresses; index as i">
+              <td>
+                <input type="radio" name="id" value="" id="id" autocomplete="off" (change)="onRadioSelect(i)">
+              </td>
+              <td>{{address.name}}</td>
+              <td>
+                {{address.block}} {{address.street}} {{address.unitNumber}},
+                Singapore {{address.postalCode}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-12 form-group">
+      <button type="button" class="btn_3" [disabled]="formState.loading" (click)="onAddAddress(newAddress)">
+        Enter new address
+      </button>
+    </div>
+    <hr>
+    <div class="col-md-12 form-group">
+      <button type="submit" class="btn_3" [disabled]="formState.loading" (click)="selectAddress()">
+        Select
+      </button>&nbsp;
+      <button type="button" class="btn_3" [disabled]="formState.loading" (click)="close()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #newAddress>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Address</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row align-items-center">
+      <div class="col-lg-12">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="col-md-12 form-group p_star">
+            <label>Street</label>
+            <input type="text" formControlName="street" class="form-control" aria-label="Street"
+              [ngClass]="{ 'is-invalid': formState.errors.street }">
+            <app-input-errors [errors]="formState.errors.street" label="Street">
+            </app-input-errors>
+          </div>
+          <div class="col-md-12 form-group p_star">
+            <label>Block</label>
+            <input type="text" formControlName="block" class="form-control" aria-label="Block"
+              [ngClass]="{ 'is-invalid': formState.errors.block }" />
+            <app-input-errors [errors]="formState.errors.block" label="Block"></app-input-errors>
+          </div>
+          <div class="col-md-12 form-group p_star">
+            <label>Unit Number</label>
+            <input type="text" formControlName="unitNumber" class="form-control" aria-label="Unit Number"
+              [ngClass]="{ 'is-invalid': formState.errors.unitNumber }" />
+            <app-input-errors [errors]="formState.errors.unitNumber" label="Unit Number">
+            </app-input-errors>
+          </div>
+          <div class="col-md-12 form-group p_star">
+            <label>Postal Code</label>
+            <input type="text" formControlName="postalCode" class="form-control" aria-label="Postal Code"
+              [ngClass]="{ 'is-invalid': formState.errors.postalCode }" />
+            <app-input-errors [errors]="formState.errors.postalCode" label="Postal Code">
+            </app-input-errors>
+          </div>
+
+          <label class="error">{{error}}</label>
+          <div class="col-md-12 form-group">
+            <button type="submit" class="btn_3" [disabled]="formState.loading">
+              Add
+            </button>
+            &nbsp;
+            <button type="button" class="btn_3" [disabled]="formState.loading" (click)="back(select)">
+              Back
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>

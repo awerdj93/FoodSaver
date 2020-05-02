@@ -26,7 +26,8 @@ export class MyReviewsComponent implements OnInit {
   }
 
   refresh() {
-    this.reviewService.getReview(this.currentUser['id']).subscribe((data: Array<Review>) => {
+   // this.reviewService.get().subscribe((data: Array<Review>) => {
+    this.reviewService.getBySellerId(this.authenticationService.currentUserValue.id).subscribe((data: Array<Review>) => {
       console.log(data);
       this.reviews = data;
       this.pageState.collectionSize = data.length;

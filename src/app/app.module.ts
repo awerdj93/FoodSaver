@@ -29,9 +29,9 @@ import { CareerComponent } from './modules/career/career.component';
 import { TermsComponent } from './modules/terms/terms.component';
 import { VerifyRegisterComponent } from './modules/register/verify-register/verify-register.component';
 import { ReviewComponent } from './modules/review/review.component';
-import { CheckoutAddressComponent } from './modules/checkout/checkout-address/checkout-address.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { ChatComponent } from './modules/chat/chat.component';
+import { OrderComponent } from './modules/order/order.component';
 
 @NgModule({
   declarations: [
@@ -56,8 +56,8 @@ import { ChatComponent } from './modules/chat/chat.component';
     TermsComponent,
     VerifyRegisterComponent,
     ReviewComponent,
-    CheckoutAddressComponent,
-    ChatComponent
+    ChatComponent,
+    OrderComponent
   ],
   imports: [
     CommonModule,

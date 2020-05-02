@@ -9,7 +9,7 @@
   </div>
   <accordion>
     <ng-container *ngFor="let order of orders; index as i">
-      <accordion-group heading="${{order.totalPrice}}" isOpen="{{openTab(i)}}">
+      <accordion-group heading="Order Reference Number: {{order.id}}" isOpen="{{openTab(i)}}">
         <table class="table table-footer stage-style">
           <tr>
             <th scope="col">Product</th>

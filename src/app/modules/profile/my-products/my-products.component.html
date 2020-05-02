@@ -1,12 +1,12 @@
 <ng-container *ngIf="products; else loading">
-  <div class="row align-items-center latest_product_inner">
-    <div *ngIf="products.length === 0">
-      <br>
-      <div style="text-align:center">
-        No product found
-      </div>
-      <br>
+  <div *ngIf="products.length === 0">
+    <br>
+    <div style="text-align:center">
+      No product found
     </div>
+    <br>
+  </div>
+  <div class="row align-items-center latest_product_inner">
     <div *ngFor="let product of products">
       <div class="single_product_item">
         <div *ngIf="product?.type === 'Cooked'">
