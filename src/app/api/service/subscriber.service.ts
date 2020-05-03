@@ -19,7 +19,7 @@ constructor(
   }
 
   listSubscribers(): Observable<Array<any>>  {
-    return this.http.get<any>(this.url + 'users/')
+    return this.http.get<any>(this.url + 'subscribers/users/')
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -40,6 +40,24 @@ constructor(
       catchError(this.handleError)
     )
   }
+
+  unsubscribe(subid: number): Observable<Subscriber> {
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'authorization': token
+      })
+    };
+    return this.http.delete<any>(this.url +  + 'subscribers/users' + subid, httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+)
+}
+
+
+
+
 
 
 

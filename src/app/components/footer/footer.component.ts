@@ -41,27 +41,42 @@ export class FooterComponent implements OnInit {
   }
 
   onSubscribe() {
-
-    if (this.formState.valid) {
+    this.subscriberService.listSubscribers().subscribe(subscriberList=>{
+    //console.log(subscriberList);
+    if(subscriberList.some(x=>x.id==this.currentUser['id'])){
+      this.modalService.alert("Already subscribed!", 'You are already subscribed', 'No further Action required!');
+    }
+    else{
+      if (this.formState.valid) {
       let subscriber = new Subscriber();
       this.addressService.listAddress().subscribe(data=>{
-      let address:string = data[0]['street']+', '+data[0]['block']
-      if (address==''){
-      this.router.navigate(['/profile/address']);
-      this.modalService.alert("Provide address!", 'Provide address below', 'provide address below please');
-      }
-      else{
-            subscriber.user_addr = address+ ', Singapore',
-            //console.log(subscriber.user_addr);
-            subscriber.user_email = this.currentUser['email'],
-            subscriber.user_name = this.currentUser['name'],
-            console.log(this.currentUser['name'],);
-            subscriber.userId = this.currentUser['id'],
-            this.subscriberService.createSubscriber(subscriber).subscribe(
-          data => {this.modalService.alert("Success", 'You are subscribed to our mailing list', 'success')
-          });
-      }
+        console.log(data);
+        if (data[0]==null){
+        this.router.navigate(['/profile/address']);
+        this.modalService.alert("Provide address!", 'Provide address below', 'please provide address below!');
+        }
+        else{
+              let address:string = data[0]['street']+', '+data[0]['block']
+              console.log(address);
+              subscriber.user_addr = address+ ', Singapore',
+              //console.log(subscriber.user_addr);
+              subscriber.user_email = this.currentUser['email'],
+              subscriber.user_name = this.currentUser['name'],
+              console.log(this.currentUser['name'],);
+              subscriber.userId = this.currentUser['id'],
+              this.subscriberService.createSubscriber(subscriber).subscribe(
+            data => {this.modalService.alert("Success", 'You are subscribed to our mailing list', 'success')
+            });
+        }
+
       });
     }
+
+    }
+
+
+    })
+
+
   }
 }
