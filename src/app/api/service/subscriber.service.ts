@@ -19,14 +19,14 @@ constructor(
   }
 
   listSubscribers(): Observable<Array<any>>  {
-    return this.http.get<any>(this.url + 'subscribers/users')
+    return this.http.get<any>(this.url + 'users/')
     .pipe(
       retry(1),
       catchError(this.handleError)
     );
   }
 
-  createSubscriber(subscriber: Subscriber,userId: number): Observable<Subscriber> {
+  createSubscriber(subscriber: Subscriber): Observable<Subscriber> {
     let token = localStorage.getItem('token');
     const httpOptions = {
       headers: new HttpHeaders({
@@ -34,7 +34,7 @@ constructor(
           'Accept': '*/*'
       })
     };
-    return this.http.post<any>(this.url+ 'subscribers/users/'+userId, subscriber, httpOptions)
+    return this.http.post<any>(this.url+ 'subscribers/users/', subscriber, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)

@@ -57,7 +57,7 @@ export class FooterComponent implements OnInit {
             subscriber.user_name = this.currentUser['name'],
             console.log(this.currentUser['name'],);
             subscriber.userId = this.currentUser['id'],
-            this.subscriberService.createSubscriber(subscriber, subscriber.userId).subscribe(
+            this.subscriberService.createSubscriber(subscriber).subscribe(
           data => {this.modalService.alert("Success", 'You are subscribed to our mailing list', 'success')
           });
       }

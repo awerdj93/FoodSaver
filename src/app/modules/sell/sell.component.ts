@@ -73,7 +73,7 @@ export class SellComponent implements OnInit {
                       promotion.seller_addr=fullAddress+ ' Singapore';
                       console.log(fullAddress);
 
-                      this.promotionService.createPromotionalList(promotion, promotion.sellerId).subscribe(
+                      this.promotionService.createPromotionalList(promotion).subscribe(
                       neighbouringUserList=>{this.modalService.alert("Email list created!", 'Promotional email sent!', 'Success')}
                       )
                   }

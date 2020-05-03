@@ -18,7 +18,7 @@ constructor(
     this.url = config.rootUrl + 'notification' + config.apiVersion
   }
 
-createPromotionalList(promotion: Promotion,sellerId: number): Observable<Promotion> {
+createPromotionalList(promotion: Promotion): Observable<Promotion> {
     let token = localStorage.getItem('token');
     const httpOptions = {
       headers: new HttpHeaders({
@@ -26,7 +26,7 @@ createPromotionalList(promotion: Promotion,sellerId: number): Observable<Promoti
           'Accept': '*/*'
       })
     };
-    return this.http.post<any>(this.url+ 'notifications/sellers/'+sellerId, promotion, httpOptions)
+    return this.http.post<any>(this.url+ 'notifications/sellers/', promotion, httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
