@@ -10,11 +10,11 @@ import { Product } from 'src/app/api/models';
 })
 export class ProductService {
   private url: string;
- 
+
   constructor(
     config: ApiConfiguration,
     private http: HttpClient
-  ) { 
+  ) {
     this.url = config.rootUrl + 'product' + config.apiVersion
   }
 
@@ -41,7 +41,7 @@ export class ProductService {
     );
   }
 
-  createProduct(product: Product): Observable<Product> {
+  createProduct(product: Product){
     let token = localStorage.getItem('token');
     const httpOptions = {
       headers: new HttpHeaders({
@@ -92,7 +92,7 @@ export class ProductService {
     )
   }
 
-  // Error handling 
+  // Error handling
   handleError(error) {
     let errorMessage = '';
     if(error.error instanceof ErrorEvent) {

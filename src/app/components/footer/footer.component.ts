@@ -51,7 +51,6 @@ export class FooterComponent implements OnInit {
       if (this.formState.valid) {
       let subscriber = new Subscriber();
       this.addressService.listAddress().subscribe(data=>{
-        console.log(data);
         if (data[0]==null){
         this.router.navigate(['/profile/address']);
         this.modalService.alert("Provide address!", 'Provide address below', 'please provide address below!');

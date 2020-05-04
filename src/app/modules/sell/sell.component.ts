@@ -44,7 +44,6 @@ export class SellComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form)
     if (this.formState.valid) {
       let product = new Product();
       product.name = this.form.controls.name.value;
@@ -52,8 +51,6 @@ export class SellComponent implements OnInit {
       product.price = this.form.controls.price.value;
       product.category = this.form.controls.category.value;
       product.expiry_dt = new Date(this.form.controls.expiry.value);
-      console.log(product);
-
       this.productService.createProduct(product).subscribe(
           data => {
             this.modalService.alert("Success", 'Item successfully created', 'success')
@@ -62,16 +59,15 @@ export class SellComponent implements OnInit {
             }).then(()=>{
                 let promotion = new Promotion();
                 promotion.sellerId=this.currentUser['id'];
-
-                promotion.productId=data[0];
-
+                promotion.productId=data;
                 this.addressService.listAddress().subscribe(address=>{
-                  let fullAddress:string = address[0]['street']+', '+address[0]['block']
-                  if (fullAddress==''){
+
+                  if (address[0]==null){
                     this.router.navigate(['/profile/address']);
-                    this.modalService.alert("Provide address!", 'Provide address below', 'provide address below please');
+                    this.modalService.alert("Provide address!", 'Please provide address below to promote your products with the neighbouring users!', 'provide address below please');
                   }
                   else{
+                      let fullAddress:string = address[0]['street']+address[0]['block']
                       promotion.seller_addr=fullAddress+ ' Singapore';
                       console.log(fullAddress);
 
