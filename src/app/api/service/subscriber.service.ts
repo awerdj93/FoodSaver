@@ -48,7 +48,7 @@ constructor(
           'authorization': token
       })
     };
-    return this.http.delete<any>(this.url +  + 'subscribers/users' + subid, httpOptions)
+    return this.http.delete<any>(this.url + 'subscribers/' +subid+ '/users',httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)

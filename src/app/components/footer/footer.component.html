@@ -21,14 +21,24 @@
                 </ul>
             </div>
             <div class="col-sm-6 single_footer_part">
-                    <h4>Subscribe to our newsletter</h4>
+
                     <form [formGroup]="form" (ngSubmit)="onSubscribe()" class="subscribe_form relative mail_part">
 
-                        <app-input-errors [errors]="formState.errors.email" label="Email"></app-input-errors>
+
                         <button type="submit" name="submit" id="newsletter-submit"
                             class="email_icon newsletter-submit button-contactForm">SUBSCRIBE</button>
                     </form>
+              <br><br>
+                    <form [formGroup]="form" (ngSubmit)="onUnsubscribe()" class="subscribe_form relative mail_part">
+
+
+                        <button type="submit" name="submit" id="newsletter-unsubmit"
+                            class="email_icon newsletter-submit button-contactForm">UNSUBSCRIBE</button>
+              </form>
             </div>
+          <div class="col-sm-6 single_footer_part">
+
+          </div>
         </div>
 
     </div>

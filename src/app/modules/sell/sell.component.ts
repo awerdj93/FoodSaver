@@ -62,7 +62,9 @@ export class SellComponent implements OnInit {
             }).then(()=>{
                 let promotion = new Promotion();
                 promotion.sellerId=this.currentUser['id'];
+
                 promotion.productId=data[0];
+
                 this.addressService.listAddress().subscribe(address=>{
                   let fullAddress:string = address[0]['street']+', '+address[0]['block']
                   if (fullAddress==''){

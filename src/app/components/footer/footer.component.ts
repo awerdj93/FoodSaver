@@ -42,8 +42,9 @@ export class FooterComponent implements OnInit {
 
   onSubscribe() {
     this.subscriberService.listSubscribers().subscribe(subscriberList=>{
-    //console.log(subscriberList);
-    if(subscriberList.some(x=>x.id==this.currentUser['id'])){
+    console.log(subscriberList);
+    //for(var y of subscriberList){console.log(y.userId);}
+    if(subscriberList.some(x=>x.userId==this.currentUser['id'])){
       this.modalService.alert("Already subscribed!", 'You are already subscribed', 'No further Action required!');
     }
     else{
@@ -68,15 +69,36 @@ export class FooterComponent implements OnInit {
             data => {this.modalService.alert("Success", 'You are subscribed to our mailing list', 'success')
             });
         }
-
       });
     }
-
     }
+    })
+  }
 
-
+  onUnsubscribe(){
+    this.modalService.confirm('Confirm Delete', 'Are you sure you want to unsubscribe from this service?', 'danger')
+    .then(confirm=>{
+      if(confirm){
+        this.subscriberService.listSubscribers().subscribe(subscriberList=>{
+    //console.log(subscriberList);
+    for(var you of subscriberList){
+      if(you.userId==this.currentUser['id']){
+        console.log(you.id);
+        this.subscriberService.unsubscribe(you.id).subscribe(data=>{
+        this.modalService.alert("Success", 'You are Unsubscribed from our mailing list', 'success')
+      })
+      }
+      }
+    })
+      }
     })
 
 
+
   }
+
+
+
+
+
 }
