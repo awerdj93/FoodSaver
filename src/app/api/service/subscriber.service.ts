@@ -19,7 +19,14 @@ constructor(
   }
 
   listSubscribers(): Observable<Array<any>>  {
-    return this.http.get<any>(this.url + 'subscribers/users/')
+    let token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'authorization': token,
+          'Accept': '*/*'
+      })
+    };
+    return this.http.get<any>(this.url + 'subscribers/users', httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
