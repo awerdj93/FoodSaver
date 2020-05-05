@@ -1,6 +1,7 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile.component';
@@ -31,7 +32,8 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
     ProfileRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    AccordionModule.forRoot()
+    AccordionModule.forRoot(),
+    MatSlideToggleModule
   ]
 })
 export class ProfileModule { }

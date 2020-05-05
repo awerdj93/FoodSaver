@@ -6,6 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ModalService } from '../shared/service/modal.service';
 import { ChatService } from 'src/app/api/service/chat.service';
 import { Chat } from 'src/app/api/model/chat';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-product',
@@ -19,7 +20,10 @@ export class ProductComponent implements OnInit {
   error: string;
   seller: User;
   sellerRating: number;
- 
+  expiryDte: string;
+  pipe = new DatePipe('en-US');
+  showBtn: boolean; 
+
   constructor(private productService: ProductService,
     private cartService: CartService,
     private chatService: ChatService,
@@ -34,6 +38,7 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.showBtn = true;
     this.refresh();
   }
 
@@ -41,12 +46,18 @@ export class ProductComponent implements OnInit {
     this.productService.getProduct(this.params.id)
     .subscribe((data: Product) => {
       this.product = data;
+    
+      let date = new Date(this.product.expiryAt * 1000);
+      this.expiryDte = this.pipe.transform(date, 'dd MMM yyyy');
       this.userService.getUser(data.userId).subscribe((user: User) => {
         this.seller = user;
       });
       this.reviewService.getAvgRating(data.userId).subscribe((rating: number) => {
         this.sellerRating = rating;
       });
+      if (this.currentUser.id === this.product.userId) {
+        this.showBtn = false;
+      } 
     });
   }
 
@@ -65,12 +76,6 @@ export class ProductComponent implements OnInit {
       (error: HttpErrorResponse) => {
         console.log(error);
       });
-  }
-
-  showChatBtn() {
-    if (this.product !== this.currentUser.id) {
-
-    }
   }
 
   chatWithSeller() {
@@ -95,5 +100,9 @@ export class ProductComponent implements OnInit {
 
   back() {
     this.router.navigate(['/catalog']);
+  }
+
+  edit() {
+    this.router.navigate(['/profile/products/' + this.product.id]);
   }
 }

@@ -4,7 +4,7 @@ export class Address {
     street?: string;
     block?: string;
     unitNumber?: string;
-    postalCode?: number;
+    postalCode?: any;
     userId?: number;
 
     constructor() {}

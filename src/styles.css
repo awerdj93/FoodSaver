@@ -31,7 +31,7 @@ body {
 }
 
 .page {
-  min-height: 700px !important;
+  min-height: 750px !important;
 }
 
 /* line 11, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_common.scss */
@@ -6266,8 +6266,8 @@ h6 {
 }
 
 .modal-title.success:before {
-  content: '\f058\0020';
-  font-family: 'Font Awesome 5 Free';
+  /* content: '\f058\0020';
+  font-family: 'Font Awesome 5 Free'; */
   color: #119100;
   font-weight: bold;
 }
@@ -6277,8 +6277,8 @@ h6 {
 }
 
 .modal-title.danger:before {
-  content: '\f071\0020';
-  font-family: 'Font Awesome 5 Free';
+  /* content: '\f071\0020';
+  font-family: 'Font Awesome 5 Free'; */
   color: #cb2e2e;
   font-weight: bold;
 }
@@ -6292,8 +6292,8 @@ h6 {
 }
 
 .modal-title.success:before {
-  content: '\f058\0020';
-  font-family: 'Font Awesome 5 Free';
+  /* content: '\f058\0020';
+  font-family: 'Font Awesome 5 Free'; */
   color: #119100;
   font-weight: bold;
 }
@@ -6303,8 +6303,8 @@ h6 {
 }
 
 .modal-title.danger:before {
-  content: '\f071\0020';
-  font-family: 'Font Awesome 5 Free';
+  /* content: '\f071\0020';
+  font-family: 'Font Awesome 5 Free'; */
   color: #cb2e2e;
   font-weight: bold;
 }

@@ -1,5 +1,5 @@
 export class Subscriber {
-        //id: number;
+    id: number;
     userId?: number;
     user_name?: string;
 	user_email?: string;

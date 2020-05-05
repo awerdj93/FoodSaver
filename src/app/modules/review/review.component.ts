@@ -6,6 +6,7 @@ import { Product, Review, User } from 'src/app/api/models';
 import { AuthenticationService, ProductService, ReviewService, UserService } from 'src/app/api/services';
 import { ModalService } from '../shared/service/modal.service';
 import { ChatService } from 'src/app/api/service/chat.service';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -23,7 +24,9 @@ export class ReviewComponent implements OnInit {
   error: string;
   seller: User;
   sellerRating: number;
-
+  expiryDte: string;
+  pipe = new DatePipe('en-US');
+  
   constructor(
       private formBuilder: FormBuilder,
       private router: Router,
@@ -42,6 +45,8 @@ export class ReviewComponent implements OnInit {
     this.productService.getProduct(this.params.id)
     .subscribe((data: Product) => {
       this.product = data;
+      let date = new Date(this.product.expiryAt * 1000);
+      this.expiryDte = this.pipe.transform(date, 'dd MMM yyyy');
       this.userService.getUser(data.userId).subscribe((user: User) => {
         this.seller = user;
       });
@@ -72,8 +77,6 @@ export class ReviewComponent implements OnInit {
 
   onSubmit() {
     if (this.formState.valid) {
-
-      console.log(this.product);
       let review = new Review();
       review.productId = this.product.id;
       review.productName = this.product.name;
@@ -97,5 +100,11 @@ export class ReviewComponent implements OnInit {
           this.formState.loading = false;
         });;
     }
+  }
+  showBtn() {
+    if (this.currentUser.id === this.product.userId) {
+      return false;
+    }
+    return true;
   }
 }

@@ -16,23 +16,8 @@
 <div class="container">
   <div class="row s_product_inner justify-content-between">
     <div class="col-md-6 row">
-      <!-- <div class="product_slider_img">
-        <div id="vertical"> -->
-          <div data-thumb="assets/img/product/product_1.png">
-            <img src="assets/img/product/product_1.png" />
-          </div>
-           <div data-thumb="assets/img/product/product_2.png">
-            <img src="assets/img/product/product_2.png" />
-          </div>
-          <!--<div data-thumb="assets/img/product/product_3.png">
-            <img src="assets/img/product/product_3.png" />
-          </div>
-          <div data-thumb="assets/img/product/product_4.png">
-            <img src="assets/img/product/product_4.png" />
-          </div> -->
-        <!-- </div>
-      </div> -->
-      <br>
+      <img src="{{product?.s3ImagePath}}" alt="" width="550" height="550"/>
+      
     </div>
     <div class="col-md-6">
       <div class="s_product_text">
@@ -40,40 +25,38 @@
         <h2>${{product?.price}}</h2>
         <ul class="list">
           <li>
-            <a>
-              <span>Category</span> : {{product?.category}}</a>
+            <a><span>Expiry Date</span> : {{ expiryDte }}</a>
           </li>
-          <li>
-            <a>
-              <span>Expiry Date</span> : {{product?.expiry_dt}}</a>
-          </li>
-          <!-- <li>
-            <a href="#"> <span>Availibility</span> : In Stock</a>
-          </li> -->
         </ul>
         <p>{{product?.description}}</p>
         <p>
-          Seller : {{seller.name}}
+          Seller : {{seller?.name}}
           <br>
           Average user rating : <i class="fa fa-star"></i> {{sellerRating}}
         </p>
         <div class="error">
           {{error}}
         </div>
-        <div class="card_area d-flex align-items-center">
-          <!-- <div class="product_count">
-            <span class="inumber-decrement"> <i class="ti-minus"></i></span>
-            <input class="input-number" type="text" value="1" min="0" max="10">
-            <span class="number-increment"> <i class="ti-plus"></i></span>
-          </div> -->
-          <button (click)="addToCart()" class="btn_3">Add to cart</button>&nbsp;
-          <button (click)="back()"  class="btn_3">Back to catalog</button>
+        <div *ngIf="!showBtn" class="card_area d-flex align-items-center">
+          <button (click)="edit()" class="btn_3">Edit</button>
         </div>
-        <div class="card_area d-flex align-items-center">
-          <button (click)="chatWithSeller()" class="btn_3">Chat With Seller</button>&nbsp;
-        </div>
+        <ng-container *ngIf="showBtn">
+          <div class="card_area d-flex align-items-center">
+            <!-- <div class="product_count">
+              <span class="inumber-decrement"> <i class="ti-minus"></i></span>
+              <input class="input-number" type="text" value="1" min="0" max="10">
+              <span class="number-increment"> <i class="ti-plus"></i></span>
+            </div> -->
+            <button (click)="addToCart()" class="btn_3">Add to cart</button>&nbsp;
+            <button (click)="back()" class="btn_3">Back to catalog</button>
+          </div>
+          <div class="card_area d-flex align-items-center">
+            <button (click)="chatWithSeller()" class="btn_3">Chat With Seller</button>&nbsp;
+          </div>
+        </ng-container>
       </div>
-      
+
     </div>
   </div>
+  <br>
 </div>

@@ -32,7 +32,8 @@ import { ReviewComponent } from './modules/review/review.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { ChatComponent } from './modules/chat/chat.component';
 import { OrderComponent } from './modules/order/order.component';
-
+import { ProductComponent } from './modules/product/product.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +58,8 @@ import { OrderComponent } from './modules/order/order.component';
     VerifyRegisterComponent,
     ReviewComponent,
     ChatComponent,
-    OrderComponent
+    OrderComponent,
+    ProductComponent
   ],
   imports: [
     CommonModule,
@@ -70,6 +72,10 @@ import { OrderComponent } from './modules/order/order.component';
     SharedModule,
     ModalModule.forRoot(),
     AccordionModule.forRoot(),
+    MatSlideToggleModule
+  ],
+  exports: [
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -19,6 +19,7 @@ export class AddressService {
   ) {
     this.url = config.rootUrl + 'account' + config.apiVersion + 'addresses';
   }
+  
   listAddress(): Observable<Array<Address>>  {
     let token = localStorage.getItem('token');
     const httpOptions = {

@@ -6,5 +6,5 @@ export { Review } from './model/review';
 export { Cart } from './model/cart';
 export { Item } from './model/item';
 export { Message } from './model/message';
-export {Subscriber} from './model/subscriber';
-export {Promotion} from './model/promotion';
+export { Subscriber } from './model/subscriber';
+export { Promotion } from './model/promotion';

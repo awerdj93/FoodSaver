@@ -34,34 +34,34 @@ export class FooterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group({
-      user_email: [this.currentUser['email'], Validators.required]
-    });
-    this.formState = new FormState(this.form);
+    // this.form = this.formBuilder.group({
+    //   user_email: [this.currentUser['email'], Validators.required]
+    // });
+    // this.formState = new FormState(this.form);
   }
 
-  onSubscribe() {
+  // onSubscribe() {
 
-    if (this.formState.valid) {
-      let subscriber = new Subscriber();
-      this.addressService.listAddress().subscribe(data=>{
-      let address:string = data[0]['street']+', '+data[0]['block']
-      if (address==''){
-      this.router.navigate(['/profile/address']);
-      this.modalService.alert("Provide address!", 'Provide address below', 'provide address below please');
-      }
-      else{
-            subscriber.user_addr = address+ ', Singapore',
-            //console.log(subscriber.user_addr);
-            subscriber.user_email = this.currentUser['email'],
-            subscriber.user_name = this.currentUser['name'],
-            console.log(this.currentUser['name'],);
-            subscriber.userId = this.currentUser['id'],
-            this.subscriberService.createSubscriber(subscriber, subscriber.userId).subscribe(
-          data => {this.modalService.alert("Success", 'You are subscribed to our mailing list', 'success')
-          });
-      }
-      });
-    }
-  }
+  //   if (this.formState.valid) {
+  //     let subscriber = new Subscriber();
+  //     this.addressService.listAddress().subscribe(data=>{
+  //     let address:string = data[0]['street']+', '+data[0]['block']
+  //     if (address==''){
+  //     this.router.navigate(['/profile/address']);
+  //     this.modalService.alert("Provide address!", 'Provide address below', 'provide address below please');
+  //     }
+  //     else{
+  //           subscriber.user_addr = address+ ', Singapore',
+  //           //console.log(subscriber.user_addr);
+  //           subscriber.user_email = this.currentUser['email'],
+  //           subscriber.user_name = this.currentUser['name'],
+  //           console.log(this.currentUser['name'],);
+  //           subscriber.userId = this.currentUser['id'],
+  //           this.subscriberService.createSubscriber(subscriber, subscriber.userId).subscribe(
+  //         data => {this.modalService.alert("Success", 'You are subscribed to our mailing list', 'success')
+  //         });
+  //     }
+  //     });
+  //   }
+  // }
 }

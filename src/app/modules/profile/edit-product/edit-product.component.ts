@@ -18,7 +18,8 @@ export class EditProductComponent implements OnInit {
   formState: FormState;
   error: string;
   product: Product;
- 
+  expiryDte: Date;
+
   constructor(private productService: ProductService,
     private modalService: ModalService,
     private route: ActivatedRoute,
@@ -31,12 +32,14 @@ export class EditProductComponent implements OnInit {
     this.productService.getProduct(this.params.id)
     .subscribe(data => {
       this.product = data;
+      this.expiryDte = new Date(this.product.expiryAt * 1000);
       this.form = this.formBuilder.group({
         name: [data.name, Validators.required],
         description: [data.description, Validators.required],
-        price: [data.price, Validators.required],
-        category: [data.category, Validators.required]
+        price: [data.price, [Validators.required, Validators.min(0), Validators.max(1000)]],
+        expiry: [this.expiryDte.toISOString().substring(0,10), Validators.required]
       });
+      console.log(this.form)
       this.formState = new FormState(this.form);
     });
   }
@@ -45,8 +48,8 @@ export class EditProductComponent implements OnInit {
     this.product.name = this.form.controls.name.value;
     this.product.description = this.form.controls.description.value;
     this.product.price = this.form.controls.price.value;
-    this.product.category = this.form.controls.category.value;
-
+    this.product.expiryAt = this.form.controls.expiry.value;
+   
     this.productService.updateProduct(this.product)
     .subscribe(data => {
       this.product = data;

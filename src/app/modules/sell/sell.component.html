@@ -18,6 +18,7 @@
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-contact contact_form">
                 <div class="row">
                     <div class="col-sm-12">
+                        <label>Product Name</label>
                         <div class="form-group">
                             <input type="text" formControlName="name" class="form-control" aria-label="name"
                                 placeholder="Enter product name"
@@ -26,6 +27,7 @@
                         </div>
                     </div>
                     <div class="col-12">
+                        <label>Description</label>
                         <div class="form-group">
                             <textarea formControlName="description" class="form-control" aria-label="description"
                                 placeholder="Enter product description" cols="30" rows="9"
@@ -34,12 +36,13 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
+                        <label>Price</label>
                         <input type="text" formControlName="price" class="form-control" aria-label="price"
                             placeholder="Enter price"
                             [ngClass]="{ 'is-invalid': formState.errors.price }" />
                         <app-input-errors [errors]="formState.errors.price" label="Price" ></app-input-errors> 
                     </div>
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                         <br> 
                         <div class="input-group-icon">
                             <div class="icon"><i class="fa fa-plus" aria-hidden="true"></i></div>
@@ -54,9 +57,9 @@
                                 <app-input-errors [errors]="formState.errors.category" label="Category" ></app-input-errors> 
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-sm-6">
-                        <br>
+                        <label>Expiry Date (DD/MM/YYYY)</label>
                         <input type="date" formControlName="expiry" class="form-control" aria-label="expiry"
                             placeholder="Enter expiry date"
                             [ngClass]="{ 'is-invalid': formState.errors.expiry }" />

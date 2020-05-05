@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthenticationService, UserService } from 'src/app/api/services';
+import { AuthenticationService, UserService, SubscriberService } from 'src/app/api/services';
 import { FormState } from '../shared/model/form-state.model';
 import { PasswordValidators } from '../shared/validators/password-validators';
-import { User } from 'src/app/api/models';
+import { User, Subscriber } from 'src/app/api/models';
+import { ModalService } from '../shared/service/modal.service';
 
 @Component({
     selector: 'app-register',
@@ -18,15 +19,19 @@ export class RegisterComponent implements OnInit {
     error: string;
     email: string;
     created = false;
+    currentUser: User;
 
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private userService: UserService
+        private userService: UserService,
+        private subscriberService: SubscriberService,
+        private modalService: ModalService
     ) {
+        this.currentUser = this.authenticationService.currentUserValue;
         // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) {
+        if (this.currentUser) {
             this.router.navigate(['/']);
         }
     }
@@ -47,7 +52,7 @@ export class RegisterComponent implements OnInit {
 
     onSubmit() {
         console.log(this.formState);
-        if (this.formState.valid) {    
+        if (this.formState.valid) {
             let user = new User();
             user.name = this.form.controls.name.value,
             user.email = this.form.controls.email.value,
@@ -55,17 +60,17 @@ export class RegisterComponent implements OnInit {
             this.userService.createUser(user)
                 .pipe(first())
                 .subscribe(
-                    data => {
-                        console.log(data);
-                        this.created = true;
-                        this.email = this.form.controls.email.value;
-                        //this.alertService.success('Registration successful', true);
+                    (data: number) => {
+                      
+                        // this.created = true;
+                        // this.email = this.form.controls.email.value;
+                        this.modalService.alert("Success", 'You are subscribed to our mailing list', 'success');
                         this.formState.loading = false;
                     },
                     error => {
                         this.formState.serverErrors = error;
                         this.formState.loading = false;
                     });
-        }  
+        }
     }  
 }

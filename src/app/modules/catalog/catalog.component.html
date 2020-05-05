@@ -48,18 +48,12 @@
                         </div>
                         <div *ngFor="let product of products">
                             <div class="single_product_item">
-                              <div *ngIf="product?.category === 'Cooked'">
-                                  <img src="assets/img/product/product_1.png" alt="" />
+                              <div *ngIf="product?.s3ImagePath">
+                                <img src="{{product.s3ImagePath}}" alt="" width="250" height="250"/>
                               </div>
-                              <div *ngIf="product?.category === 'Fresh'">
-                                  <img src="assets/img/product/product_2.png" alt="" />
-                              </div>
-                              <div *ngIf="product?.category === 'Canned'">
-                                  <img src="assets/img/product/product_3.png" alt="" />
-                              </div>
-                              <div *ngIf="!product?.category">
-                                <img src="assets/img/product/product_4.png" alt="" />
-                              </div>
+                              <div *ngIf="!product?.s3ImagePath">
+                                <img src="assets/img/product/product_1.png" alt="" width="250" height="250"/>
+                              </div> 
                               <div class="single_product_text">
                                   <h4>{{product.name}}</h4>
                                   <h3>${{product.price}}</h3>

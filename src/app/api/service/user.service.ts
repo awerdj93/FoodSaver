@@ -21,7 +21,7 @@ export class UserService {
     //this.url = 'http://localhost:8080/user';
   }
 
-  createUser(user: User): Observable<User> {
+  createUser(user: User): Observable<any> {
     return this.http.post<any>(this.url, user)
     .pipe(
       retry(1),

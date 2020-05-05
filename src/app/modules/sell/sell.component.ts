@@ -36,8 +36,7 @@ export class SellComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      price: ['', Validators.required],
-      category: ['', Validators.required],
+      price: ['', [Validators.required, Validators.min(0), Validators.max(1000)]],
       expiry: ['', [Validators.required]]
     });
     this.formState = new FormState(this.form);
@@ -50,8 +49,11 @@ export class SellComponent implements OnInit {
       product.name = this.form.controls.name.value;
       product.description = this.form.controls.description.value;
       product.price = this.form.controls.price.value;
-      product.category = this.form.controls.category.value;
-      product.expiry_dt = new Date(this.form.controls.expiry.value);
+      product.expiryAt = new Date(this.form.controls.expiry.value);
+
+      if (this.base64textString.length>0) {
+        product.base64Data = this.base64textString[0];
+      }
       console.log(product);
 
       this.productService.createProduct(product).subscribe(

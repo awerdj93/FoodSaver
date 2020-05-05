@@ -1,26 +1,11 @@
 <div class="container" *ngIf="product">
   <br>
     <div class="row s_product_inner justify-content-between">
-      <div class="col-lg-6 col-xl-7 row">
-        <!-- <div class="product_slider_img">
-          <div id="vertical"> -->
-            <div data-thumb="assets/img/product/product_1.png">
-              <img src="assets/img/product/product_1.png" />
-            </div>
-             <div data-thumb="assets/img/product/product_2.png">
-              <img src="assets/img/product/product_2.png" />
-            </div>
-            <!--<div data-thumb="assets/img/product/product_3.png">
-              <img src="assets/img/product/product_3.png" />
-            </div>
-            <div data-thumb="assets/img/product/product_4.png">
-              <img src="assets/img/product/product_4.png" />
-            </div> -->
-          <!-- </div>
-        </div> -->
+      <div class="col-lg-5 col-xl-6 row">
+        <img src="{{product?.s3ImagePath}}" alt="" width="550" height="550" />
         <br>
       </div>
-      <div class="col-lg-6 col-xl-4">
+      <div class="col-lg-7 col-xl-6">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="col-md-12 form-group p_star">
               <label>Name</label>
@@ -45,26 +30,9 @@
             </app-input-errors>
           </div>
 
-          <div class="col-12 form-group p_star">
-            <label>Category</label>
-            <div class="input-group-icon">
-                <div class="icon"><i class="fa fa-plus" aria-hidden="true"></i></div>
-                <div class="form-select" id="default-select">
-                    <select class="select" formControlName="category" value="category" placeholder="Enter category"
-                    [ngClass]="{ 'is-invalid': formState.errors.category }">
-                        <option value="" disabled selected>Enter category</option>
-                        <option value="Canned">Canned</option>
-                        <option value="Cooked">Cooked</option>
-                        <option value="Fresh">Fresh</option>
-                    </select>
-                    <app-input-errors [errors]="formState.errors.category" label="Category" ></app-input-errors> 
-                </div>
-            </div>
-          </div>
-
           <div class="col-sm-12 form-group p_star">
-            <label>Expiry Date</label>
-            <input type="date" formControlName="expiry" class="form-control" aria-label="expiry"
+            <label>Expiry Date (DD/MM/YYYY)</label>
+            <input type="date" formControlName="expiry" class="form-control" aria-label="Expiry"
                 placeholder="Enter expiry date"
                 [ngClass]="{ 'is-invalid': formState.errors.expiry }" />
             <app-input-errors [errors]="formState.errors.expiry" label="Expiry Date" ></app-input-errors> 

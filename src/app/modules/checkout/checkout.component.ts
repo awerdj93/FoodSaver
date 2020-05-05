@@ -144,8 +144,7 @@ export class CheckoutComponent implements OnInit {
       address.block = this.form.controls.block.value;
       address.unitNumber = this.form.controls.unitNumber.value;
       address.postalCode = this.form.controls.postalCode.value;
-      address.userId = this.currentUser.id;
-
+      
       if (this.shipping) {
         this.deliveryAddress = address;
       } else {

@@ -13,35 +13,20 @@
     </div>
   </section>
   <br>
+  <ng-container *ngIf="product; else noProduct">
   <div class="container">
     <div class="row s_product_inner justify-content-between">
-      <div class="col-lg-7 col-xl-7 row">
-        <!-- <div class="product_slider_img">
-          <div id="vertical"> -->
-            <div data-thumb="assets/img/product/product_1.png">
-              <img src="assets/img/product/product_1.png" />
-            </div>
-             <div data-thumb="assets/img/product/product_2.png">
-              <img src="assets/img/product/product_2.png" />
-            </div>
-            <!--<div data-thumb="assets/img/product/product_3.png">
-              <img src="assets/img/product/product_3.png" />
-            </div>
-            <div data-thumb="assets/img/product/product_4.png">
-              <img src="assets/img/product/product_4.png" />
-            </div> -->
-          <!-- </div>
-        </div> -->
-        <br>
+      <div class="col-lg-6 col-xl-6 row">
+          <img src="{{product?.s3ImagePath}}" alt="" width="550" height="550" />
+          <br>
       </div>
-      <div class="col-lg-5 col-xl-4">
+      <div class="col-lg-6 col-xl-6">
         <div class="s_product_text">
           <h3>{{product?.name}}</h3>
           <h2>${{product?.price}}</h2>
           <ul class="list">
             <li>
-              <a class="active" href="#">
-                <span>Category</span> : {{product?.category}}</a>
+              <a><span>Expiry</span> : {{ expiryDte }}</a>
             </li>
           </ul>
           <p>
@@ -91,4 +76,11 @@
         </div>
       </form>
     </div>
+    <br>
   </div>
+</ng-container>
+<ng-template #noProduct>
+    <tr>
+        <td colspan="10">No product</td>
+    </tr>
+</ng-template>

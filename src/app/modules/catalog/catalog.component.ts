@@ -40,7 +40,6 @@ export class CatalogComponent implements OnInit {
       })
       if (this.products.length !== 0) {
         this.pageState.collectionSize = this.products.length;
-        this.categories = data.map(i => i.category);
       } else {
         this.pageState.collectionSize = 0;
       }
@@ -48,31 +47,31 @@ export class CatalogComponent implements OnInit {
     });
   }
 
-  onTypeClick(i: number) {
-    let category = this.categories[i];
+  // onTypeClick(i: number) {
+  //   let category = this.categories[i];
 
-    // this.productService.listProducts().subscribe(data => {
-    //   this.products = data;
-    //   this.productNum = data.length;
-    // });
-    let prods = []
-    if (category === 'All') {
-      prods = this.productData;
-    } else {
-      this.productData.forEach(element => {
-        if (element.category === category) {
-          prods.push(element);
-        }
-      });
-    }
+  //   // this.productService.listProducts().subscribe(data => {
+  //   //   this.products = data;
+  //   //   this.productNum = data.length;
+  //   // });
+  //   let prods = []
+  //   if (category === 'All') {
+  //     prods = this.productData;
+  //   } else {
+  //     this.productData.forEach(element => {
+  //       if (element.category === category) {
+  //         prods.push(element);
+  //       }
+  //     });
+  //   }
     
-    this.products = prods;
-    if (this.products) {
-     // this.pageState.collectionSize = this.products.length;
-    } else {
-      this.pageState.collectionSize = 0;
-    }
-  }
+  //   this.products = prods;
+  //   if (this.products) {
+  //    // this.pageState.collectionSize = this.products.length;
+  //   } else {
+  //     this.pageState.collectionSize = 0;
+  //   }
+  // }
   
   viewProduct(id: number) {
     this.router.navigateByUrl('/product/'+ id);

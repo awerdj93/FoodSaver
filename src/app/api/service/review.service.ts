@@ -3,20 +3,23 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpRequest } from '@angular/com
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError, filter, map } from 'rxjs/operators';
 import { ApiConfiguration } from 'src/app/api/api-configuration';
-import { Review } from 'src/app/api/models';
+import { Review, User } from 'src/app/api/models';
+import { AuthenticationService } from '../services';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReviewService {
   private url: string;
-
+  currentUser: User;
+  
   constructor(
     private config: ApiConfiguration,
+    private authenticationService: AuthenticationService,
     private http: HttpClient
   ) {
     this.url = config.rootUrl + 'review' + config.apiVersion;
-    //this.url = 'http://localhost:8080/';
+    this.currentUser = this.authenticationService.currentUserValue;
   }
 
 
@@ -27,7 +30,7 @@ export class ReviewService {
           'authorization': token
       })
     };
-    return this.http.get<any>(this.url + 'sellers/'+id+'/reviews', httpOptions)
+    return this.http.get<any>(this.url + 'sellers/'+ this.currentUser.id +'/reviews', httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)

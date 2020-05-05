@@ -7,6 +7,11 @@
           <p><a *ngIf="userRating">
             Average user rating: <i class="fa fa-star"></i> {{userRating}}
           </a> </p>
+
+          <mat-slide-toggle  [checked]="subscribed"
+          (change)="setSubscription()"
+          >Subscribe to newsletter</mat-slide-toggle>
+          
       <!-- <button type="button" class="btn_3" [disabled]="formState.loading" routerLink="./edit">
         Edit Profile
       </button> -->
