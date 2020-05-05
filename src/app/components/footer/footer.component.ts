@@ -42,8 +42,6 @@ export class FooterComponent implements OnInit {
 
   onSubscribe() {
     this.subscriberService.listSubscribers().subscribe(subscriberList=>{
-    console.log(subscriberList);
-    //for(var y of subscriberList){console.log(y.userId);}
     if(subscriberList.some(x=>x.userId==this.currentUser['id'])){
       this.modalService.alert("Already subscribed!", 'You are already subscribed', 'No further Action required!');
     }
@@ -57,12 +55,9 @@ export class FooterComponent implements OnInit {
         }
         else{
               let address:string = data[0]['street']+', '+data[0]['block']
-              console.log(address);
               subscriber.user_addr = address+ ', Singapore',
-              //console.log(subscriber.user_addr);
               subscriber.user_email = this.currentUser['email'],
               subscriber.user_name = this.currentUser['name'],
-              console.log(this.currentUser['name'],);
               subscriber.userId = this.currentUser['id'],
               this.subscriberService.createSubscriber(subscriber).subscribe(
             data => {this.modalService.alert("Success", 'You are subscribed to our mailing list', 'success')
@@ -75,29 +70,21 @@ export class FooterComponent implements OnInit {
   }
 
   onUnsubscribe(){
-    this.modalService.confirm('Confirm Delete', 'Are you sure you want to unsubscribe from this service?', 'danger')
-    .then(confirm=>{
-      if(confirm){
+
         this.subscriberService.listSubscribers().subscribe(subscriberList=>{
-    //console.log(subscriberList);
-    for(var you of subscriberList){
-      if(you.userId==this.currentUser['id']){
-        console.log(you.id);
-        this.subscriberService.unsubscribe(you.id).subscribe(data=>{
-        this.modalService.alert("Success", 'You are Unsubscribed from our mailing list', 'success')
-      })
+      const user = subscriberList.find(element => element.userId = this.currentUser['id']);
+if(user==null){
+        this.modalService.alert("You are not subscribed!", 'You are not subscribed to our mailing list', 'success')
       }
+      else{
+        this.modalService.alert("Unsubscribe!", 'Are you sure, you want to unsubscribe our service?', 'Alert!').then(confirm=>{if(confirm)
+          this.subscriberService.unsubscribe(user.id).subscribe(data=>{
+          this.modalService.alert("Success", 'You are Unsubscribed from our mailing list', 'success')
+        })
+        })
       }
     })
-      }
-    })
-
-
-
   }
-
-
-
 
 
 }
